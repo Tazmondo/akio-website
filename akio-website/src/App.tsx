@@ -1,24 +1,26 @@
 import React from 'react';
 import logo from './logo.svg';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Route,
+  Routes,
   Link,
-  RouteComponentProps
 } from "react-router-dom";
+
+
 import HomePage from './Components/home-page/HomePage';
 
 
 
 function App(): JSX.Element {
   return (
-    <Router>
-          <div className="App">
-            <Route>
-              <HomePage />
-            </Route>
-          </div>
-    </Router>
+    <BrowserRouter>
+        <div className="App">
+            <Routes>
+              <Route path = "/" element = {<HomePage />} />
+            </Routes>
+        </div>
+    </ BrowserRouter>
   );
 }
 

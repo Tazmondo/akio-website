@@ -4,6 +4,10 @@ function HomePage(): JSX.Element {
             <h1 className = 'text-center'>
                 Akio Website
             </h1>
+
+            <h2>
+                test
+            </h2>
         </div>
     );
 }
