@@ -1,7 +1,5 @@
 import React from 'react';
 import logo from './logo.svg';
-import SocialMedia from './SocialMedia'
-import './App.css';
 import {
   BrowserRouter as Router,
   Route,

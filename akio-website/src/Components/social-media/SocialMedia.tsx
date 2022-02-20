@@ -1,5 +1,5 @@
 import React from 'react';
-import {ReactComponent as IgLogo} from './resources/iglogo.svg'
+import {ReactComponent as IgLogo} from './iglogo.svg'
 
 function socialMedia() {
     return (
