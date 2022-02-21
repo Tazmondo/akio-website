@@ -18,14 +18,17 @@ type ItemProps = {
 }
 
 function Item({name, image, price, stock} : ItemProps) {
-    // TODO - needs css
+    // TODO - needs css adjustments and out of stock indicator
 
-    return <div>
-        <img src={image} alt={name}/>
-        <p>{name}</p>
-        <p>{price}</p>
-        <p>{stock}</p>
-    </div>
+    return <a href={`/items/${name}`} className="text-reset text-decoration-none">
+        <div className="card text-center">
+            <img src={image} alt={name} className="card-img-top"/>
+            <div className="card-body">
+                <h5 className="card-title">{name}</h5>
+                <h6 className="card-subtitle text-muted mb-2">{priceIntToString(price)}</h6>
+            </div>
+        </div>
+    </a>
 }
 
 export { Item };
