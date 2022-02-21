@@ -18,3 +18,8 @@ code {
   height: 100%;
   object-fit: cover;
 }
+
+.social-media > a > svg {
+  width: 1em;
+  height: 1em;
+}
