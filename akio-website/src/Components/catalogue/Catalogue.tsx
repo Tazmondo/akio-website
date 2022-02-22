@@ -24,7 +24,7 @@ function fetchInventory():  ItemProps[]{
     return mockItems
 }
 
-function Catalogue() {
+function Catalogue(): JSX.Element {
     const [items, setItems] = useState([] as ItemProps[])
 
 
@@ -32,10 +32,11 @@ function Catalogue() {
         setItems(fetchInventory())
     }, [])     // This will run once
 
-    return <div className="container">
-        <div className="row">
-            {
-                items.map((item) => {
+    return (
+        <div className="container">
+            <div className="row">
+                {
+                    items.map((item) => {
                         return <div className=" col-sm-6 col-lg-4 col-xs-12 ">
                             <Item
                                 name={item.name}
@@ -44,10 +45,11 @@ function Catalogue() {
                                 stock={item.stock}
                                 key={`${item.name}${item.image}${item.price}`}/>
                         </div> // key parameter stops a warning
-                    }
-                )}
+                    })
+                }
+            </div>
         </div>
-    </div>
+    )
 }
 
 export default Catalogue

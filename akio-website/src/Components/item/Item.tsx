@@ -17,18 +17,20 @@ type ItemProps = {
     stock: number
 }
 
-function Item({name, image, price, stock} : ItemProps) {
+function Item({name, image, price, stock} : ItemProps): JSX.Element {
     // TODO - needs css adjustments and out of stock indicator
 
-    return <a href={`/items/${name}`} className="text-reset text-decoration-none">
-        <div className="card text-center">
-            <img src={image} alt={name} className="card-img-top"/>
-            <div className="card-body">
-                <h5 className="card-title">{name}</h5>
-                <h6 className="card-subtitle text-muted mb-2">{priceIntToString(price)}</h6>
+    return (
+        <a href={`/items/${name}`} className="text-reset text-decoration-none">
+            <div className="card text-center">
+                <img src={image} alt={name} className="card-img-top"/>
+                <div className="card-body">
+                    <h5 className="card-title">{name}</h5>
+                    <h6 className="card-subtitle text-muted mb-2">{priceIntToString(price)}</h6>
+                </div>
             </div>
-        </div>
-    </a>
+        </a>
+    )
 }
 
 export { Item };
