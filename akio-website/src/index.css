@@ -52,14 +52,18 @@ code {
   z-index: 0;
 }
 
-.social-media > a > svg {
-  width: 1em;
-  height: 1em;
+.social-media > a > svg{
+  width: 4em;
+  height: 4em;
 }
 
 
 .navbar{
   background: #ddc192 !important; 
+}
+
+.sr-only{
+  font-weight: bold;
 }
 
 .main-text{
@@ -70,12 +74,12 @@ code {
   color: #ddc192;
 }
 
-
 .main-slogan{
   z-index: 1;
   position: absolute;
   top: 30%;
   left: 3%;
+  width: 5em;
   font-size: 1.3em;
   color: white;
 }
