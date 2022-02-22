@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 # Will uncomment when needed
-# from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
 
