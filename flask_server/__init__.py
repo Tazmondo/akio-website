@@ -13,4 +13,3 @@ app.config['JSON_SORT_KEYS'] = False
 
 from flask_server import views
 from flask_server import models
-
