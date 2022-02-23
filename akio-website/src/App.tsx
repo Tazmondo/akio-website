@@ -9,6 +9,7 @@ import ShopPage from "./Components/shop-page/ShopPage";
 import AboutPage from "./Components/about-page/AboutPage";
 import SocialMedia from "./Components/social-media/SocialMedia";
 import SizeGuide from './Components/size-guide/SizeGuide';
+import AdminPage from './Components/admin-page/AdminPage';
 
 
 
@@ -21,6 +22,7 @@ function App(): JSX.Element {
                     <Route path= "/shopping-page" element = {<ShopPage/>}/>
                     <Route path="/about-us" element = {<AboutPage/>}/>
                     <Route path = '/sizes' element = {<SizeGuide />} />
+                    <Route path = '/admin' element = {<AdminPage />} />
                 </Routes>
             </div>
             <SocialMedia/>
