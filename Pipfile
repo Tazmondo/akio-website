@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+Flask="2.0.3"
+Flask-Bcrypt="0.7.1"
+Flask-Cors="3.0.10"
+Flask-SQLAlchemy="2.5.1"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
