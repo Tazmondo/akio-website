@@ -2,8 +2,7 @@ import React from 'react';
 import {
     BrowserRouter,
     Route,
-    Routes,
-    Link,
+    Routes
 } from "react-router-dom";
 import HomePage from './Components/home-page/HomePage';
 import ShopPage from "./Components/shop-page/ShopPage";
