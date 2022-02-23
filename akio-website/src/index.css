@@ -70,7 +70,7 @@ code {
   z-index: 1;
   position: absolute;
   top: 20%;
-  left: 10%;
+  left: 5%;
   color: #ddc192;
 }
 
@@ -82,4 +82,23 @@ code {
   width: 5em;
   font-size: 1.3em;
   color: white;
+}
+
+
+.header-text{
+  color: black;
+  font-size: 3em;
+  font-weight: bold;
+}
+
+
+.description-wrapper{
+  width: 80vw;
+  margin-left: 10vw;
+  align-self: center;
+}
+
+
+.description-text{
+  font-size: 1.5em;
 }

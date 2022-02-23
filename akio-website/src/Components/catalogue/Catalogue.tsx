@@ -16,7 +16,21 @@ const mockItems = [
         price: 321,
         stock: 7
     },
+    {
+        name: "Shirt Placeholder",
+        image: ShirtFront,
+        price: 321,
+        stock: 7
+    },
+    {
+        name: "Shirt Placeholder",
+        image: ShirtFront,
+        price: 321,
+        stock: 7
+    },
 ]
+
+
 
 function fetchInventory():  ItemProps[]{
     // Todo
@@ -37,7 +51,7 @@ function Catalogue(): JSX.Element {
             <div className="row">
                 {
                     items.map((item) => {
-                        return <div className=" col-sm-6 col-lg-4 col-xs-12 ">
+                        return <div className=" col-sm-6 col-lg-4 col-xs-12 mt-4">
                             <Item
                                 name={item.name}
                                 image={item.image}

@@ -20,6 +20,7 @@ function NavBar(): JSX.Element {
                         <NavBarItem path = '/' name  = 'Home'/>
                         <NavBarItem path = '/shopping-page' name = 'Shop' />
                         <NavBarItem path = '/about-us' name = 'About Us' />
+                        <NavBarItem path = '/sizes' name = 'Size Guide' />
                     </ul>
                 </div>
             </nav>
