@@ -1,20 +1,17 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from os import environ
 
-# Will uncomment when needed
-from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 
-
 app = Flask(__name__)
-cors = CORS(app)
 
 app.config['DEBUG'] = True
-app.config['SECRET_KEY'] = 'test_key'
+app.config['SECRET_KEY'] = environ['SECRET_KEY']  # Set environment variable
 app.config['JSON_SORT_KEYS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 
-# Does it matter that i use sqlite?
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////temp/test.db'
+cors = CORS(app)
 db = SQLAlchemy(app)
 
 from flask_server import views
