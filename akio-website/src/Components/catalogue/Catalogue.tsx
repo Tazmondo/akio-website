@@ -1,30 +1,37 @@
 import React, {useEffect, useState} from "react";
 import {Item, ItemProps} from "../item/Item";
-import HoodieBack from '../../assets/hoodie1back.png'
-import ShirtFront from '../../assets/shirt1front.png'
+import HoodieFront from '../../assets/hoodie1front.png';
+import HoodieBack from '../../assets/hoodie1back.png';
+import ShirtFront from '../../assets/shirt1front.png';
+import ShirtBack from '../../assets/shirt1back.png';
+
 
 const mockItems = [
     {
         name: "Hoodie Placeholder",
-        image: HoodieBack,
+        frontImage: HoodieFront,
+        backImage: HoodieBack,
         price: 1234,
         stock: 3
     },
     {
         name: "Shirt Placeholder",
-        image: ShirtFront,
+        frontImage: ShirtFront,
+        backImage: ShirtBack,
         price: 321,
         stock: 7
     },
     {
         name: "Shirt Placeholder",
-        image: ShirtFront,
+        frontImage: ShirtFront,
+        backImage: ShirtBack,
         price: 321,
         stock: 7
     },
     {
         name: "Shirt Placeholder",
-        image: ShirtFront,
+        frontImage: ShirtFront,
+        backImage: ShirtBack,
         price: 321,
         stock: 7
     },
@@ -37,6 +44,7 @@ function fetchInventory():  ItemProps[]{
 
     return mockItems
 }
+
 
 function Catalogue(): JSX.Element {
     const [items, setItems] = useState([] as ItemProps[])
@@ -52,12 +60,13 @@ function Catalogue(): JSX.Element {
                 {
                     items.map((item) => {
                         return <div className=" col-sm-6 col-lg-4 col-xs-12 mt-4">
-                            <Item
+                            <Item 
                                 name={item.name}
-                                image={item.image}
+                                frontImage={item.frontImage}
+                                backImage={item.backImage}
                                 price={item.price}
                                 stock={item.stock}
-                                key={`${item.name}${item.image}${item.price}`}/>
+                                key={`${item.name}${item.frontImage}${item.price}`}/>
                         </div> // key parameter stops a warning
                     })
                 }

@@ -1,4 +1,6 @@
 import React from "react";
+import {useState} from 'react';
+
 
 function priceIntToString(price: number) {
     return `£${price / 100}`
@@ -12,18 +14,26 @@ function priceIntToString(price: number) {
 // Also should we have hover to see back of clothing?
 type ItemProps = {
     name: string,
-    image: string,
+    frontImage: string,
+    backImage: string,
     price: number,
     stock: number
 }
 
-function Item({name, image, price, stock} : ItemProps): JSX.Element {
+
+function Item({name, frontImage, backImage, price, stock} : ItemProps): JSX.Element {
     // TODO - needs css adjustments and out of stock indicator
+    const [imageUrl, setUrl] = useState(frontImage);
 
     return (
         <a href={`/items/${name}`} className="text-reset text-decoration-none">
             <div className="card text-center">
-                <img src={image} alt={name} className="card-img-top"/>
+                <img src={imageUrl} 
+                     alt={name} 
+                     className="card-img-top"  
+                     onMouseOver = {() => setUrl(backImage)} 
+                     onMouseOut = {() => setUrl(frontImage)}/>
+                
                 <div className="card-body">
                     <h5 className="card-title">{name}</h5>
                     <h6 className="card-subtitle text-muted mb-2">{priceIntToString(price)}</h6>
