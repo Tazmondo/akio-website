@@ -1,8 +1,9 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from os import environ
 
 from flask_cors import CORS
+from flask_bcrypt import Bcrypt
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
@@ -13,6 +14,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 
 cors = CORS(app)
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 from flask_server import views
 from flask_server import models
