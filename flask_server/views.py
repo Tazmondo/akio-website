@@ -6,8 +6,7 @@ testData = {
     "aha": 500
 }
 
-# Session persists even when server is restarted?
-# I wonder where it is stored
+# Session is permanent by default
 
 
 @app.route('/api/home', methods = ['GET'])
@@ -17,43 +16,41 @@ def api_home():
     return f'Logged in as {username}'
 
 
-@app.route('/api/login', methods = ['GET'])
+@app.route('/api/login', methods = ['POST'])
 def api_login():
-    if request.method == "GET":
-        try:
-            username = request.args['username']
-            password = request.args['password']
+    if request.method == "POST":
+        data = request.get_json()
+        if data is None:
+            return "Invalid data"
+        username = data['username']
+        password = data['password']
 
-            targetUser = User.query.filter_by(username=username).first()
+        targetUser = User.query.filter_by(username=username).first()
 
-            if targetUser is not None:
-                targetPassword = targetUser.password
-                if bcrypt.check_password_hash(targetPassword, password):
-                    session['username'] = username  # Hopefully this is a secure way of logging someone in
-                    return "Logged in successfully"
-
-                else:
-                    return "Incorrect password"
+        if targetUser is not None:
+            targetPassword = targetUser.password
+            if bcrypt.check_password_hash(targetPassword, password):
+                session['username'] = username  # Hopefully this is a secure way of logging someone in
+                return "Logged in successfully"
 
             else:
-                return "User not found"
-            pass
-        except KeyError:
-            return "Invalid arguments"
+                return "Incorrect password"
 
-    return ""
-
-
-@app.route('/api/logout', methods = ['GET'])
-def api_logout():
-    if request.method == 'GET':
-        prevName = session.get('username')
-        if prevName is not None:
-            del session['username']
-            return f"Logged out of {prevName}"
         else:
-            return "Already logged out"
+            return "User not found"
+
     return ""
+
+
+@app.route('/api/logout', methods = ['GET', 'POST'])
+def api_logout():
+    prevName = session.get('username')
+    if prevName is not None:
+        del session['username']
+        return f"Logged out of {prevName}"
+    else:
+        return "Already logged out"
+
 
 @app.route('/api/items', methods = ['GET', 'POST'])
 def api_items():
