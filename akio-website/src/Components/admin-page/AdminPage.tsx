@@ -1,37 +1,50 @@
-import {useEffect} from 'react';
+import LoginPage from './LoginPage';
+import {useEffect, useState} from 'react';
+import RequestHandler from '../request-handler/RequestHandler';
+import Globals from '../Globals';
+import LoadingIndicator from '../loading-indicator/LoadingIndicator';
+import AdminDashBoard from './AdminDashboard';
 
 
-function loginRequest(){
-    //post
-    //username
-    //password
-}
+function AdminPage() : JSX.Element{
+    const [isLoggedIn, setLogInState] = useState(false);
+    const [hasLoaded, setLoadingState] = useState(false);
 
 
+    //attempt to fetch admin data from server as soon as page loads
+    //if user has a valid session they will be redirected to the dashboard
+    //if user does not have a valid session they will be redirected to the admin login page
+    
 
-function AdminPage(){
-    useEffect(loginRequest, []);
-    //allows them to access the database when the website is deployed
+    function checkSession() : void {
+        RequestHandler.Get(`${Globals.apiUrl}/api/admin-page`, checkSessionCallback);
+    }
+    
+    
+    function checkSessionCallback(response: {[x: string]: any}){
+        if (response['success'] === true){
+            setLogInState(true);
+        }else{
+            setLogInState(false);
+        }
 
-    return ( 
-        <div>
-            <h1 className = 'text-center'>
-                Admin Panel
-            </h1>
+        setLoadingState(true);
+    }
 
 
-            <div className = 'input-div mt-5'>
-                <input type = 'text' id = 'username' className = 'input-element text-center'></input>
-                <input type = 'text' id = 'password' className = 'input-element text-center'></input>
-                
-                <button className = 'login-button text-center mt-5'>
-                    <p>
-                        Login
-                    </p>
-                </button>
-            </div>
+    useEffect(checkSession, []);
 
-        </div>
+
+    return (
+        <>
+            {
+                hasLoaded ? 
+                    isLoggedIn ?
+                        <AdminDashBoard />
+                    : <LoginPage />
+                : <LoadingIndicator />
+            }
+        </>
     );
 }
 
