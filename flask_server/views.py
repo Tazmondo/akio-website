@@ -22,6 +22,8 @@ def api_login():
         data = request.get_json()
         if data is None:
             return "Invalid data"
+        
+        #use data.get or check that keys are in dictionary, because if someone sends request without these headers the server throws an error
         username = data['username']
         password = data['password']
 
