@@ -6,12 +6,13 @@ from flask import session, make_response, jsonify
 # message: string
 
 
-def new_response(success: boolean, message: string = "", code: integer = 400):
+def new_response(success: bool, message: str = "", code: int = 400):
     newResponse = make_response(jsonify({
             "success": success, 
             "message": message,
             "user": session.get('username', "")
         }))
-    newResponse.status_code = success ? 200 : code
+
+    newResponse.status_code = 200 if success else code
 
     return newResponse

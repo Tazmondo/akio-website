@@ -18,6 +18,22 @@ def api_home():
     return new_response(True, f'Logged in as {username}')
 
 
+#shows admin data, fetched when user logs in to admin page
+@app.route('/api/admin-page', methods = ['GET'])
+def admin_page():
+    username = session.get('username')
+
+    if username is None:
+        return new_response(False, 'Not logged in')
+    
+
+    else:
+        #return item list, stock, etc...
+
+        return new_response(True, '...')
+
+
+
 # Input data:
 # username: string
 # password: string
@@ -84,6 +100,7 @@ def validate_item_post(jsonData):
         itemNames = data.get('items')
         if itemNames is None or type(itemNames) is not list:
             return False
+
 
 @app.route('/api/items', methods = ['GET', 'POST'])
 def api_items():
