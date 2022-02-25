@@ -1,6 +1,6 @@
 from flask import request, jsonify, make_response, session
 from flask_server import app, db, bcrypt
-from flask_server.models import User
+from flask_server.models import User, Item
 from flask_server.responses import new_response
 
 
@@ -104,6 +104,17 @@ def api_items():
 
 
         # get user db from username
-        
+    elif request.method == 'GET':
+        items = Item.query.all()
+        output_dict = {item.name : {'stock' : item.stock,
+                                    'frontImageUrl' : item.frontImageURL,
+                                    'backImageUrl' : item.backImageURL,
+                                    'price' : item.price
+                                    }
+                         for item in items
+                      }
+        response = new_response(True, 'Fetched Items')
+        response.items = output_dict
+        return response
     return ""
 
