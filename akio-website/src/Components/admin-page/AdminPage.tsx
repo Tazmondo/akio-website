@@ -10,7 +10,6 @@ function loginRequest(){
 
 
 function AdminPage(){
-
     useEffect(loginRequest, []);
     //allows them to access the database when the website is deployed
 
@@ -21,10 +20,17 @@ function AdminPage(){
             </h1>
 
 
-            <div className = 'input-div'>
-                <input type = 'text' id = 'username' className = 'input-element'></input>
-                <input type = 'text' id = 'password' className = 'input-element'></input>
+            <div className = 'input-div mt-5'>
+                <input type = 'text' id = 'username' className = 'input-element text-center'></input>
+                <input type = 'text' id = 'password' className = 'input-element text-center'></input>
+                
+                <button className = 'login-button text-center mt-5'>
+                    <p>
+                        Login
+                    </p>
+                </button>
             </div>
+
         </div>
     );
 }

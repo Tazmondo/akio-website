@@ -105,11 +105,23 @@ code {
 
 
 .input-div{
-  width: 20em;
-  background: black;
+  width: 80vw;
+  margin-left: 20vw;
+  background: #ddc192;
 }
 
 
 .input-element{
-  background: white;
+  background: black;
+  width: 60vw;
+  margin-left: 10vw;
+  border-radius: 1em;
+}
+
+
+.login-button{
+  background: black;
+  width: 40vw;
+  border-width: 1em;
+  border-radius: 3em;
 }
