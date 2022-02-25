@@ -38,6 +38,33 @@ code {
 
 
 
+/* Loading indicator styles */
+.lds-hourglass {
+  display: inline-block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20vw;
+  height: 20vw;
+}
+
+
+.lds-hourglass:after {
+  content: " ";
+  display: block;
+  border-radius: 50%;
+  width: 0;
+  height: 0;
+  box-sizing: border-box;
+  border: 10vw solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-hourglass 1.2s infinite;
+}
+
+
+
+
 /* page styles  */
 .main-video{
   position: absolute;
@@ -56,7 +83,6 @@ code {
   width: 4em;
   height: 4em;
 }
-
 
 .navbar{
   background: #ddc192 !important; 
@@ -84,13 +110,11 @@ code {
   color: white;
 }
 
-
 .header-text{
   color: black;
   font-size: 3em;
   font-weight: bold;
 }
-
 
 .description-wrapper{
   width: 80vw;
@@ -98,30 +122,59 @@ code {
   align-self: center;
 }
 
-
 .description-text{
   font-size: 1.5em;
 }
 
-
 .input-div{
+  margin-top: 16vh;
   width: 80vw;
-  margin-left: 20vw;
-  background: #ddc192;
+  margin-left: 10vw;
+  background: white;
+  border-radius: 2vw;
 }
-
 
 .input-element{
   background: black;
-  width: 60vw;
-  margin-left: 10vw;
-  border-radius: 1em;
+  margin-top: 5vh;
+  width: 40vw;
+  margin-left: 20vw;
+  border-radius: 1vw;
+  font-size: 3vh;
+  color: white;
 }
-
 
 .login-button{
-  background: black;
+  background: darkblue;
   width: 40vw;
-  border-width: 1em;
-  border-radius: 3em;
+  border-width: 0.2vw;
+  border-radius: 1vw;
+  border-style: solid;
+  margin-left: 20vw;
+  color: white;
+  font-size: 4vh;
+  margin-bottom: 5vh;
 }
+
+.login-button:hover{
+  background: #d9534f;
+}
+
+
+
+/* animations */
+@keyframes lds-hourglass {
+  0% {
+    transform: rotate(0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+  50% {
+    transform: rotate(900deg);
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  100% {
+    transform: rotate(1800deg);
+  }
+}
+
+
