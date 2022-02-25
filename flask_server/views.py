@@ -1,6 +1,6 @@
 from flask import request, jsonify, make_response, session
 from flask_server import app, db, bcrypt
-from flask_server.models import User
+from flask_server.models import User, Item
 from flask_server.responses import new_response
 
 
@@ -16,7 +16,6 @@ def api_home():
     username = session.get('username') or "No one"
 
     return new_response(True, f'Logged in as {username}')
-
 
 
 @app.route('/api/login', methods = ['POST'])
@@ -62,6 +61,24 @@ def api_items():
     if request.method == "POST":
         username = session.get('username')
         # get user db from username
+
+
+    elif request.method == 'GET':
+        items = Item.query.all()
+        output_dict = {item.name : {'stock' : item.stock, 
+                                    'frontImageUrl' : item.frontImageURL, 
+                                    'backImageUrl' : item.backImageURL, 
+                                    'price' : item.price
+                                    }
+                         for item in items
+                      }
+
+        reponse = new_response(True, 'Fetched Items')
+        response.items = output_dict
+        return response
+
         
     return ""
+
+
 
