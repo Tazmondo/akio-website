@@ -1,6 +1,6 @@
 from flask import request, jsonify, make_response, session
 from flask_server import app, db, bcrypt
-from flask_server.models import User, Item
+from flask_server.models import User
 from flask_server.responses import new_response
 
 
@@ -18,6 +18,9 @@ def api_home():
     return new_response(True, f'Logged in as {username}')
 
 
+# Input data:
+# username: string
+# password: string
 @app.route('/api/login', methods = ['POST'])
 def api_login():
     if request.method == "POST":
@@ -56,29 +59,51 @@ def api_logout():
         return new_response(False, "Already logged out")
 
 
+# Input data:
+# operation: "ADD", "DELETE", "EDIT" (maybe)
+# ADD:
+#   items: array of items
+#   an item:
+#           name = db.Column(db.String, nullable=False)
+#           stock = db.Column(db.Integer, nullable=False)
+#           frontImageURL = db.Column(db.String)
+#           backImageURL = db.Column(db.String)  
+#           price = db.Column(db.Integer, nullable=False)  # Price in pence
+#
+# DELETE:
+#   items: array of item names (strings)
+#
+
+def validate_item_post(jsonData):
+    data = request.get_json()
+    operation = data.get('operation')
+    if data is None or operation is None:
+        return False
+    
+    if operation == "DELETE":
+        itemNames = data.get('items')
+        if itemNames is None or type(itemNames) is not list:
+            return False
+
 @app.route('/api/items', methods = ['GET', 'POST'])
 def api_items():
     if request.method == "POST":
+        data = request.get_json()
+        if data is None or data.get('operation'):
+            return new_response(False, "Invalid data, must be JSON")
+
         username = session.get('username')
+        if username is None:
+            return new_response(False, "Invalid username")
+
+        user = User.query.filter_by(username=username).first()
+        if not user.admin:
+            return new_response(False, "Must be an admin user")
+        
+
+
+
         # get user db from username
-
-
-    elif request.method == 'GET':
-        items = Item.query.all()
-        output_dict = {item.name : {'stock' : item.stock, 
-                                    'frontImageUrl' : item.frontImageURL, 
-                                    'backImageUrl' : item.backImageURL, 
-                                    'price' : item.price
-                                    }
-                         for item in items
-                      }
-
-        reponse = new_response(True, 'Fetched Items')
-        response.items = output_dict
-        return response
-
         
     return ""
-
-
 
