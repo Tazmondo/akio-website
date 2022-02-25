@@ -13,7 +13,7 @@ function HomePage(): JSX.Element {
             <NavBar />
 
             <h1 className = 'main-text'>
-                Akioooooo
+                Akio
             </h1>
 
             <h2 className = 'main-slogan'>
