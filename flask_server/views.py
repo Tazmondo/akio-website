@@ -90,24 +90,57 @@ def api_logout():
 #   items: array of item names (strings)
 #
 
+def validate_item(itemDict):
+    # Maybe move me to a dedicated file?
+    if type(itemDict) is not dict:
+        return False
+
+    types = {
+        "name": str,
+        "stock": int,
+        "frontImageURL": str,  # For now, may change depending on future implementation
+        "backImageURL": str,
+        "price": int
+
+    }
+    for key, classType in types.items():
+        if type(itemDict.get(key, None)) is not classType:
+            return False
+
+    return True
+
+
 def validate_item_post(jsonData):
-    data = request.get_json()
-    operation = data.get('operation')
-    if data is None or operation is None:
+    operation = jsonData.get('operation')
+    if jsonData is None or operation is None:
         return False
     
     if operation == "DELETE":
-        itemNames = data.get('items')
+        itemNames = jsonData.get('items')
         if itemNames is None or type(itemNames) is not list:
             return False
+        if len(filter(lambda a: type(a) is not str, itemNames)) > 0:  # Check if any items in list aren't strings
+            return False
+
+        return True
+
+    elif operation == "ADD":
+        itemObjects = jsonData.get('items')
+        if itemObjects is None or type(itemObjects) is not list:
+            return False
+
+        return any(map(lambda item: not validate_item(item), itemObjects))  # Return false if any element of list not valid
+
+    return False  # operation not valid
 
 
 @app.route('/api/items', methods = ['GET', 'POST'])
 def api_items():
     if request.method == "POST":
         data = request.get_json()
-        if data is None or data.get('operation'):
-            return new_response(False, "Invalid data, must be JSON")
+        if not validate_item_post(data):
+            return new_response(False, "Invalid data")
+        operation = data['operation']
 
         username = session.get('username')
         if username is None:
@@ -117,16 +150,40 @@ def api_items():
         if not user.admin:
             return new_response(False, "Must be an admin user")
         
+        if operation == "DELETE":
+            itemNames = data['items']
+
+            matchingItemsQuery = Item.query.filter(Item.name in itemNames)
+            matchingItems = matchingItemsQuery.all()  # Will this break? Using same query for two statements
+            numDeleted = matchingItemsQuery.delete()
+
+            response = new_response(True, f'Successfully deleted {numDeleted} items.')
+            response['items'] = jsonify(matchingItems)
+            return response
+
+        elif operation == "ADD":
+            itemObjects = data['items']
+            for itemObject in itemObjects:
+                newItem = Item(
+                    name = itemObject['name'],
+                    stock = itemObject['stock'],
+                    frontImageURL = itemObject['frontImageURL'],
+                    backImageURL = itemObject['backImageURL'],
+                    price = itemObject['price']
+                )
+                db.session.add(newItem)
+            db.session.commit()
+
+            return new_response(True, f'Successfully added {len(itemObjects)} new items.')
 
 
-
-        # get user db from username
     elif request.method == 'GET':
         items = Item.query.all()
         output_dict = {item.name : {'stock' : item.stock,
                                     'frontImageUrl' : item.frontImageURL,
                                     'backImageUrl' : item.backImageURL,
-                                    'price' : item.price
+                                    'price' : item.price,
+                                    'name' : item.name  # Doesn't hurt to have this as a value as well
                                     }
                          for item in items
                       }
