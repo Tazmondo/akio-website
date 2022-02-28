@@ -41,7 +41,7 @@ function AdminPage() : JSX.Element{
                 hasLoaded ? 
                     isLoggedIn ?
                         <AdminDashBoard />
-                    : <LoginPage />
+                    : <LoginPage setLogInState = {setLogInState}/>
                 : <LoadingIndicator />
             }
         </>

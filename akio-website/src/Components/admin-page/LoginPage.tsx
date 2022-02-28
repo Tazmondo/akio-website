@@ -2,8 +2,12 @@ import {useEffect, useState} from 'react';
 import Globals from '../Globals';
 import RequestHandler from '../request-handler/RequestHandler';
 
+type AdminPageProps = {
+    setLogInState: Function;
+};
 
-function AdminPage(){
+
+function AdminPage({setLogInState} : AdminPageProps): JSX.Element{
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     useEffect(loginRequest, []);
@@ -19,17 +23,21 @@ function AdminPage(){
             'username' : username, 
             'password' : password
         };
-    
+        
         RequestHandler.Post(`${Globals.apiUrl}/api/login`, headers, loginCallback);
-    
     }
 
 
-    function loginCallback() : void {
+    function loginCallback(response : any) : void {
+        if (response.success){
+            setLogInState(true);
+        }else{
+            //TODO: show error message
+            console.log(response.message);
+        }
     }
 
  
-
     return ( 
         <div>
             <h1 className = 'text-center'>
