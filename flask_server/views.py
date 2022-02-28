@@ -122,6 +122,8 @@ def validate_item_post(jsonData):
         if len(filter(lambda a: type(a) is not str, itemNames)) > 0:  # Check if any items in list aren't strings
             return False
 
+        return True
+
     elif operation == "ADD":
         itemObjects = jsonData.get('items')
         if itemObjects is None or type(itemObjects) is not list:
@@ -129,7 +131,7 @@ def validate_item_post(jsonData):
 
         return any(map(lambda item: not validate_item(item), itemObjects))  # Return false if any element of list not valid
 
-    return True
+    return False  # operation not valid
 
 
 @app.route('/api/items', methods = ['GET', 'POST'])
@@ -159,14 +161,29 @@ def api_items():
             response['items'] = jsonify(matchingItems)
             return response
 
+        elif operation == "ADD":
+            itemObjects = data['items']
+            for itemObject in itemObjects:
+                newItem = Item(
+                    name = itemObject['name'],
+                    stock = itemObject['stock'],
+                    frontImageURL = itemObject['frontImageURL'],
+                    backImageURL = itemObject['backImageURL'],
+                    price = itemObject['price']
+                )
+                db.session.add(newItem)
+            db.session.commit()
 
-        # get user db from username
+            return new_response(True, f'Successfully added {len(itemObjects)} new items.')
+
+
     elif request.method == 'GET':
         items = Item.query.all()
         output_dict = {item.name : {'stock' : item.stock,
                                     'frontImageUrl' : item.frontImageURL,
                                     'backImageUrl' : item.backImageURL,
-                                    'price' : item.price
+                                    'price' : item.price,
+                                    'name' : item.name  # Doesn't hurt to have this as a value as well
                                     }
                          for item in items
                       }
