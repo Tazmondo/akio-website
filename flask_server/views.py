@@ -90,24 +90,55 @@ def api_logout():
 #   items: array of item names (strings)
 #
 
+def validate_item(itemDict):
+    # Maybe move me to a dedicated file?
+    if type(itemDict) is not dict:
+        return False
+
+    types = {
+        "name": str,
+        "stock": int,
+        "frontImageURL": str,  # For now, may change depending on future implementation
+        "backImageURL": str,
+        "price": int
+
+    }
+    for key, classType in types.items():
+        if type(itemDict.get(key, None)) is not classType:
+            return False
+
+    return True
+
+
 def validate_item_post(jsonData):
-    data = request.get_json()
-    operation = data.get('operation')
-    if data is None or operation is None:
+    operation = jsonData.get('operation')
+    if jsonData is None or operation is None:
         return False
     
     if operation == "DELETE":
-        itemNames = data.get('items')
+        itemNames = jsonData.get('items')
         if itemNames is None or type(itemNames) is not list:
             return False
+        if len(filter(lambda a: type(a) is not str, itemNames)) > 0:  # Check if any items in list aren't strings
+            return False
+
+    elif operation == "ADD":
+        itemObjects = jsonData.get('items')
+        if itemObjects is None or type(itemObjects) is not list:
+            return False
+
+        return any(map(lambda item: not validate_item(item), itemObjects))  # Return false if any element of list not valid
+
+    return True
 
 
 @app.route('/api/items', methods = ['GET', 'POST'])
 def api_items():
     if request.method == "POST":
         data = request.get_json()
-        if data is None or data.get('operation'):
-            return new_response(False, "Invalid data, must be JSON")
+        if not validate_item_post(data):
+            return new_response(False, "Invalid data")
+        operation = data['operation']
 
         username = session.get('username')
         if username is None:
