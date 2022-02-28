@@ -148,7 +148,16 @@ def api_items():
         if not user.admin:
             return new_response(False, "Must be an admin user")
         
+        if operation == "DELETE":
+            itemNames = data['items']
 
+            matchingItemsQuery = Item.query.filter(Item.name in itemNames)
+            matchingItems = matchingItemsQuery.all()  # Will this break? Using same query for two statements
+            numDeleted = matchingItemsQuery.delete()
+
+            response = new_response(True, f'Successfully deleted {numDeleted} items.')
+            response['items'] = jsonify(matchingItems)
+            return response
 
 
         # get user db from username
