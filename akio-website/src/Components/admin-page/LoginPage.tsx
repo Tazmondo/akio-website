@@ -10,6 +10,8 @@ type AdminPageProps = {
 function AdminPage({setLogInState} : AdminPageProps): JSX.Element{
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    // BTW, why do we call this here when it's called by a submit in the html? it also makes a warning appear
     useEffect(loginRequest, []);
 
 
@@ -24,7 +26,8 @@ function AdminPage({setLogInState} : AdminPageProps): JSX.Element{
             'password' : password
         };
         
-        RequestHandler.Post(`${Globals.apiUrl}/api/login`, headers, loginCallback);
+        RequestHandler.Post(`${Globals.apiUrl}/api/login`, headers)
+            .then(loginCallback);
     }
 
 
