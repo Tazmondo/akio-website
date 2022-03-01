@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   
-  background: #ddc192;
+  background: #ddc192 !important;
 }
 
 code {
@@ -45,8 +45,8 @@ code {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 20vw;
-  height: 20vw;
+  width: 10w;
+  height: 10vw;
 }
 
 
@@ -57,7 +57,7 @@ code {
   width: 0;
   height: 0;
   box-sizing: border-box;
-  border: 10vw solid #fff;
+  border: 5vw solid #fff;
   border-color: #fff transparent #fff transparent;
   animation: lds-hourglass 1.2s infinite;
 }
@@ -159,6 +159,29 @@ code {
 .login-button:hover{
   background: #d9534f;
 }
+
+
+.options-wrapper{
+  display: flex;
+  justify-content: center;
+}
+
+
+.option-div{
+  width: 300px;
+  height: 250px;
+  background: gray;
+  border-radius: 3em;
+  border-width: 0.1em;
+  border-style: solid;
+  border-color: transparent;
+}
+
+.option-div:hover{
+  border-color: #d9534f;
+  cursor: pointer;
+}
+
 
 
 

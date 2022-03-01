@@ -6,7 +6,7 @@ import Logo from "../../assets/logo.png";
 function NavBar(): JSX.Element {
     return (
         <div>
-            <nav className = 'navbar navbar-expand-lg navbar-light  bg-light'>
+            <nav className = 'navbar navbar-expand-lg navbar-light'>
                 <a className='navbar-brand' href='/'>
                     <img src = {Logo} width= '50' height = '45' className = 'd-inline-block align-top' alt=''></img>
                  </a>

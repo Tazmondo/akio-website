@@ -7,15 +7,15 @@ class RequestHandler{
 
 
     static async Post(url : string, headers : {[header : string] : any}): Promise<any> {
-        let requestHeaders : {[header: string] : any} = {};
+        let jsonPayload : {[header: string] : any} = {};
 
         for (let header in headers){
-            requestHeaders[header] = headers[header];
+            jsonPayload[header] = headers[header];
         }
 
         let response = await fetch(url, {
             method: 'POST',
-            body: JSON.stringify(requestHeaders),
+            body: JSON.stringify(jsonPayload),
             headers: {'Content-Type': 'application/json'}
         })
 
