@@ -25,14 +25,14 @@ const mockItems = [
         name: "Shirt Placeholder",
         frontImage: ShirtFront,
         backImage: ShirtBack,
-        price: 321,
+        price: 322,
         stock: 7
     },
     {
         name: "Shirt Placeholder",
         frontImage: ShirtFront,
         backImage: ShirtBack,
-        price: 321,
+        price: 323,
         stock: 7
     },
 ]
