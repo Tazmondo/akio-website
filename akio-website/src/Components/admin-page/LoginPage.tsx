@@ -55,7 +55,7 @@ function AdminPage({setLogInState} : AdminPageProps): JSX.Element{
                        onChange = {event => setUsername(event.target.value)}>
                 </input>
 
-                <input type = 'text' 
+                <input type = 'password' 
                        id = 'password' 
                        className = 'input-element text-center' 
                        placeholder = 'Password'

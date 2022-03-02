@@ -1,9 +1,15 @@
+import SideBar from "./SideBar";
+
+
+
 function AdminDashBoard() {
     return (
-        <div>
-            <h1 className = 'text-center'>
+        <div style = {{'background' : '#ddc192'}}>
+            {/* <h1 className = 'text-center'>
                 Dashboard
-            </h1>
+            </h1> */}
+
+            <SideBar />
         </div>
      );
 }
