@@ -12,7 +12,7 @@ app.config['SECRET_KEY'] = environ['SECRET_KEY']  # Set environment variable
 app.config['JSON_SORT_KEYS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 
-cors = CORS(app)
+cors = CORS(app, supports_credentials = True)
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
