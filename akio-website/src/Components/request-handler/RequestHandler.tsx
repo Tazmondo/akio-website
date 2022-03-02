@@ -1,6 +1,8 @@
 class RequestHandler{
     static async Get(url : string): Promise<any> {
-        let response = await fetch(url)
+        let response = await fetch(url, {
+            credentials: 'include',
+        })
 
         return await response.json()
     }
@@ -16,7 +18,8 @@ class RequestHandler{
         let response = await fetch(url, {
             method: 'POST',
             body: JSON.stringify(jsonPayload),
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'include'
         })
 
         return await response.json()
