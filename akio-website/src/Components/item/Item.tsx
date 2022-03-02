@@ -43,5 +43,5 @@ function Item({name, frontImage, backImage, price, stock} : ItemProps): JSX.Elem
     )
 }
 
-export { Item };
+export default Item;
 export type { ItemProps };

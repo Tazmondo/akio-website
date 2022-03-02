@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Item, ItemProps} from "../item/Item";
+import Item, {ItemProps} from "../item/Item";
 import HoodieFront from '../../assets/hoodie1front.png';
 import HoodieBack from '../../assets/hoodie1back.png';
 import ShirtFront from '../../assets/shirt1front.png';
