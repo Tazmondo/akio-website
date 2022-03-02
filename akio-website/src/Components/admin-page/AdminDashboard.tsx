@@ -1,15 +1,27 @@
 import SideBar from "./SideBar";
+import {useState} from 'react';
+import Items from "./Items";
+import AdminAccounts from "./AdminAccounts";
+import Sales from "./Sales";
 
 
 
 function AdminDashBoard() {
-    return (
-        <div style = {{'background' : '#ddc192'}}>
-            {/* <h1 className = 'text-center'>
-                Dashboard
-            </h1> */}
+    const [adminPage, setPage] = useState('items');
 
-            <SideBar />
+    return (
+        <div>
+            <SideBar setPage = {setPage}/>
+
+            <div style = {{'background' : '#ddc192'}} className = 'admin-content-wrapper'>
+                {adminPage === 'items' ?
+                    <Items />
+                : adminPage === 'admins' ?
+                    <AdminAccounts />
+                : adminPage === 'sales' && 
+                    <Sales /> 
+                }
+            </div>
         </div>
      );
 }

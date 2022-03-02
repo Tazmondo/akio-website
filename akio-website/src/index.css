@@ -166,20 +166,11 @@ code {
   justify-content: center;
 }
 
-
-.option-div{
-  width: 300px;
-  height: 250px;
-  background: gray;
-  border-radius: 3em;
-  border-width: 0.1em;
-  border-style: solid;
-  border-color: transparent;
-}
-
-.option-div:hover{
-  border-color: #d9534f;
-  cursor: pointer;
+.admin-content-wrapper{
+  position: absolute;
+  left: 10vw;
+  top: 0;
+  width: 90vw;
 }
 
 

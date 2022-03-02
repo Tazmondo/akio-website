@@ -23,6 +23,9 @@ function AdminPage() : JSX.Element{
     
     
     function checkSessionCallback(response: {[x: string]: any}){
+        console.log(response['success']);
+        console.log(response['message']);
+
         if (response['success'] === true){
             setLogInState(true);
         }else{

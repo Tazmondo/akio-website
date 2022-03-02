@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   CDBSidebar,
   CDBSidebarContent,
@@ -7,34 +6,26 @@ import {
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from 'cdbreact';
-import { NavLink } from 'react-router-dom';
 
 
+type sideBarProps = {
+    setPage: Function
+}
 
-function SideBar() {
+
+function SideBar({setPage} : sideBarProps) {
     return (
         <div style = {{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
-            <CDBSidebar textColor="#fff" backgroundColor="#333">
-                <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-                    {/* TODO: change to link component */}
-                    <a href="/" className="text-decoration-none" style={{ color: 'inherit' }}>
-                        Admin Dashboard
-                    </a>
+            <CDBSidebar textColor='#fff' backgroundColor = '#333'>
+                <CDBSidebarHeader prefix={<i className = 'fa fa-bars fa-large'></i>}>
+                    <p>Admin Dashboard</p>
                 </CDBSidebarHeader>
 
-                <CDBSidebarContent className="sidebar-content">
+                <CDBSidebarContent className='sidebar-content'>
                     <CDBSidebarMenu>
-                        <NavLink to = "/">
-                            <CDBSidebarMenuItem icon = "columns">Items</CDBSidebarMenuItem>
-                        </NavLink>
-                        
-                        <NavLink to = "/profile">
-                            <CDBSidebarMenuItem icon="user">Admin Profiles</CDBSidebarMenuItem>
-                        </NavLink>
-                        
-                        <NavLink to = "/analytics">
-                            <CDBSidebarMenuItem icon="chart-line">Sales</CDBSidebarMenuItem>
-                        </NavLink>
+                        <CDBSidebarMenuItem icon = 'columns' onClick = {() => setPage('items')}>Items</CDBSidebarMenuItem>
+                        <CDBSidebarMenuItem icon = 'user' onClick = {() => setPage('admins')}>Admin Accounts</CDBSidebarMenuItem>
+                        <CDBSidebarMenuItem icon='chart-line' onClick = {() => setPage('sales')}>Sales</CDBSidebarMenuItem>
                     </CDBSidebarMenu>
                 </CDBSidebarContent>
 
