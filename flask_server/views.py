@@ -157,8 +157,7 @@ def api_items():
             matchingItems = matchingItemsQuery.all()  # Will this break? Using same query for two statements
             numDeleted = matchingItemsQuery.delete()
 
-            response = new_response(True, f'Successfully deleted {numDeleted} items.')
-            response['items'] = jsonify(matchingItems)
+            response = new_response(True, f'Successfully deleted {numDeleted} items.', items = matchingItems)
             return response
 
         elif operation == "ADD":
@@ -187,8 +186,7 @@ def api_items():
                                     }
                          for item in items
                       }
-        response = new_response(True, 'Fetched Items')
-        response.items = output_dict
+        response = new_response(True, 'Fetched Items', items = output_dict)
         return response
     return ""
 
