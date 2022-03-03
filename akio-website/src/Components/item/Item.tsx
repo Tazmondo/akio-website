@@ -1,6 +1,6 @@
 import React from "react";
-import {useState} from 'react';
-
+import ItemThumb from "./ItemThumb";
+import {Link} from 'react-router-dom'
 
 function priceIntToString(price: number) {
     return `£${price / 100}`
@@ -23,23 +23,17 @@ type ItemProps = {
 
 function Item({name, frontImage, backImage, price, stock} : ItemProps): JSX.Element {
     // TODO - needs css adjustments and out of stock indicator
-    const [imageUrl, setUrl] = useState(frontImage);
 
     return (
-        <a href={`/items/${name}`} className="text-reset text-decoration-none">
+        <Link to={`/items/${name}`} className="text-reset text-decoration-none">
             <div className="card text-center">
-                <img src={imageUrl} 
-                     alt={name} 
-                     className="card-img-top"  
-                     onMouseOver = {() => setUrl(backImage)} 
-                     onMouseOut = {() => setUrl(frontImage)}/>
-                
+                <ItemThumb backImage={backImage} frontImage={frontImage} name={name}/>
                 <div className="card-body">
                     <h5 className="card-title">{name}</h5>
                     <h6 className="card-subtitle text-muted mb-2">{priceIntToString(price)}</h6>
                 </div>
             </div>
-        </a>
+        </Link>
     )
 }
 
