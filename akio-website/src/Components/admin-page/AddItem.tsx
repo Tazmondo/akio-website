@@ -67,7 +67,7 @@ function AddItem() {
 
     return (
         <div className = 'text-center mt-5'>
-            <ul>
+            <ul className="p-0">
                 <li>
                     <input className = 'item-input mt-3' 
                            type = 'text' 
