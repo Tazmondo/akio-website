@@ -1,5 +1,4 @@
 import NavBar from "../navbar/NavBar";
-import SocialMedia from "../social-media/SocialMedia";
 const video = require("../../assets/home-page-video.mp4");
 
 

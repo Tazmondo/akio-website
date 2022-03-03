@@ -1,6 +1,8 @@
+import Globals from "../Globals";
+
 class RequestHandler{
     static async Get(url : string): Promise<any> {
-        let response = await fetch(url, {
+        let response = await fetch(`${Globals.apiUrl}${url}`, {
             credentials: 'include',
         })
 
@@ -15,7 +17,7 @@ class RequestHandler{
             jsonPayload[header] = headers[header];
         }
 
-        let response = await fetch(url, {
+        let response = await fetch(`${Globals.apiUrl}${url}`, {
             method: 'POST',
             body: JSON.stringify(jsonPayload),
             headers: {'Content-Type': 'application/json'},

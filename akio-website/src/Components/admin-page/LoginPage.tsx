@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react';
-import Globals from '../Globals';
 import RequestHandler from '../request-handler/RequestHandler';
 
 type AdminPageProps = {
@@ -23,7 +22,7 @@ function AdminPage({setLogInState} : AdminPageProps): JSX.Element{
             'password' : password
         };
         
-        RequestHandler.Post(`${Globals.apiUrl}/api/login`, headers)
+        RequestHandler.Post(`api/login`, headers)
             .then(loginCallback);
     }
 

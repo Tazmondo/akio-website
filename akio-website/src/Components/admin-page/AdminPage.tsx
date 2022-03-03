@@ -1,7 +1,6 @@
 import LoginPage from './LoginPage';
 import {useEffect, useState} from 'react';
 import RequestHandler from '../request-handler/RequestHandler';
-import Globals from '../Globals';
 import LoadingIndicator from '../loading-indicator/LoadingIndicator';
 import AdminDashBoard from './AdminDashboard';
 
@@ -17,7 +16,7 @@ function AdminPage() : JSX.Element{
     
 
     function checkSession() : void {
-        RequestHandler.Get(`${Globals.apiUrl}/api/admin-page`)
+        RequestHandler.Get(`api/admin-page`)
             .then(checkSessionCallback);
     }
     
