@@ -66,6 +66,10 @@ code {
 
 
 /* page styles  */
+ul {
+  list-style-type: none;
+}
+
 .main-video{
   position: absolute;
   top: 0;
@@ -167,13 +171,47 @@ code {
 }
 
 .admin-content-wrapper{
-  position: absolute;
-  left: 10vw;
-  top: 0;
-  width: 90vw;
+  background : #ddc192;
+  width : 100%;
 }
 
+.admin-button{
+  width: 25vw;
+  border-radius: 5em;
+  border-color: black;
+  border-style: solid;
+  background: grey;
+  color: white;
+  font-size: 2em;
+}
 
+.admin-button.selected{
+  background-color: #3300eb;
+}
+
+.admin-button:hover{
+  background: #3f00eb;
+}
+
+.item-buttons-div{
+  /* todo: make responsive for smaller screens */
+  display: flex;
+  justify-content: center;
+
+}
+
+.item-input{
+  width: 30vw;
+  border-radius: 5em;
+  border-color: black;
+  border-style: solid;
+  background: white;
+  text-align: center;
+}
+
+.item-input::placeholder{
+  text-align: center;
+}
 
 
 /* animations */

@@ -46,6 +46,7 @@ function fetchInventory():  ItemProps[]{
 }
 
 
+
 function Catalogue(): JSX.Element {
     const [items, setItems] = useState([] as ItemProps[])
 

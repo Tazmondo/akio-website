@@ -11,9 +11,6 @@ function AdminPage({setLogInState} : AdminPageProps): JSX.Element{
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    // BTW, why do we call this here when it's called by a submit in the html? it also makes a warning appear
-    useEffect(loginRequest, []);
-
 
     function loginRequest() : void{
         if (username === '' || password === ''){

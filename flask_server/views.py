@@ -1,3 +1,4 @@
+from datetime import timedelta
 from flask import request, jsonify, make_response, session
 from flask_server import app, db, bcrypt
 from flask_server.models import User, Item
@@ -8,7 +9,6 @@ testData = {
     "aha": 500
 }
 
-# Session is permanent by default
 
 
 @app.route('/api/home', methods = ['GET'])
@@ -37,6 +37,8 @@ def admin_page():
 # Input data:
 # username: string
 # password: string
+
+
 @app.route('/api/login', methods = ['POST'])
 def api_login():
     if request.method == "POST":
@@ -101,10 +103,11 @@ def validate_item(itemDict):
         "frontImageURL": str,  # For now, may change depending on future implementation
         "backImageURL": str,
         "price": int
-
     }
+
     for key, classType in types.items():
         if type(itemDict.get(key, None)) is not classType:
+            print(key)
             return False
 
     return True
@@ -117,8 +120,10 @@ def validate_item_post(jsonData):
     
     if operation == "DELETE":
         itemNames = jsonData.get('items')
+        
         if itemNames is None or type(itemNames) is not list:
             return False
+        
         if len(filter(lambda a: type(a) is not str, itemNames)) > 0:  # Check if any items in list aren't strings
             return False
 
@@ -126,6 +131,7 @@ def validate_item_post(jsonData):
 
     elif operation == "ADD":
         itemObjects = jsonData.get('items')
+
         if itemObjects is None or type(itemObjects) is not list:
             return False
 
@@ -167,8 +173,8 @@ def api_items():
                 newItem = Item(
                     name = itemObject['name'],
                     stock = itemObject['stock'],
-                    frontImageURL = itemObject['frontImageURL'],
-                    backImageURL = itemObject['backImageURL'],
+                    frontImageUrl = itemObject['frontImageURL'],
+                    backImageUrl = itemObject['backImageURL'],
                     price = itemObject['price']
                 )
                 db.session.add(newItem)
@@ -191,4 +197,3 @@ def api_items():
         response.items = output_dict
         return response
     return ""
-

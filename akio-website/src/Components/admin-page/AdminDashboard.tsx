@@ -10,10 +10,10 @@ function AdminDashBoard() {
     const [adminPage, setPage] = useState('items');
 
     return (
-        <div>
+        <div style = {{'display' : 'flex'}}>
             <SideBar setPage = {setPage}/>
-
-            <div style = {{'background' : '#ddc192'}} className = 'admin-content-wrapper'>
+            
+            <div className = 'admin-content-wrapper'>
                 {adminPage === 'items' ?
                     <Items />
                 : adminPage === 'admins' ?

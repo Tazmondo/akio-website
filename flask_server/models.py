@@ -19,10 +19,9 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     stock = db.Column(db.Integer, nullable=False)
-    frontImageURL = db.Column(db.String)  # Could there possibly be an item without any thumbnail?
-    backImageURL = db.Column(db.String)  # Should only be present if there is a front-image
+    frontImageUrl = db.Column(db.String)  # Could there possibly be an item without any thumbnail?
+    backImageUrl = db.Column(db.String)  # Should only be present if there is a front-image
     price = db.Column(db.Integer, nullable=False)  # Price in pence
-
 
     pass
 
