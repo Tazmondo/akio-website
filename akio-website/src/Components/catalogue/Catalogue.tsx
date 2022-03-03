@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import Item from "../item/Item";
 import {globalItemsContext} from "../item-context/ItemContext";
 
@@ -43,9 +43,7 @@ function Catalogue(): JSX.Element {
     const itemsContext = useContext(globalItemsContext)
 
     function getItemDivs() {
-        console.log(itemsContext)
         if (itemsContext.status === "success") {
-            console.log(itemsContext)
             return (
                 itemsContext.items.map((item) => {
                     return <div className=" col-sm-6 col-lg-4 col-xs-12 mt-4">
