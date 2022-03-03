@@ -25,7 +25,7 @@ function AdminPage({setLogInState} : AdminPageProps): JSX.Element{
             'password' : password
         };
         
-        RequestHandler.Post(`/api/login`, headers)
+        RequestHandler.Post(`api/login`, headers)
             .then(loginCallback);
     }
 

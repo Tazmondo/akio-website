@@ -16,7 +16,7 @@ function AdminPage() : JSX.Element{
     
 
     function checkSession() : void {
-        RequestHandler.Get(`/api/admin-page`)
+        RequestHandler.Get(`api/admin-page`)
             .then(checkSessionCallback);
     }
     
