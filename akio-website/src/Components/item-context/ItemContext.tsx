@@ -7,11 +7,13 @@ import RequestHandler from "../request-handler/RequestHandler";
 interface itemContextInterface {
     status: "fetching" | "success" | "failed",
     items: ItemProps[]
+    itemNameMap: {[name: string]: ItemProps}
 }
 
 const initialContext = {
     status: "fetching",
-    items: [] as ItemProps[]
+    items: [] as ItemProps[],
+    itemNameMap: {}
 } as itemContextInterface
 
 const globalItemsContext: React.Context<itemContextInterface> = React.createContext(initialContext)
@@ -22,15 +24,15 @@ function ItemContext(props) {
     useEffect(() => {
         RequestHandler.Get("api/items").then(res => {
             if (res.success) {
-                setLocalContext({status: "success", items: Object.values(res.items)})
+                setLocalContext({status: "success", items: Object.values(res.items), itemNameMap: res.items})
             } else {
-                setLocalContext({status: "failed", items: []})
+                setLocalContext({status: "failed", items: [], itemNameMap: {}})
             }
 
         }).catch(
             reason => {
                 console.error(reason)
-                setLocalContext({status: "failed", items: []})
+                setLocalContext({status: "failed", items: [], itemNameMap: {}})
             }
         )
     }, [])
