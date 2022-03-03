@@ -20,11 +20,12 @@ function App(): JSX.Element {
                 <div className="App">
                     <ItemContext>
                         <Routes>
-                            <Route path = "/" element = {<HomePage />} />
-                            <Route path= "/shopping-page" element = {<ShopPage/>}/>
-                            <Route path="/about-us" element = {<AboutPage/>}/>
-                            <Route path = '/sizes' element = {<SizeGuide />} />
-                            <Route path = '/admin' element = {<AdminPage />} />
+                            <Route path = "/" element = {<HomePage />}/>
+                            <Route path = "/shopping-page" element = {<ShopPage/>}/>
+                            <Route path = "/about-us" element = {<AboutPage/>}/>
+                            <Route path = '/sizes' element = {<SizeGuide />}/>
+                            <Route path = '/admin' element = {<AdminPage />}/>
+                            <Route path = "*" element = {<h1>Uh oh, this page doesn't exist!</h1>}/>
                         </Routes>
                     </ItemContext>
                 </div>
