@@ -21,13 +21,9 @@ function ItemContext(props) {
 
     useEffect(() => {
         RequestHandler.Get("api/items").then(res => {
-            console.log(res);
             if (res.success) {
-                console.log("success")
                 setLocalContext({status: "success", items: Object.values(res.items)})
-                console.log(localContext);
             } else {
-                console.log("failure");
                 setLocalContext({status: "failed", items: []})
             }
 
