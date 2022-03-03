@@ -40,8 +40,10 @@ function AddItem() {
 
 
     function sendRequestCallback(response : any){
-        console.log('got response');
         console.log(response);
+
+        // todo
+        // show pop up
     }
 
 
@@ -51,12 +53,12 @@ function AddItem() {
         const item = {
             'name' : itemName, 
             'stock' : itemStock as number, 
-            'frontImageURL' : frontImageUrl, 
-            'backImageURL' : backImageUrl, 
+            'frontImageUrl' : frontImageUrl, 
+            'backImageUrl' : backImageUrl, 
             'price' : itemPrice as number
         }
 
-        RequestHandler.Post(`${Globals.apiUrl}/api/items`, 
+        RequestHandler.Post(`api/items`, 
                             {'operation' : 'ADD', 
                              'items' : [item]
                            }).then(sendRequestCallback);

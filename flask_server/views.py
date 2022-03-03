@@ -100,8 +100,8 @@ def validate_item(itemDict):
     types = {
         "name": str,
         "stock": int,
-        "frontImageURL": str,  # For now, may change depending on future implementation
-        "backImageURL": str,
+        "frontImageUrl": str,  # For now, may change depending on future implementation
+        "backImageUrl": str,
         "price": int
     }
 
@@ -172,8 +172,8 @@ def api_items():
                 newItem = Item(
                     name = itemObject['name'],
                     stock = itemObject['stock'],
-                    frontImageUrl = itemObject['frontImageURL'],
-                    backImageUrl = itemObject['backImageURL'],
+                    frontImageUrl = itemObject['frontImageUrl'],
+                    backImageUrl = itemObject['backImageUrl'],
                     price = itemObject['price']
                 )
                 db.session.add(newItem)
@@ -185,8 +185,8 @@ def api_items():
     elif request.method == 'GET':
         items = Item.query.all()
         output_dict = {item.name : {'stock' : item.stock,
-                                    'frontImageUrl' : item.frontImageURL,
-                                    'backImageUrl' : item.backImageURL,
+                                    'frontImageUrl' : item.frontImageUrl,
+                                    'backImageUrl' : item.backImageUrl,
                                     'price' : item.price,
                                     'name' : item.name  # Doesn't hurt to have this as a value as well
                                     }
