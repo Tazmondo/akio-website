@@ -53,6 +53,9 @@ function AddItem() {
             toggleMessage(response.message);
         }
 
+        //scroll to bottom of page to show alert
+        window.scrollTo(0,document.body.scrollHeight);
+
         // hide alert after 3 seconds
         setTimeout(() => toggleAlert(false), 3000);
     }
