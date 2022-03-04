@@ -14,20 +14,20 @@ function priceIntToString(price: number) {
 // Also should we have hover to see back of clothing?
 type ItemProps = {
     name: string,
-    frontImage: string,
-    backImage: string,
+    frontImageUrl: string,
+    backImageUrl: string,
     price: number,
     stock: number
 }
 
 
-function Item({name, frontImage, backImage, price, stock} : ItemProps): JSX.Element {
+function Item({name, frontImageUrl, backImageUrl, price, stock} : ItemProps): JSX.Element {
     // TODO - needs css adjustments and out of stock indicator
 
     return (
         <Link to={`/items/${name}`} className="text-reset text-decoration-none">
             <div className="card text-center">
-                <ItemThumb backImage={backImage} frontImage={frontImage} name={name}/>
+                <ItemThumb backImage={backImageUrl} frontImage={frontImageUrl} name={name}/>
                 <div className="card-body">
                     <h5 className="card-title">{name}</h5>
                     <h6 className="card-subtitle text-muted mb-2">{priceIntToString(price)}</h6>
