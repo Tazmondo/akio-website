@@ -52,10 +52,10 @@ function AddItem() {
 
         const item = {
             'name' : itemName, 
-            'stock' : itemStock as number, 
+            'stock' : itemStock, 
             'frontImageUrl' : frontImageUrl, 
             'backImageUrl' : backImageUrl, 
-            'price' : itemPrice as number
+            'price' : itemPrice
         }
 
         RequestHandler.Post(`api/items`, 
@@ -69,7 +69,7 @@ function AddItem() {
         <div className = 'text-center mt-5'>
             <ul>
                 <li>
-                    <input className = 'item-input mt-3' 
+                    <input className = 'admin-border item-input mt-3' 
                            type = 'text' 
                            id = 'item-name' 
                            placeholder = 'Item name'
@@ -78,7 +78,7 @@ function AddItem() {
                 </li>
 
                 <li>
-                    <input className = 'item-input mt-3' 
+                    <input className = 'admin-border item-input mt-3' 
                            type = 'number' 
                            id = 'item-stock' 
                            placeholder = 'Item stock'
@@ -87,7 +87,7 @@ function AddItem() {
                 </li>
 
                 <li>
-                    <input className = 'item-input mt-3' 
+                    <input className = 'admin-border item-input mt-3' 
                            type = 'number' 
                            id = 'price' 
                            placeholder = 'Price (pence)'
@@ -96,21 +96,21 @@ function AddItem() {
                 </li>
 
                 <li>
-                    <button className = 'mt-5' onClick = {() => openFileDialog(true)}>
+                    <button className = 'mt-5 admin-border admin-image-input-button' onClick = {() => openFileDialog(true)}>
                         Add front image
                     </button>
                 </li>
 
                 <li>
-                    <button className = 'mt-2' onClick = {() => openFileDialog(false)}>
+                    <button className = 'mt-2 admin-border admin-image-input-button' onClick = {() => openFileDialog(false)}>
                         Add back image
                     </button>
                 </li>
             </ul>
 
 
-            <div className = 'mt-5 text-center'>
-                <button onClick = {sendRequest}>
+            <div className = 'mt-5 text-center ml-3'>
+                <button onClick = {sendRequest} className = 'btn btn-primary'>
                     AddItem
                 </button>
             </div>

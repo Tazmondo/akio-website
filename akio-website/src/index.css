@@ -170,27 +170,35 @@ ul {
   justify-content: center;
 }
 
+.admin-border{
+  border-radius: 0.4em;
+  border-style: solid;
+}
+
 .admin-content-wrapper{
   background : #ddc192;
   width : 100%;
 }
 
+.add-item-div{
+  background: #fff;
+  width: 60vw;
+}
+
 .admin-button{
   width: 25vw;
-  border-radius: 5em;
-  border-color: black;
-  border-style: solid;
   background: grey;
   color: white;
   font-size: 2em;
 }
 
+
 .admin-button.selected{
-  background-color: #3300eb;
+  background-color: #0d6efd;
 }
 
 .admin-button:hover{
-  background: #3f00eb;
+  background: #0d6efd;
 }
 
 .item-buttons-div{
@@ -202,15 +210,18 @@ ul {
 
 .item-input{
   width: 30vw;
-  border-radius: 5em;
-  border-color: black;
-  border-style: solid;
   background: white;
   text-align: center;
 }
 
 .item-input::placeholder{
   text-align: center;
+}
+
+.admin-image-input-button{
+  width: 30vw;
+  background: gray;
+  color: white;
 }
 
 
