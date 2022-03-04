@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import Globals from '../Globals';
+import { CDBAlert } from 'cdbreact';
 import RequestHandler from '../request-handler/RequestHandler';
 
 
@@ -20,6 +20,9 @@ function AddItem() {
     const [itemPrice, setPrice] = useState<number>(0);
     const [frontImageUrl, setFrontImage] = useState<string>('');
     const [backImageUrl, setBackImage] = useState<string>('');
+    const [showAlert, toggleAlert] = useState<boolean>(false);
+    const [isSuccess, toggleSuccess] = useState<boolean>(false);
+    const [alertMessage, toggleMessage] = useState<string>('');
     
     
     function loadFile(event: React.ChangeEvent<HTMLInputElement>, isFront : boolean) {
@@ -40,10 +43,18 @@ function AddItem() {
 
 
     function sendRequestCallback(response : any){
-        console.log(response);
+        toggleAlert(true);
 
-        // todo
-        // show pop up
+        if (response.success){
+            toggleSuccess(true);
+            toggleMessage('Item added successfully');
+        }else{
+            toggleSuccess(false);
+            toggleMessage(response.message);
+        }
+
+        // hide alert after 3 seconds
+        setTimeout(() => toggleAlert(false), 3000);
     }
 
 
@@ -58,7 +69,7 @@ function AddItem() {
             'price' : itemPrice
         }
 
-        RequestHandler.Post(`api/items`, 
+        RequestHandler.Post('api/items', 
                             {'operation' : 'ADD', 
                              'items' : [item]
                            }).then(sendRequestCallback);
@@ -101,20 +112,42 @@ function AddItem() {
                     </button>
                 </li>
 
+                <li className = 'text-center' style = {{width: '100%'}}>
+                    {frontImageUrl !== '' &&
+                        <div className = 'input-image-div admin-border mt-3 text-center'>
+                            <img src = {frontImageUrl} alt = 'front' className = 'text-center'/>
+                        </div>
+                    }
+                </li>
+
                 <li>
-                    <button className = 'mt-2 admin-border admin-image-input-button' onClick = {() => openFileDialog(false)}>
+                    <button className = 'mt-3 admin-border admin-image-input-button' onClick = {() => openFileDialog(false)}>
                         Add back image
                     </button>
+                </li>
+
+                <li>
+                    {backImageUrl !== '' &&
+                        <div className = 'input-image-div admin-border text-center mt-3'>
+                            <img src = {backImageUrl} alt = 'back' />
+                        </div>
+                    }
                 </li>
             </ul>
 
 
             <div className = 'mt-5 text-center ml-3'>
-                <button onClick = {sendRequest} className = 'btn btn-primary'>
-                    AddItem
+                <button onClick = {sendRequest} className = 'admin-border submit-add-item-button'>
+                    Add
                 </button>
             </div>
 
+
+            {showAlert && 
+                <CDBAlert color = {isSuccess ? 'success' : 'danger'} className = 'mt-3'>
+                    {alertMessage}
+                </CDBAlert>
+            }
 
             <input type='file' 
                     name = 'front-image-input' 

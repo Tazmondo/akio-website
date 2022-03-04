@@ -5,7 +5,10 @@ import {
   CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
+  CDBBtn
 } from 'cdbreact';
+import RequestHandler from '../request-handler/RequestHandler';
+import {useNavigate} from 'react-router-dom';
 
 
 type sideBarProps = {
@@ -14,8 +17,24 @@ type sideBarProps = {
 
 
 function SideBar({setPage} : sideBarProps) {
+    const navigate = useNavigate();
+
+    function logoutCallback(response : any){
+        console.log(response.success);
+
+        if (response.success){
+            navigate('/');
+        }
+    }
+
+    function logout(){
+        RequestHandler.Get('api/logout').then(
+            logoutCallback
+        )
+    }
+
     return (
-        <div style = {{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
+        <div style = {{ display: 'flex', minHeight: '100vh', overflow: 'scroll initial' }}>
             <CDBSidebar textColor='#fff' backgroundColor = '#333'>
                 <CDBSidebarHeader prefix={<i className = 'fa fa-bars fa-large'></i>}>
                     <p>Admin Dashboard</p>
@@ -30,7 +49,9 @@ function SideBar({setPage} : sideBarProps) {
                 </CDBSidebarContent>
 
                 <CDBSidebarFooter className = 'text-center mb-3'>
-                    Akio
+                    <CDBBtn color = 'danger' onClick = {logout}>
+                        Logout
+                    </CDBBtn>
                 </CDBSidebarFooter>
             </CDBSidebar>
         </div>
