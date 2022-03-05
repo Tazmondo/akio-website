@@ -17,7 +17,7 @@ class User(db.Model):
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False, unique=True)
     stock = db.Column(db.Integer, nullable=False)
     frontImageUrl = db.Column(db.String)  # Could there possibly be an item without any thumbnail?
     backImageUrl = db.Column(db.String)  # Should only be present if there is a front-image
