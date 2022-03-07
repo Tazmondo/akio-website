@@ -18,6 +18,7 @@ def api_home():
     return new_response(True, f'Logged in as {username}')
 
 
+
 #shows admin data, fetched when user logs in to admin page
 @app.route('/api/admin-page', methods = ['GET'])
 def admin_page():
@@ -32,6 +33,45 @@ def admin_page():
 
         return new_response(True, '...')
 
+
+#INPUT DATA
+#Operation: 
+#Add:
+    #username: string
+    #password: string
+
+#Delete:
+    #username: string
+
+
+@app.route('/api/admins', methods = ['GET', 'POST'])
+def manage_admins():
+    if request.method == "POST":
+        data = request.get_json()
+        operation = data.get('operation')
+
+        #TODO
+        if operation == 'ADD':
+            pass
+
+        elif operation == 'DELETE':
+            pass
+
+
+    elif request.method == "GET":
+        admins = User.query.filter_by(admin = True).all()
+        
+        # used dictionary instead of list with just usernames in case we add 
+        #more fields to the user table in the future
+        
+        output_dict = {
+                        admin.username: {'username' : admin.username} 
+                        for admin in admins
+                    }
+
+        response = new_response(True, 'Fetched Admins', admins = output_dict)
+
+        
 
 
 # Input data:
