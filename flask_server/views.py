@@ -1,9 +1,9 @@
-from datetime import timedelta
-from flask import request, jsonify, make_response, session
+from flask import request, session
 from flask_server import app, db, bcrypt
+from flask_server.auth import admin_required
 from flask_server.models import User, Item
 from flask_server.responses import new_response
-
+from flask_server.validation import validate_admin_post, validate_item_post
 
 testData = {
     "aha": 500
@@ -18,60 +18,58 @@ def api_home():
     return new_response(True, f'Logged in as {username}')
 
 
-
-#shows admin data, fetched when user logs in to admin page
+# shows admin data, fetched when user logs in to admin page
 @app.route('/api/admin-page', methods = ['GET'])
+@admin_required()
 def admin_page():
-    username = session.get('username')
-
-    if username is None:
-        return new_response(False, 'Not logged in')
-    
-
-    else:
-        #return item list, stock, etc...
-
-        return new_response(True, '...')
-
-
-#INPUT DATA
-#Operation: 
-#Add:
-    #username: string
-    #password: string
-
-#Delete:
-    #username: string
+    return new_response(True, '...')
 
 
 @app.route('/api/admins', methods = ['GET', 'POST'])
-def manage_admins():
+@admin_required()
+def api_admin():
     if request.method == "POST":
         data = request.get_json()
         operation = data.get('operation')
 
-        #TODO
+        if not validate_admin_post(data):
+            return new_response(False, 'Invalid data')
+
         if operation == 'ADD':
-            pass
+            username = data['username']
+            password = data['password']
+            encrypted_password = bcrypt.create_hash(password)
+
+            new_admin = User(
+                                username = username,
+                                password = encrypted_password,
+                                admin = True
+                            )
+
+            db.session.add(new_admin)
+            db.session.commit()
 
         elif operation == 'DELETE':
-            pass
+            username = data['username']
+            target_user = User.query.filter_by(username = username).first()
+            target_user.delete()
+            db.session.commit()
 
 
     elif request.method == "GET":
         admins = User.query.filter_by(admin = True).all()
-        
+
         # used dictionary instead of list with just usernames in case we add 
         #more fields to the user table in the future
-        
+
         output_dict = {
-                        admin.username: {'username' : admin.username} 
+                        admin.username: {'username' : admin.username}
                         for admin in admins
                     }
 
         response = new_response(True, 'Fetched Admins', admins = output_dict)
 
-        
+
 
 
 # Input data:
@@ -85,7 +83,7 @@ def api_login():
         data = request.get_json()
         if data is None:
             return new_response(False, "Invalid data, must be JSON")
-        
+
         #use data.get or check that keys are in dictionary, because if someone sends request without these headers the server throws an error
         username = data.get('username')
         password = data.get('password')
@@ -117,70 +115,8 @@ def api_logout():
         return new_response(False, "Already logged out")
 
 
-# Input data:
-# operation: "ADD", "DELETE", "EDIT" (maybe)
-# ADD:
-#   items: array of items
-#   an item:
-#           name = db.Column(db.String, nullable=False)
-#           stock = db.Column(db.Integer, nullable=False)
-#           frontImageURL = db.Column(db.String)
-#           backImageURL = db.Column(db.String)  
-#           price = db.Column(db.Integer, nullable=False)  # Price in pence
-#
-# DELETE:
-#   items: array of item names (strings)
-#
-
-def validate_item(itemDict):
-    # Maybe move me to a dedicated file?
-    if type(itemDict) is not dict:
-        return False
-
-    types = {
-        "name": str,
-        "stock": int,
-        "frontImageUrl": str,  # For now, may change depending on future implementation
-        "backImageUrl": str,
-        "price": int
-    }
-
-    for key, classType in types.items():
-        if type(itemDict.get(key, None)) is not classType:
-            print(key)
-            return False
-
-    return True
-
-
-def validate_item_post(jsonData):
-    operation = jsonData.get('operation')
-    if jsonData is None or operation is None:
-        return False
-    
-    if operation == "DELETE":
-        itemNames = jsonData.get('items')
-        
-        if itemNames is None or type(itemNames) is not list:
-            return False
-        
-        if len(filter(lambda a: type(a) is not str, itemNames)) > 0:  # Check if any items in list aren't strings
-            return False
-
-        return True
-
-    elif operation == "ADD":
-        itemObjects = jsonData.get('items')
-
-        if itemObjects is None or type(itemObjects) is not list:
-            return False
-
-        return any(map(lambda item: not validate_item(item), itemObjects))  # Return false if any element of list not valid
-
-    return False  # operation not valid
-
-
 @app.route('/api/items', methods = ['GET', 'POST'])
+@admin_required(["POST"])
 def api_items():
     if request.method == "POST":
         data = request.get_json()
@@ -188,20 +124,13 @@ def api_items():
             return new_response(False, "Invalid data")
         operation = data['operation']
 
-        username = session.get('username')
-        if username is None:
-            return new_response(False, "Invalid username")
-
-        user = User.query.filter_by(username=username).first()
-        if not user.admin:
-            return new_response(False, "Must be an admin user")
-        
         if operation == "DELETE":
             itemNames = data['items']
 
             matchingItemsQuery = Item.query.filter(Item.name in itemNames)
             matchingItems = matchingItemsQuery.all()  # Will this break? Using same query for two statements
             numDeleted = matchingItemsQuery.delete()
+            db.session.commit()
 
             response = new_response(True, f'Successfully deleted {numDeleted} items.', items = matchingItems)
             return response
