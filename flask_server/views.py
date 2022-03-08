@@ -1,6 +1,7 @@
 from datetime import timedelta
 from flask import request, jsonify, make_response, session
 from flask_server import app, db, bcrypt
+from flask_server.auth import admin_required
 from flask_server.models import User, Item
 from flask_server.responses import new_response
 
@@ -18,20 +19,11 @@ def api_home():
     return new_response(True, f'Logged in as {username}')
 
 
-
-#shows admin data, fetched when user logs in to admin page
+# shows admin data, fetched when user logs in to admin page
+@admin_required()
 @app.route('/api/admin-page', methods = ['GET'])
 def admin_page():
-    username = session.get('username')
-
-    if username is None:
-        return new_response(False, 'Not logged in')
-    
-
-    else:
-        #return item list, stock, etc...
-
-        return new_response(True, '...')
+    return new_response(True, '...')
 
 
 #INPUT DATA
@@ -67,7 +59,7 @@ def validate_admin_post(json_data):
         return True
 
 
-
+@admin_required()
 @app.route('/api/admins', methods = ['GET', 'POST'])
 def api_admin():
     if request.method == "POST":
@@ -76,8 +68,6 @@ def api_admin():
 
         if not validate_admin_post(data):
             return new_response(False, 'Invalid data')
-        
-        operation = data['operation']
 
         if operation == 'ADD':
             username = data['username']
@@ -222,6 +212,7 @@ def validate_item_post(jsonData):
     return False  # operation not valid
 
 
+@admin_required(['POST'])
 @app.route('/api/items', methods = ['GET', 'POST'])
 def api_items():
     if request.method == "POST":
@@ -229,14 +220,6 @@ def api_items():
         if not validate_item_post(data):
             return new_response(False, "Invalid data")
         operation = data['operation']
-
-        username = session.get('username')
-        if username is None:
-            return new_response(False, "Invalid username")
-
-        user = User.query.filter_by(username=username).first()
-        if not user.admin:
-            return new_response(False, "Must be an admin user")
         
         if operation == "DELETE":
             itemNames = data['items']
