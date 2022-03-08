@@ -69,7 +69,7 @@ def validate_admin_post(json_data):
 
 
 @app.route('/api/admins', methods = ['GET', 'POST'])
-def manage_admins():
+def api_admin():
     if request.method == "POST":
         data = request.get_json()
         operation = data.get('operation')
