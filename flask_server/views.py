@@ -43,6 +43,30 @@ def admin_page():
 #Delete:
     #username: string
 
+def validate_admin_post(json_data):
+    operation = json_data.get('operation')
+
+    if operation == 'ADD':
+        username = json_data.get('username')
+        password = json_data.get('password')
+
+        if username is None or type(username) is not str:
+            return False
+
+        if password is None or type(password) is not str:
+            return False
+
+        return True
+
+    elif operation == 'DELETE':
+        username = json_data.get('username')
+
+        if username is None or type(username) is not str:
+            return False
+
+        return True
+
+
 
 @app.route('/api/admins', methods = ['GET', 'POST'])
 def manage_admins():
@@ -50,12 +74,30 @@ def manage_admins():
         data = request.get_json()
         operation = data.get('operation')
 
-        #TODO
+        if not validate_admin_post(data):
+            return new_response(False, 'Invalid data')
+        
+        operation = data['operation']
+
         if operation == 'ADD':
-            pass
+            username = data['username']
+            password = data['password']
+            encrypted_password = bcrypt.create_hash(password)
+            
+            new_admin = User(
+                                username = username, 
+                                password = encrypted_password,
+                                admin = True
+                            )
+
+            db.session.add(new_admin)
+            db.session.commit()
 
         elif operation == 'DELETE':
-            pass
+            username = data['username']
+            target_user = User.query.filter_by(username = username).first()
+            target_user.delete()
+            db.session.commit()
 
 
     elif request.method == "GET":
@@ -202,6 +244,7 @@ def api_items():
             matchingItemsQuery = Item.query.filter(Item.name in itemNames)
             matchingItems = matchingItemsQuery.all()  # Will this break? Using same query for two statements
             numDeleted = matchingItemsQuery.delete()
+            db.session.commit()
 
             response = new_response(True, f'Successfully deleted {numDeleted} items.', items = matchingItems)
             return response
