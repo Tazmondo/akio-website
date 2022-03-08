@@ -38,7 +38,7 @@ def api_admin():
         if operation == 'ADD':
             username = data['username']
             password = data['password']
-            encrypted_password = bcrypt.create_hash(password)
+            encrypted_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
             new_admin = User(
                                 username = username,
@@ -49,12 +49,15 @@ def api_admin():
             db.session.add(new_admin)
             db.session.commit()
 
+            return new_response(True, 'Created new admin')
+
         elif operation == 'DELETE':
             username = data['username']
             target_user = User.query.filter_by(username = username).first()
-            target_user.delete()
+            db.session.delete(target_user)
             db.session.commit()
 
+            return new_response(True, 'Deleted admin')
 
     elif request.method == "GET":
         admins = User.query.filter_by(admin = True).all()
@@ -126,13 +129,18 @@ def api_items():
 
         if operation == "DELETE":
             itemNames = data['items']
+            names = [item['name'] for item in itemNames] #necessary to avoid bug in query
 
-            matchingItemsQuery = Item.query.filter(Item.name in itemNames)
-            matchingItems = matchingItemsQuery.all()  # Will this break? Using same query for two statements
-            numDeleted = matchingItemsQuery.delete()
+            matchingItems = Item.query.filter(Item.name.in_(names)).all()
+            numDeleted = len(matchingItems)
+
+            #delete items individually, more robust does not have big effect on performance
+            for item in matchingItems:
+                db.session.delete(item)
+
             db.session.commit()
 
-            response = new_response(True, f'Successfully deleted {numDeleted} items.', items = matchingItems)
+            response = new_response(True, f'Successfully deleted {numDeleted} items.')
             return response
 
         elif operation == "ADD":

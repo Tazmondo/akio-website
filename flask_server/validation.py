@@ -76,7 +76,7 @@ def validate_item_post(jsonData):
         if itemNames is None or type(itemNames) is not list:
             return False
 
-        if len(filter(lambda a: type(a) is not str, itemNames)) > 0:  # Check if any items in list aren't strings
+        if len(list(filter(lambda a: type(a) is not dict, itemNames))) > 0:  # Check if any items in list aren't strings
             return False
 
         return True

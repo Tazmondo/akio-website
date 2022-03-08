@@ -20,10 +20,10 @@ function deleteItemCallback(response : any){
 function deleteItem(item: ItemProps){
     const targetItem = {
         'name' : item.name,
-        'stock' : item.stock as unknown as string, 
+        'stock' : item.stock, 
         'frontImageUrl' : item.frontImageUrl, 
         'backImageUrl' : item.backImageUrl,
-        'price' : item.price as unknown as string
+        'price' : item.price
     }
 
     RequestHandler.Post('api/items', 
