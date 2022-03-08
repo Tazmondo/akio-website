@@ -20,8 +20,8 @@ def api_home():
 
 
 # shows admin data, fetched when user logs in to admin page
-@admin_required()
 @app.route('/api/admin-page', methods = ['GET'])
+@admin_required()
 def admin_page():
     return new_response(True, '...')
 
@@ -59,8 +59,8 @@ def validate_admin_post(json_data):
         return True
 
 
-@admin_required()
 @app.route('/api/admins', methods = ['GET', 'POST'])
+@admin_required()
 def api_admin():
     if request.method == "POST":
         data = request.get_json()
@@ -212,8 +212,8 @@ def validate_item_post(jsonData):
     return False  # operation not valid
 
 
-@admin_required(['POST'])
 @app.route('/api/items', methods = ['GET', 'POST'])
+@admin_required(["POST"])
 def api_items():
     if request.method == "POST":
         data = request.get_json()
