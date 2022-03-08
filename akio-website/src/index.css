@@ -244,6 +244,17 @@ ul {
   font-size: 1.5em;
 }
 
+.delete-button{
+  width: 20vw;
+  background: red;
+  color: white;
+  font-size: 1.5em;
+}
+
+.delete-button:hover{
+  background: linear-gradient(red, white);
+}
+
 /* animations */
 @keyframes lds-hourglass {
   0% {

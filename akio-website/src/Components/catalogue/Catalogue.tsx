@@ -3,42 +3,6 @@ import Item from "../item/Item";
 import {globalItemsContext} from "../item-context/ItemContext";
 
 
-// import HoodieFront from '../../assets/hoodie1front.png';
-// import HoodieBack from '../../assets/hoodie1back.png';
-// import ShirtFront from '../../assets/shirt1front.png';
-// import ShirtBack from '../../assets/shirt1back.png';
-// const mockItems = [
-//     {
-//         name: "Hoodie Placeholder",
-//         frontImage: HoodieFront,
-//         backImage: HoodieBack,
-//         price: 1234,
-//         stock: 3
-//     },
-//     {
-//         name: "Shirt Placeholder",
-//         frontImage: ShirtFront,
-//         backImage: ShirtBack,
-//         price: 321,
-//         stock: 7
-//     },
-//     {
-//         name: "Shirt Placeholder",
-//         frontImage: ShirtFront,
-//         backImage: ShirtBack,
-//         price: 322,
-//         stock: 7
-//     },
-//     {
-//         name: "Shirt Placeholder",
-//         frontImage: ShirtFront,
-//         backImage: ShirtBack,
-//         price: 323,
-//         stock: 7
-//     },
-// ]
-
-
 
 function Catalogue(): JSX.Element {
     const itemsContext = useContext(globalItemsContext)

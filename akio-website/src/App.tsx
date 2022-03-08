@@ -28,7 +28,7 @@ function App(): JSX.Element {
                             <Route path = '/sizes' element = {<SizeGuide />}/>
                             <Route path = '/admin' element = {<AdminPage />}/>
                             <Route path = "/items" element={<Outlet/>}>
-                                <Route path=":name" element={<ItemPage/>}/>
+                                <Route path = ":name" element={<ItemPage/>}/>
                             </Route>
                             <Route path = "*" element = {<h1>Uh oh, this page doesn't exist!</h1>}/>
                         </Routes>
