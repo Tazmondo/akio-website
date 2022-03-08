@@ -1,10 +1,9 @@
-from datetime import timedelta
-from flask import request, jsonify, make_response, session
+from flask import request, session
 from flask_server import app, db, bcrypt
 from flask_server.auth import admin_required
 from flask_server.models import User, Item
 from flask_server.responses import new_response
-
+from flask_server.validation import validate_admin_post, validate_item_post
 
 testData = {
     "aha": 500
@@ -26,39 +25,6 @@ def admin_page():
     return new_response(True, '...')
 
 
-#INPUT DATA
-#Operation: 
-#Add:
-    #username: string
-    #password: string
-
-#Delete:
-    #username: string
-
-def validate_admin_post(json_data):
-    operation = json_data.get('operation')
-
-    if operation == 'ADD':
-        username = json_data.get('username')
-        password = json_data.get('password')
-
-        if username is None or type(username) is not str:
-            return False
-
-        if password is None or type(password) is not str:
-            return False
-
-        return True
-
-    elif operation == 'DELETE':
-        username = json_data.get('username')
-
-        if username is None or type(username) is not str:
-            return False
-
-        return True
-
-
 @app.route('/api/admins', methods = ['GET', 'POST'])
 @admin_required()
 def api_admin():
@@ -73,9 +39,9 @@ def api_admin():
             username = data['username']
             password = data['password']
             encrypted_password = bcrypt.create_hash(password)
-            
+
             new_admin = User(
-                                username = username, 
+                                username = username,
                                 password = encrypted_password,
                                 admin = True
                             )
@@ -92,18 +58,18 @@ def api_admin():
 
     elif request.method == "GET":
         admins = User.query.filter_by(admin = True).all()
-        
+
         # used dictionary instead of list with just usernames in case we add 
         #more fields to the user table in the future
-        
+
         output_dict = {
-                        admin.username: {'username' : admin.username} 
+                        admin.username: {'username' : admin.username}
                         for admin in admins
                     }
 
         response = new_response(True, 'Fetched Admins', admins = output_dict)
 
-        
+
 
 
 # Input data:
@@ -117,7 +83,7 @@ def api_login():
         data = request.get_json()
         if data is None:
             return new_response(False, "Invalid data, must be JSON")
-        
+
         #use data.get or check that keys are in dictionary, because if someone sends request without these headers the server throws an error
         username = data.get('username')
         password = data.get('password')
@@ -149,69 +115,6 @@ def api_logout():
         return new_response(False, "Already logged out")
 
 
-# Input data:
-# operation: "ADD", "DELETE", "EDIT" (maybe)
-# ADD:
-#   items: array of items
-#   an item:
-#           name = db.Column(db.String, nullable=False)
-#           stock = db.Column(db.Integer, nullable=False)
-#           frontImageURL = db.Column(db.String)
-#           backImageURL = db.Column(db.String)  
-#           price = db.Column(db.Integer, nullable=False)  # Price in pence
-#
-# DELETE:
-#   items: array of item names (strings)
-#
-
-def validate_item(itemDict):
-    # Maybe move me to a dedicated file?
-    if type(itemDict) is not dict:
-        return False
-
-    types = {
-        "name": str,
-        "stock": int,
-        "frontImageUrl": str,  # For now, may change depending on future implementation
-        "backImageUrl": str,
-        "price": int
-    }
-
-    for key, classType in types.items():
-        if type(itemDict.get(key, None)) is not classType:
-            print(key)
-            return False
-
-    return True
-
-
-def validate_item_post(jsonData):
-    operation = jsonData.get('operation')
-    if jsonData is None or operation is None:
-        return False
-    
-    if operation == "DELETE":
-        itemNames = jsonData.get('items')
-        
-        if itemNames is None or type(itemNames) is not list:
-            return False
-        
-        if len(filter(lambda a: type(a) is not str, itemNames)) > 0:  # Check if any items in list aren't strings
-            return False
-
-        return True
-
-    elif operation == "ADD":
-        itemObjects = jsonData.get('items')
-
-        if itemObjects is None or type(itemObjects) is not list:
-            return False
-
-        return any(map(lambda item: not validate_item(item), itemObjects))  # Return false if any element of list not valid
-
-    return False  # operation not valid
-
-
 @app.route('/api/items', methods = ['GET', 'POST'])
 @admin_required(["POST"])
 def api_items():
@@ -220,7 +123,7 @@ def api_items():
         if not validate_item_post(data):
             return new_response(False, "Invalid data")
         operation = data['operation']
-        
+
         if operation == "DELETE":
             itemNames = data['items']
 
