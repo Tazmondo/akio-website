@@ -1,5 +1,6 @@
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import Item, { ItemProps } from '../item/Item';
+import { CDBAlert } from 'cdbreact';
 import {globalItemsContext} from '../item-context/ItemContext';
 import RequestHandler from '../request-handler/RequestHandler';
 
@@ -8,22 +9,14 @@ import RequestHandler from '../request-handler/RequestHandler';
 // => Update global context
 
 
-function deleteItemCallback(response : any){
-    if (response.success){
-        alert('item deleted successfully');
-    }else{
-        alert(response.message);
-    }
-}
-
 
 function deleteItem(item: ItemProps){
     const targetItem = {
         'name' : item.name,
-        'stock' : item.stock as unknown as string, 
+        'stock' : item.stock, 
         'frontImageUrl' : item.frontImageUrl, 
         'backImageUrl' : item.backImageUrl,
-        'price' : item.price as unknown as string
+        'price' : item.price
     }
 
     RequestHandler.Post('api/items', 
@@ -36,6 +29,27 @@ function deleteItem(item: ItemProps){
 
 function DeleteItem() {
     const itemsContext = useContext(globalItemsContext);
+    const [showAlert, toggleAlert] = useState<boolean>(false);
+    const [alertMessage, toggleMessage]  = useState<string>('');
+    const [isSuccess, toggleSuccess] = useState<boolean>(false);
+
+
+    function deleteItemCallback(response : any){
+        toggleAlert(true);
+
+        if (response.success){
+            toggleSuccess(true);
+            toggleMessage('Item deleted successfuly');
+        }else{
+            toggleSuccess(false);
+            toggleMessage(response.message);
+        }
+
+        window.scrollTo(0, document.body.scrollHeight);
+        setTimeout(() => toggleAlert(false), 3000);
+    }
+    
+
 
     return (
         <div>
@@ -58,6 +72,13 @@ function DeleteItem() {
                     </div>
                 )
             })}
+
+            {showAlert && 
+                <CDBAlert color = {isSuccess ? 'success' : 'danger'}
+                          className = 'mt-3'>
+                    {alertMessage}
+                </CDBAlert>
+            }
         </div>
     );
 }
