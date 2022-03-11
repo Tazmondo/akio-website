@@ -10,22 +10,6 @@ import RequestHandler from '../request-handler/RequestHandler';
 
 
 
-function deleteItem(item: ItemProps){
-    const targetItem = {
-        'name' : item.name,
-        'stock' : item.stock, 
-        'frontImageUrl' : item.frontImageUrl, 
-        'backImageUrl' : item.backImageUrl,
-        'price' : item.price
-    }
-
-    RequestHandler.Post('api/items', 
-                        {'items' : [targetItem], 
-                         'operation' : 'DELETE'
-                        }).then(deleteItemCallback);
-}
-
-
 
 function DeleteItem() {
     const itemsContext = useContext(globalItemsContext);
@@ -48,8 +32,23 @@ function DeleteItem() {
         window.scrollTo(0, document.body.scrollHeight);
         setTimeout(() => toggleAlert(false), 3000);
     }
-    
 
+
+    function deleteItem(item: ItemProps){
+        const targetItem = {
+            'name' : item.name,
+            'stock' : item.stock, 
+            'frontImageUrl' : item.frontImageUrl, 
+            'backImageUrl' : item.backImageUrl,
+            'price' : item.price
+        }
+    
+        RequestHandler.Post('api/items', 
+                            {'items' : [targetItem], 
+                             'operation' : 'DELETE'
+                            }).then(deleteItemCallback);
+    }
+    
 
     return (
         <div>
