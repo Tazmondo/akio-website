@@ -8,6 +8,11 @@ function SizeGuide() : JSX.Element{
             <h1 className = 'header-text text-center'>
                 Size Guide
             </h1>
+
+
+            <p className = 'description-text text-center mt-5'>
+                Comming soon...
+            </p>
         </div>
 
     );
