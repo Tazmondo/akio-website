@@ -40,6 +40,12 @@ def api_admin():
             password = data['password']
             encrypted_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
+            #check if username is already taken
+            taken_usernames = [user.username for user in User.query.all()]
+            if username in taken_usernames:
+                return new_response(False, 'Username already taken')
+
+
             new_admin = User(
                                 username = username,
                                 password = encrypted_password,
@@ -134,7 +140,7 @@ def api_items():
             matchingItems = Item.query.filter(Item.name.in_(names)).all()
             numDeleted = len(matchingItems)
 
-            #delete items individually, more robust does not have big effect on performance
+            #delete items individually, more robust and does not have big effect on performance
             for item in matchingItems:
                 db.session.delete(item)
 
