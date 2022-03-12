@@ -54,7 +54,7 @@ function DeleteItem() {
         <div>
             {itemsContext.items.map((item) => {
                 return (
-                    <div className=" col-sm-4 col-lg-4 col-xs-12 mt-4 text-center pt-5" style = {{display : 'inline-block'}}>
+                    <div className = 'col-sm-4 col-lg-4 col-xs-12 mt-4 text-center pt-5' style = {{display : 'inline-block'}}>
                         <Item
                             name={item.name}
                             frontImageUrl={item.frontImageUrl}
