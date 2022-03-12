@@ -5,10 +5,6 @@ from flask_server.models import User, Item
 from flask_server.responses import new_response
 from flask_server.validation import validate_admin_post, validate_item_post
 
-testData = {
-    "aha": 500
-}
-
 
 
 @app.route('/api/home', methods = ['GET'])
@@ -76,7 +72,7 @@ def api_admin():
                         for admin in admins
                     }
 
-        response = new_response(True, 'Fetched Admins', admins = output_dict)
+        return new_response(True, 'Fetched Admins', admins = output_dict)
 
 
 
