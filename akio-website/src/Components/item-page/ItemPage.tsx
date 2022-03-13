@@ -17,7 +17,7 @@ function ItemPage(): JSX.Element {
     if (itemContextGlobal.status !== "fetching") {
         if (item !== undefined || itemContextGlobal.status === "failed") {
             content = <div className="container">
-                <div className="row">
+                <div className="row gx-5">
                     <div className="col-12 col-md-6">
                         <ItemThumb backImage={item.frontImageUrl} frontImage={item.backImageUrl} name={item.name}/>
                     </div>

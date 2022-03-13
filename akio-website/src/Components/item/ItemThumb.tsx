@@ -17,7 +17,7 @@ function ItemThumb({backImage, frontImage, name}: { backImage: string, frontImag
         e.stopPropagation() // Stop from switching pages
     }
 
-    return <div>
+    return <div style={{position: "relative"}}>
         <img src={imageUrl}
                 alt={name}
                 className="card-img-top"
@@ -28,7 +28,7 @@ function ItemThumb({backImage, frontImage, name}: { backImage: string, frontImag
                     setUrl(frontImage)
                 }}>
         </img>
-        <AiOutlineSwap className="d-lg-none" onClick={toggle} style={{position: "absolute", top: "0", right: "0"}}/>
+        <AiOutlineSwap className="d-lg-none" onClick={toggle} style={{position: "absolute", top: "0", right: "0", width: "2em", height: "2em"}}/>
     </div>
 }
 
