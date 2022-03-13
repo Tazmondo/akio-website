@@ -1,10 +1,7 @@
 import React from "react";
 import ItemThumb from "./ItemThumb";
 import {Link} from 'react-router-dom'
-
-function priceIntToString(price: number) {
-    return `£${price / 100}`
-}
+import {priceIntToString} from "../Globals";
 
 
 // Is this the right way to do this?

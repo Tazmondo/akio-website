@@ -1,6 +1,7 @@
-class Globals{
-    static apiUrl : string = 'http://localhost:8080/';
+let apiUrl = "http://localhost:8080/"
+
+function priceIntToString(price: number) {
+    return `£${price / 100}`
 }
 
-
-export default Globals;
+export {apiUrl, priceIntToString}
