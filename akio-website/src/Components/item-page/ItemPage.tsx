@@ -1,6 +1,9 @@
 import React, {useContext} from 'react'
 import {useParams} from "react-router-dom";
 import {globalItemsContext} from "../item-context/ItemContext";
+import ItemThumb from '../item/ItemThumb'
+import NavBar from "../navbar/NavBar";
+import {priceIntToString} from "../Globals";
 
 function ItemPage(): JSX.Element {
     let params = useParams()
@@ -8,23 +11,38 @@ function ItemPage(): JSX.Element {
     let itemContext = itemContextGlobal.itemNameMap
     let item = itemContext[params.name as string]
 
+    let content = <></>
+
     if (itemContextGlobal.status !== "fetching") {
         if (item !== undefined || itemContextGlobal.status === "failed") {
-            return <div className="container">
+            content = <div className="container">
                 <div className="row">
-                    <h1>{item.name}</h1>
+                    <div className="col-12 col-md-6">
+                        <ItemThumb backImage={item.frontImageUrl} frontImage={item.backImageUrl} name={item.name}/>
+                    </div>
+                    <div className="col-12 col-md-6">
+                        <h2>{item.name}</h2>
+                        <h3>{priceIntToString(item.price)}</h3>
+                        <p>I'm a button!</p>
+                    </div>
                 </div>
             </div>
         } else {
-            return <div className="alert alert-danger" role="alert">
+            content = <div className="alert alert-danger" role="alert">
                 Error, item not found!
             </div>
         }
     } else {
         // todo: return a placeholder until items are fetched
-        return <div className="alert alert-warning" role="alert">
+        content = <div className="alert alert-warning" role="alert">
             Fetching item...
-        </div>    }
+        </div>
+    }
+
+    return <div>
+        <NavBar/>
+        {content}
+    </div>
 }
 
 export default ItemPage
