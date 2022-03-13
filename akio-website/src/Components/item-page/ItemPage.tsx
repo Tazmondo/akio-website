@@ -3,15 +3,16 @@ import {useParams} from "react-router-dom";
 import {globalItemsContext} from "../item-context/ItemContext";
 import ItemThumb from '../item/ItemThumb'
 import NavBar from "../navbar/NavBar";
-import {priceIntToString} from "../Globals";
+import {dashToSpace, priceIntToString} from "../Globals";
 
 function ItemPage(): JSX.Element {
     let params = useParams()
     let itemContextGlobal = useContext(globalItemsContext);
     let itemContext = itemContextGlobal.itemNameMap
-    let item = itemContext[params.name as string]
 
-    let content = <></>
+    let item = itemContext[dashToSpace(params.name as string)]
+
+    let content = <>You should not see this text!</>
 
     if (itemContextGlobal.status !== "fetching") {
         if (item !== undefined || itemContextGlobal.status === "failed") {

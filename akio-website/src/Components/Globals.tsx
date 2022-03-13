@@ -1,7 +1,13 @@
-let apiUrl = "http://localhost:8080/"
+export let apiUrl = "http://localhost:8080/"
 
-function priceIntToString(price: number) {
+export function priceIntToString(price: number) {
     return `£${price / 100}`
 }
 
-export {apiUrl, priceIntToString}
+export function spaceToDash(input: string) {
+    return input.replaceAll(" ", "-")
+}
+
+export function dashToSpace(input: string) {
+    return input.replaceAll("-", " ")
+}

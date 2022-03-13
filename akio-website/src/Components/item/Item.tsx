@@ -1,7 +1,7 @@
 import React from "react";
 import ItemThumb from "./ItemThumb";
 import {Link} from 'react-router-dom'
-import {priceIntToString} from "../Globals";
+import {priceIntToString, spaceToDash} from "../Globals";
 
 
 // Is this the right way to do this?
@@ -22,7 +22,7 @@ function Item({name, frontImageUrl, backImageUrl, price, stock} : ItemProps): JS
     // TODO - needs css adjustments and out of stock indicator
 
     return (
-        <Link to={`/items/${name}`} className="text-reset text-decoration-none">
+        <Link to={`/items/${spaceToDash(name)}`} className="text-reset text-decoration-none">
             <div className="card text-center">
                 <ItemThumb backImage={backImageUrl} frontImage={frontImageUrl} name={name}/>
                 <div className="card-body">
