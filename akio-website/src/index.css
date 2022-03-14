@@ -135,7 +135,9 @@ ul {
   width: 80vw;
   margin-left: 10vw;
   background: white;
-  border-radius: 2vw;
+  border-radius: 0.5vw;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
 }
 
 .input-element{
@@ -147,23 +149,6 @@ ul {
   font-size: 3vh;
   color: white;
 }
-
-.login-button{
-  background: darkblue;
-  width: 40vw;
-  border-width: 0.2vw;
-  border-radius: 1vw;
-  border-style: solid;
-  margin-left: 20vw;
-  color: white;
-  font-size: 4vh;
-  margin-bottom: 5vh;
-}
-
-.login-button:hover{
-  background: #d9534f;
-}
-
 
 .options-wrapper{
   display: flex;
@@ -253,6 +238,31 @@ ul {
 
 .delete-button:hover{
   background: red;
+}
+
+.admin-info-div{
+  display: inline-block;
+}
+
+.admin-info-text{
+  font-size: 1.2em;
+}
+
+
+/* Media Queries */
+@media only screen and (max-width: 600px) {
+  .main-text {
+    margin-top: 18vh;    
+  }
+
+  .main-slogan{
+    margin-top: 18vh;
+  }
+
+  .input-div{
+    width: 100% !important;
+    margin-left: 0;
+  }
 }
 
 /* animations */
