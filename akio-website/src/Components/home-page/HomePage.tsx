@@ -9,15 +9,17 @@ function HomePage(): JSX.Element {
                 <source src = {video} type = "video/mp4" />
             </video>
 
-            <NavBar />
+            <div>
+                <NavBar />
+                
+                <h1 className = 'main-text'>
+                    Akio
+                </h1>
 
-            <h1 className = 'main-text'>
-                Akio
-            </h1>
-
-            <h2 className = 'main-slogan'>
-                High quality embroidered streetwear
-            </h2>
+                <h2 className = 'main-slogan'>
+                    High quality embroidered streetwear
+                </h2>
+            </div>
         </div>
     );
 }
