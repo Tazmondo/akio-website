@@ -64,7 +64,7 @@ function DeleteItem() {
                             key={`${item.name}${item.frontImageUrl}${item.price}`}
                         />
 
-                        <button className = 'text-center admin-border delete-button mt-3 mb-3'
+                        <button className = 'text-center btn btn-danger btn-lg btn-block mt-1'
                                 onClick = {() => deleteItem(item)}>
                             Delete
                         </button>        
