@@ -43,27 +43,42 @@ function AdminPage({setLogInState} : AdminPageProps): JSX.Element{
                 Admin Login
             </h1>
 
-            <div className = 'input-div'>
-                <input type = 'text' 
-                       id = 'username' 
-                       className = 'input-element text-center' 
-                       placeholder = 'Username'
-                       onChange = {event => setUsername(event.target.value)}>
-                </input>
+            <div style = {{width: '80vw'}} className = 'text-center input-div'>
+                    <div className='form-group'>
+                        <label htmlFor ='username' className = 'description-text'>Username</label>
 
-                <input type = 'password' 
-                       id = 'password' 
-                       className = 'input-element text-center' 
-                       placeholder = 'Password'
-                       onChange = {event => setPassword(event.target.value)}>
-                </input>
-                
-                <button className = 'login-button text-center mt-5' onClick = {loginRequest}>
-                    <p>
-                        Login
-                    </p>
-                </button>
-            </div>
+                        <div className = 'mt-4 mb-4'>
+                            <input type = 'text' 
+                                id = 'username'
+                                className = 'form-control text-center' 
+                                placeholder ='Enter Username' 
+                                style = {{width: '40vw', display: 'inline-block'}}
+                                onChange = {event => setUsername(event.target.value)}
+                            />
+                        </div>
+                    </div>
+                    
+                    <div className = 'form-group'>
+                        <label htmlFor = 'password' className = 'description-text'>Password</label>
+                        
+                        <div className = 'mt-4 mb-4'>
+                            <input type = 'password' 
+                                className = 'form-control text-center' 
+                                id = 'password' 
+                                placeholder = 'Enter Password' 
+                                style = {{width: '40vw', display: 'inline-block'}}
+                                onChange = {event => setPassword(event.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    <button type = 'button' 
+                            className = 'btn btn-dark btn-lg mt-5' 
+                            style = {{width: '50vw'}}
+                            onClick = {loginRequest}>
+                                Login
+                    </button>
+            </div>    
         </div>
     );
 }
