@@ -44,6 +44,7 @@ function AdminPage({setLogInState} : AdminPageProps): JSX.Element{
             </h1>
 
             <div style = {{width: '80vw'}} className = 'text-center input-div'>
+                <form>
                     <div className='form-group'>
                         <label htmlFor ='username' className = 'description-text'>Username</label>
 
@@ -78,6 +79,7 @@ function AdminPage({setLogInState} : AdminPageProps): JSX.Element{
                             onClick = {loginRequest}>
                                 Login
                     </button>
+                </form>
             </div>    
         </div>
     );

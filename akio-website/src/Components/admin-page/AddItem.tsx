@@ -78,16 +78,87 @@ function AddItem() {
                            }).then(sendRequestCallback);
     }
 
-
+    // 
     return (
         <div className = 'text-center mt-5'>
-            <ul className="p-0">
+            <div style = {{width: '80vw'}} className = 'text-center input-div'>
+                <form>
+                    <div className='form-group'>
+                        <label htmlFor ='name' className = 'description-text'>Name</label>
+
+                        <div className = 'mt-4 mb-4'>
+                            <input type = 'text' 
+                                id = 'name'
+                                className = 'form-control text-center' 
+                                placeholder ='Enter name' 
+                                style = {{width: '40vw', display: 'inline-block'}}
+                                onChange = {event => setName(event.target.value)}
+                            />
+                        </div>
+                    </div>
+                    
+                    <div className = 'form-group'>
+                        <label htmlFor = 'stock' className = 'description-text'>Stock</label>
+                        
+                        <div className = 'mt-4 mb-4'>
+                            <input type = 'number' 
+                                className = 'form-control text-center' 
+                                id = 'stock' 
+                                placeholder = 'Item Stock' 
+                                style = {{width: '40vw', display: 'inline-block'}}
+                                onChange = {event => setStock(event.target.value as unknown as number)}
+                            />
+                        </div>
+                    </div>
+
+
+                    <div className = 'form-group'>
+                        <label htmlFor = 'price' className = 'description-text'>Price</label>
+                        
+                        <div className = 'mt-4 mb-4'>
+                            <input type = 'number' 
+                                className = 'form-control text-center' 
+                                id = 'price' 
+                                placeholder = 'Enter Price (Pence)' 
+                                style = {{width: '40vw', display: 'inline-block'}}
+                                onChange = {event => setPrice(event.target.value as unknown as number)}
+                            />
+                        </div>
+                    </div>
+
+
+                    {/* TODO: Finish converison to botstrap form */}
+                    <div className = 'form-group'>
+                        <button>
+
+                        </button>
+                    </div>
+
+
+                    <div className = 'form-group'>
+                        <button>
+                        </button>
+                    </div>
+
+
+
+                    <button type = 'button' 
+                            className = 'btn btn-dark btn-lg mt-5' 
+                            style = {{width: '50vw'}}
+                            onClick = {sendRequest}>
+                                Add Item
+                    </button>
+                </form>
+            </div>
+
+
+            {/* <ul className="p-0">
                 <li>
                     <input className = 'admin-border item-input mt-3' 
                            type = 'text' 
                            id = 'item-name' 
                            placeholder = 'Item name'
-                           onChange = {event => setName(event.target.value)}>
+                           >
                     </input>
                 </li>
 
@@ -136,14 +207,14 @@ function AddItem() {
                         </div>
                     }
                 </li>
-            </ul>
+            </ul> */}
 
 
-            <div className = 'mt-5 text-center ml-3'>
+            {/* <div className = 'mt-5 text-center ml-3'>
                 <button onClick = {sendRequest} className = 'admin-border submit-add-item-button'>
                     Add
                 </button>
-            </div>
+            </div> */}
 
 
             {showAlert && 
