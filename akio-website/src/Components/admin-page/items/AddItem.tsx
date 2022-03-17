@@ -4,15 +4,6 @@ import RequestHandler from '../../request-handler/RequestHandler';
 
 
 
-function openFileDialog(isFront : boolean){
-    const fileInput = document.getElementById(`${isFront ? 'front' : 'back'}-image-input`);
-
-    if (fileInput){
-        fileInput.click();
-    }
-}
-
-
 function AddItem() {
     // store user inputs when adding new items
     const [itemName, setName] = useState<string>('');
@@ -78,95 +69,96 @@ function AddItem() {
                            }).then(sendRequestCallback);
     }
 
-
+    
     return (
-        <div className = 'text-center mt-5'>
-            <ul className="p-0">
-                <li>
-                    <input className = 'admin-border item-input mt-3' 
-                           type = 'text' 
-                           id = 'item-name' 
-                           placeholder = 'Item name'
-                           onChange = {event => setName(event.target.value)}>
-                    </input>
-                </li>
+        <div className = 'text-center'>
+            <div style = {{width: '60vw'}} className = 'text-center input-div'>
+                <form>
+                    <div className='form-group'>
+                        {/* item name input */}
+                        <label htmlFor ='name' className = 'description-text'>Name</label>
 
-                <li>
-                    <input className = 'admin-border item-input mt-3' 
-                           type = 'number' 
-                           id = 'item-stock' 
-                           placeholder = 'Item stock'
-                           onChange = {event => setStock(event.target.value as unknown as number)}>        
-                    </input>
-                </li>
-
-                <li>
-                    <input className = 'admin-border item-input mt-3' 
-                           type = 'number' 
-                           id = 'price' 
-                           placeholder = 'Price (pence)'
-                           onChange = {event => setPrice(event.target.value as unknown as number)}>
-                    </input>
-                </li>
-
-                <li>
-                    <button className = 'mt-5 admin-border admin-image-input-button' onClick = {() => openFileDialog(true)}>
-                        Add front image
-                    </button>
-                </li>
-
-                <li className = 'text-center' style = {{width: '100%'}}>
-                    {frontImageUrl !== '' &&
-                        <div className = 'input-image-div admin-border mt-3 text-center'>
-                            <img src = {frontImageUrl} alt = 'front' className = 'text-center'/>
+                        <div className = 'mt-4 mb-4'>
+                            <input type = 'text' 
+                                id = 'name'
+                                className = 'form-control text-center' 
+                                placeholder ='Enter name' 
+                                style = {{width: '40vw', display: 'inline-block'}}
+                                onChange = {event => setName(event.target.value)}
+                            />
                         </div>
-                    }
-                </li>
+                    </div>
 
-                <li>
-                    <button className = 'mt-3 admin-border admin-image-input-button' onClick = {() => openFileDialog(false)}>
-                        Add back image
-                    </button>
-                </li>
-
-                <li>
-                    {backImageUrl !== '' &&
-                        <div className = 'input-image-div admin-border text-center mt-3'>
-                            <img src = {backImageUrl} alt = 'back' />
+                    {/* stock size input */}
+                    <div className = 'form-group'>
+                        <label htmlFor = 'stock' className = 'description-text'>Stock</label>
+                        
+                        <div className = 'mt-4 mb-4'>
+                            <input type = 'number' 
+                                className = 'form-control text-center' 
+                                id = 'stock' 
+                                placeholder = 'Item Stock' 
+                                style = {{width: '40vw', display: 'inline-block'}}
+                                onChange = {event => setStock(event.target.value as unknown as number)}
+                            />
                         </div>
-                    }
-                </li>
-            </ul>
+                    </div>
+
+                    {/* item price input */}
+                    <div className = 'form-group'>
+                        <label htmlFor = 'price' className = 'description-text'>Price</label>
+                        
+                        <div className = 'mt-4 mb-4'>
+                            <input type = 'number' 
+                                className = 'form-control text-center' 
+                                id = 'price' 
+                                placeholder = 'Enter Price (Pence)' 
+                                style = {{width: '40vw', display: 'inline-block'}}
+                                onChange = {event => setPrice(event.target.value as unknown as number)}
+                            />
+                        </div>
+                    </div>
 
 
-            <div className = 'mt-5 text-center ml-3'>
-                <button onClick = {sendRequest} className = 'admin-border submit-add-item-button'>
-                    Add
-                </button>
+                    {/* front image input */}
+                    <div className = 'form-group mt-3'>
+                        <label htmlFor = 'front-image-input' className = 'form-label description-text'>Choose front image</label>
+                        <input className = 'form-control' 
+                               type = 'file' 
+                               id = 'front-image-input'
+                               accept = 'image/x-png,image/gif,image/jpeg' 
+                               onChange = {(e) => loadFile(e, true)}
+                        />
+                    </div>
+
+                    {/* back image input */}
+                    <div className = 'form-group'>
+                        <label htmlFor = 'back-image-input' className = 'form-label description-text'>Choose back image</label>
+                        <input className = 'form-control' 
+                                type = 'file' 
+                                id = 'back-image-input'
+                                accept = 'image/x-png,image/gif,image/jpeg' 
+                                onChange = {(e) => loadFile(e, false)}
+                        />
+                    </div>
+
+
+                    {/* submit button */}
+                    <button type = 'button' 
+                            className = 'btn btn-dark btn-lg mt-5' 
+                            style = {{width: '50vw'}}
+                            onClick = {sendRequest}>
+                                Add Item
+                    </button>
+                </form>
             </div>
 
 
             {showAlert && 
-                <CDBAlert color = {isSuccess ? 'success' : 'danger'} className = 'mt-3'>
+                <CDBAlert color = {isSuccess ? 'success' : 'danger'} className = 'mt-3 text-center'>
                     {alertMessage}
                 </CDBAlert>
             }
-
-            <input type='file' 
-                    name = 'front-image-input' 
-                    id = 'front-image-input' 
-                    accept = 'image/x-png,image/gif,image/jpeg' 
-                    onChange = {(e) => loadFile(e, true)}  
-                    hidden
-            />
-
-            <input type='file' 
-                    name = 'back-image-input' 
-                    id = 'back-image-input' 
-                    accept = 'image/x-png,image/gif,image/jpeg' 
-                    onChange = {(e) => loadFile(e, false)}  
-                    hidden
-            />
         </div>
     );
 }

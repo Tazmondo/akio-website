@@ -44,7 +44,6 @@ function SideBar({setPage} : sideBarProps) {
                     <CDBSidebarMenu>
                         <CDBSidebarMenuItem icon = 'columns' onClick = {() => setPage('items')}>Items</CDBSidebarMenuItem>
                         <CDBSidebarMenuItem icon = 'user' onClick = {() => setPage('admins')}>Admin Accounts</CDBSidebarMenuItem>
-                        <CDBSidebarMenuItem icon='chart-line' onClick = {() => setPage('sales')}>Sales</CDBSidebarMenuItem>
                     </CDBSidebarMenu>
                 </CDBSidebarContent>
 
