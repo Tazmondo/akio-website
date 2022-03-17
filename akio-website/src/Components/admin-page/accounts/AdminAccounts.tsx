@@ -13,13 +13,13 @@ function AdminAccounts() {
                 Admin Accounts
             </h1>
 
-            <div className = 'item-buttons-div'>
-                <button className = {`mt-5 mr-3 admin-border admin-button ${action === 'add' && 'selected'}`} 
+            <div className = 'item-buttons-div pt-5'>
+                <button className = {`btn btn-${action === 'add' ? 'dark' : 'light'} btn-lg active`} 
                         onClick = {() => setAction('add')}>
                     Create Admin
                 </button>
 
-                <button className = {`mt-5 mr-3 admin-border admin-button ${action === 'delete' && 'selected'}`} 
+                <button className = {`btn btn-${action === 'delete' ? 'dark' : 'light'} btn-lg active`}
                         onClick = {() => setAction('delete')}>
                     Delete Admin
                 </button>

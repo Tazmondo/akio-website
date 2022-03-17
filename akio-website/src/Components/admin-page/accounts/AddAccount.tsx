@@ -54,44 +54,53 @@ function AddAccount() {
 
     return (
         <div>
-            <div className = 'text-center mt-5 pt-5'>
-                <ul className = 'p-0'>
-                    <li>
-                        <input className = 'admin-border item-input mt-3'
-                               type = 'text'
-                               id = 'username'
-                               placeholder = 'Username'
-                               onChange = {event => setUsername(event.target.value)}>
-                        </input>
-                    </li>
+            <div style = {{width: '60vw'}} className = 'text-center input-div'>
+                <form>
+                    <div className='form-group'>
+                        <label htmlFor ='username' className = 'description-text'>Username</label>
 
-                    <li>
-                        <input className = 'admin-border item-input mt-3'
-                               type = 'password'
-                               id = 'password'
-                               placeholder = 'Password'
-                               onChange = {event => setPassword(event.target.value)}>
-                        </input>
-                    </li>
+                        <div className = 'mt-4 mb-4'>
+                            <input type = 'text' 
+                                id = 'username'
+                                className = 'form-control text-center' 
+                                placeholder ='Enter Username' 
+                                style = {{width: '40vw', display: 'inline-block'}}
+                                onChange = {event => setUsername(event.target.value)}
+                            />
+                        </div>
+                    </div>
+                    
+                    <div className = 'form-group'>
+                        <label htmlFor = 'password' className = 'description-text'>Password</label>
+                        
+                        <div className = 'mt-4 mb-4'>
+                            <input type = 'password' 
+                                className = 'form-control text-center' 
+                                id = 'password' 
+                                placeholder = 'Enter Password' 
+                                style = {{width: '40vw', display: 'inline-block'}}
+                                onChange = {event => setPassword(event.target.value)}
+                            />
+                        </div>
+                    </div>
 
-                    <li>
-                        <button className = 'mt-5 admin-border submit-add-item-button'
-                                onClick = {createAccount}>
-                            Create
-                        </button>
-                    </li>
-                </ul>
+                    <button type = 'button' 
+                            className = 'btn btn-dark btn-lg mt-5' 
+                            style = {{width: '50vw'}}
+                            onClick = {createAccount}>
+                                Create Account
+                    </button>
+                </form>
+            </div>
 
-                <div className = 'mt-5'>
-                    {showAlert &&
-                            <CDBAlert color = {isSuccess ? 'success' : 'danger'}>
+            <div className = 'mt-5'>
+                {showAlert &&
+                            <CDBAlert color = {isSuccess ? 'success' : 'danger'} className = 'text-center'>
                                 {alertMessage}
                             </CDBAlert>
-                    }
-                </div>
+                }
             </div>
-        </div>
-
+        </div>    
     );
 }
 

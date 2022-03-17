@@ -1,7 +1,7 @@
 import SideBar from "./SideBar";
 import {useState} from 'react';
-import Items from "./Items";
-import AdminAccounts from "./AdminAccounts";
+import Items from "./items/Items";
+import AdminAccounts from "./accounts/AdminAccounts";
 import Sales from "./Sales";
 
 
@@ -16,10 +16,8 @@ function AdminDashBoard() {
             <div className = 'admin-content-wrapper'>
                 {adminPage === 'items' ?
                     <Items />
-                : adminPage === 'admins' ?
+                : adminPage === 'admins' &&
                     <AdminAccounts />
-                : adminPage === 'sales' && 
-                    <Sales /> 
                 }
             </div>
         </div>
