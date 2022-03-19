@@ -190,7 +190,11 @@ ul {
 }
 
 .admin-info-div{
-  display: inline-block;
+  display: flex;
+  justify-content: space-evenly;
+  background: white;
+  border-radius: 0.3rem;
+  width: 100%;
 }
 
 .admin-info-text{
