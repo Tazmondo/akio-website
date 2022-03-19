@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     BrowserRouter,
     Route,
@@ -8,7 +7,6 @@ import {
 import HomePage from './Components/home-page/HomePage';
 import ShopPage from "./Components/shop-page/ShopPage";
 import AboutPage from "./Components/about-page/AboutPage";
-import SocialMedia from "./Components/social-media/SocialMedia";
 import SizeGuide from './Components/size-guide/SizeGuide';
 import AdminPage from './Components/admin-page/AdminPage';
 import ItemContext from "./Components/item-context/ItemContext";
@@ -34,7 +32,6 @@ function App(): JSX.Element {
                         </Routes>
                     </ItemContext>
                 </div>
-                <SocialMedia/>
             </ BrowserRouter>
 
     );
