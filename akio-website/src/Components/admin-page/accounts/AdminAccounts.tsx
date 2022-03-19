@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import AddAccount from './AddAccount';
 import DeleteAccount from './DeleteAccount';
 
@@ -16,12 +16,12 @@ function AdminAccounts() {
             <div className = 'item-buttons-div pt-5'>
                 <button className = {`btn btn-${action === 'add' ? 'dark' : 'light'} btn-lg active`} 
                         onClick = {() => setAction('add')}>
-                    Create Admin
+                    Create
                 </button>
 
                 <button className = {`btn btn-${action === 'delete' ? 'dark' : 'light'} btn-lg active`}
                         onClick = {() => setAction('delete')}>
-                    Delete Admin
+                    Delete
                 </button>
             </div>
 

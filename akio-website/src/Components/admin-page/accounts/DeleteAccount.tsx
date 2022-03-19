@@ -2,10 +2,6 @@ import {useState, useEffect} from 'react';
 import RequestHandler from '../../request-handler/RequestHandler';
 import { CDBAlert } from 'cdbreact';
 
-//TODO:
-//Add loading to page while admin accounts are fetched
-//Style admin info div 
-
 
 function DeleteAccount() {
     const [admins, setAdmins] = useState({});
@@ -30,10 +26,14 @@ function DeleteAccount() {
     }
 
 
-    function deleteAdminCallback(response : any){
+    function deleteAdminCallback(response : any, username : string){
         toggleAlert(true);
 
         if (response.success){
+            //update local context
+            delete admins[username];
+            setAdmins(admins);
+
             toggleSuccess(true);
             setMessage('Account deleted successfully');
         }else{
@@ -55,8 +55,11 @@ function DeleteAccount() {
             'username' : username
         }
 
-        RequestHandler.Post('api/admins', headers).then(
-            deleteAdminCallback
+        RequestHandler.Post('api/admins', headers)
+            .then((response) => {
+                deleteAdminCallback(response, username);
+            }
+                           
         )
     }
 
@@ -65,14 +68,14 @@ function DeleteAccount() {
 
 
     return (
-        <div>
+        <div className = 'mt-5'>
             {
                 Object.entries(admins).map(([username, data]) => {
                         return (
-                                <div className = 'col-sm-4 col-lg-4 col-xs-12 mt-4 text-center pt-5 admin-info-div'>
-                                    <p className = 'mt-3 admin-info-text'>Username: {username}</p>
+                                <div className = 'text-center pt-3 mt-1 admin-info-div'>
+                                    <p className = 'admin-info-text mt-2 text-center'>Username: {username}</p>
 
-                                    <button className = 'text-center admin-border delete-button mt-3 mb-3' onClick = {() => deleteAdmin(username)}>
+                                    <button className = 'btn btn-lg btn-danger mb-3 text-center' onClick = {() => deleteAdmin(username)}>
                                         Delete
                                     </button>
                                 </div>
