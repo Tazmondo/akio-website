@@ -1,11 +1,14 @@
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import { CDBAlert } from 'cdbreact';
 import RequestHandler from '../../request-handler/RequestHandler';
+import { ItemProps } from '../../item/Item';
+import { globalItemsContext } from '../../item-context/ItemContext';
 
 
 
 function AddItem() {
     // store user inputs when adding new items
+    const itemContext = useContext(globalItemsContext);
     const [itemName, setName] = useState<string>('');
     const [itemStock, setStock] = useState<number>(0);
     const [itemPrice, setPrice] = useState<number>(0);
@@ -33,10 +36,14 @@ function AddItem() {
     }   
 
 
-    function sendRequestCallback(response : any){
+    function sendRequestCallback(response : any, item : ItemProps){
         toggleAlert(true);
 
         if (response.success){
+            //update global context
+            itemContext.items.push(item);
+            
+            //show alert
             toggleSuccess(true);
             toggleMessage('Item added successfully');
         }else{
@@ -48,7 +55,7 @@ function AddItem() {
         window.scrollTo(0,document.body.scrollHeight);
 
         // hide alert after 3 seconds
-        setTimeout(() => toggleAlert(false), 3000);
+        setTimeout(() => toggleAlert(false), 2000);
     }
 
 
@@ -66,7 +73,7 @@ function AddItem() {
         RequestHandler.Post('api/items', 
                             {'operation' : 'ADD', 
                              'items' : [item]
-                           }).then(sendRequestCallback);
+                           }).then((response) => sendRequestCallback(response, item));
     }
 
     

@@ -12,16 +12,20 @@ import RequestHandler from '../../request-handler/RequestHandler';
 
 
 function DeleteItem() {
-    const itemsContext = useContext(globalItemsContext);
+    const itemContext = useContext(globalItemsContext);
     const [showAlert, toggleAlert] = useState<boolean>(false);
     const [alertMessage, toggleMessage]  = useState<string>('');
     const [isSuccess, toggleSuccess] = useState<boolean>(false);
 
 
-    function deleteItemCallback(response : any){
+    function deleteItemCallback(response : any, item : ItemProps){
         toggleAlert(true);
 
         if (response.success){
+            //update global context
+            const itemArray: ItemProps[] = itemContext.items
+            itemArray.splice(itemArray.indexOf(item), 1);
+            
             toggleSuccess(true);
             toggleMessage('Item deleted successfuly');
         }else{
@@ -46,13 +50,13 @@ function DeleteItem() {
         RequestHandler.Post('api/items', 
                             {'items' : [targetItem], 
                              'operation' : 'DELETE'
-                            }).then(deleteItemCallback);
+                            }).then((response) => deleteItemCallback(response, item));
     }
     
 
     return (
         <div>
-            {itemsContext.items.map((item) => {
+            {itemContext.items.map((item) => {
                 return (
                     <div className = 'col-sm-4 col-lg-4 col-xs-12 mt-4 text-center pt-5' style = {{display : 'inline-block'}}>
                         <Item
@@ -74,7 +78,7 @@ function DeleteItem() {
 
             {showAlert && 
                 <CDBAlert color = {isSuccess ? 'success' : 'danger'}
-                          className = 'mt-3'>
+                          className = 'mt-3 text-center'>
                     {alertMessage}
                 </CDBAlert>
             }

@@ -16,12 +16,15 @@ const initialContext = {
     itemNameMap: {}
 } as itemContextInterface
 
+
+
+
 const globalItemsContext: React.Context<itemContextInterface> = React.createContext(initialContext)
 
 function ItemContext(props) {
     const [localContext, setLocalContext] = useState(initialContext)
-
-    useEffect(() => {
+    
+    function updateContext(){
         RequestHandler.Get("api/items").then(res => {
             if (res.success) {
                 setLocalContext({status: "success", items: Object.values(res.items), itemNameMap: res.items})
@@ -35,7 +38,9 @@ function ItemContext(props) {
                 setLocalContext({status: "failed", items: [], itemNameMap: {}})
             }
         )
-    }, [])
+    }
+
+    useEffect(updateContext, []);
 
     return <globalItemsContext.Provider value={localContext}>
         {props.children}
