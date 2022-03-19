@@ -48,9 +48,10 @@ function SideBar({setPage} : sideBarProps) {
                 </CDBSidebarContent>
 
                 <CDBSidebarFooter className = 'text-center mb-3'>
-                    <CDBBtn color = 'danger' onClick = {logout}>
-                        Logout
-                    </CDBBtn>
+                    <CDBSidebarMenuItem icon = 'arrow-right' 
+                                        onClick = {logout}>
+                        Log Out
+                    </CDBSidebarMenuItem>
                 </CDBSidebarFooter>
             </CDBSidebar>
         </div>
