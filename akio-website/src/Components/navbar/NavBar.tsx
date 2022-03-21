@@ -1,9 +1,18 @@
 import NavBarItem from "./NavBarItem";
 import Logo from "../../assets/logo.png";
+import {useEffect, useState} from "react";
+import RequestHandler from "../request-handler/RequestHandler";
 
 
 
 function NavBar(): JSX.Element {
+    const [admin, setAdmin] = useState(false)
+
+    // Fetch admin status
+    useEffect(() => {
+        RequestHandler.Get('/api/admin-page').then(res => setAdmin(res.success))
+    }, [])
+
     return (
             <nav className = 'navbar navbar-expand-lg navbar-light'>
                 <a className='navbar-brand' href='/'>
@@ -20,6 +29,7 @@ function NavBar(): JSX.Element {
                         <NavBarItem path = '/shopping-page' name = 'Shop' />
                         <NavBarItem path = '/about-us' name = 'About Us' />
                         <NavBarItem path = '/sizes' name = 'Size Guide' />
+                        {admin ? <NavBarItem path='/admin' name='Admin'/> : <></>}
                     </ul>
                 </div>
             </nav>

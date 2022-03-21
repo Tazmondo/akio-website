@@ -33,6 +33,10 @@ function SideBar({setPage} : sideBarProps) {
         )
     }
 
+    function home() {
+        navigate('/')
+    }
+
     return (
         <div style = {{ display: 'flex', minHeight: '100vh', overflow: 'scroll initial' }}>
             <CDBSidebar textColor='#fff' backgroundColor = '#333'>
@@ -47,6 +51,7 @@ function SideBar({setPage} : sideBarProps) {
                     </CDBSidebarMenu>
 
                     <CDBSidebarMenu>
+                        <CDBSidebarMenuItem icon = 'arrow-right' onClick = {home}>Back to homepage</CDBSidebarMenuItem>
                         <CDBSidebarMenuItem icon = 'arrow-right' onClick = {logout}>Log Out</CDBSidebarMenuItem>
                     </CDBSidebarMenu>
                 </CDBSidebarContent>
