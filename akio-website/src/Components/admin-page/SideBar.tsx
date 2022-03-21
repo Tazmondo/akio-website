@@ -45,13 +45,14 @@ function SideBar({setPage} : sideBarProps) {
                         <CDBSidebarMenuItem icon = 'columns' onClick = {() => setPage('items')}>Items</CDBSidebarMenuItem>
                         <CDBSidebarMenuItem icon = 'user' onClick = {() => setPage('admins')}>Admin Accounts</CDBSidebarMenuItem>
                     </CDBSidebarMenu>
+
+                    <CDBSidebarMenu>
+                        <CDBSidebarMenuItem icon = 'arrow-right' onClick = {logout}>Log Out</CDBSidebarMenuItem>
+                    </CDBSidebarMenu>
                 </CDBSidebarContent>
 
                 <CDBSidebarFooter className = 'text-center mb-3'>
-                    <CDBSidebarMenuItem icon = 'arrow-right' 
-                                        onClick = {logout}>
-                        Log Out
-                    </CDBSidebarMenuItem>
+
                 </CDBSidebarFooter>
             </CDBSidebar>
         </div>
