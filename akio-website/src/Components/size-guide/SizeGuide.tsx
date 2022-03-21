@@ -11,7 +11,7 @@ function SizeGuide() : JSX.Element{
 
 
             <p className = 'description-text text-center mt-5'>
-                Comming soon...
+                Coming soon...
             </p>
         </div>
 
