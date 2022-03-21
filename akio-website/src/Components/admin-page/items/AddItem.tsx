@@ -85,7 +85,7 @@ function AddItem() {
                         {/* item name input */}
                         <label htmlFor ='name' className = 'description-text'>Name</label>
 
-                        <div className = 'mt-4 mb-4'>
+                        <div className = 'mt-2 mb-2'>
                             <input type = 'text' 
                                 id = 'name'
                                 className = 'form-control text-center' 
@@ -100,7 +100,7 @@ function AddItem() {
                     <div className = 'form-group'>
                         <label htmlFor = 'stock' className = 'description-text'>Stock</label>
                         
-                        <div className = 'mt-4 mb-4'>
+                        <div className = 'mt-2 mb-2'>
                             <input type = 'number' 
                                 className = 'form-control text-center' 
                                 id = 'stock' 
@@ -115,7 +115,7 @@ function AddItem() {
                     <div className = 'form-group'>
                         <label htmlFor = 'price' className = 'description-text'>Price</label>
                         
-                        <div className = 'mt-4 mb-4'>
+                        <div className = 'mt-2 mb-2'>
                             <input type = 'number' 
                                 className = 'form-control text-center' 
                                 id = 'price' 

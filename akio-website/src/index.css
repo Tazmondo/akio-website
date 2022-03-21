@@ -128,13 +128,13 @@ ul {
 }
 
 .input-div{
-  margin-top: 16vh;
+  margin-top: 2em;
   width: 80vw;
   margin-left: 10vw;
   background: white;
   border-radius: 0.5vw;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
+  padding-top: 2em;
+  padding-bottom: 2em;
 }
 
 .input-element{
