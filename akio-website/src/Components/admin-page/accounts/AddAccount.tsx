@@ -29,9 +29,9 @@ function AddAccount() {
 
 
     function createAccount(){
-        if (username.length < 4 || password.length < 7){
+        if (username.length < 2 || password.length < 4){
             toggleAlert(true);
-            setMessage('Enter at least 4 characters for the username and 7 characters for the password')
+            setMessage('Enter at least 2 characters for the username and 4 characters for the password')
 
             window.scrollTo(0,document.body.scrollHeight);
             setTimeout(() => toggleAlert(false), 3000);

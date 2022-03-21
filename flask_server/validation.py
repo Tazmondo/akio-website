@@ -13,10 +13,10 @@ def validate_admin_post(json_data):
         username = json_data.get('username')
         password = json_data.get('password')
 
-        if username is None or type(username) is not str:
+        if username is None or type(username) is not str or username == "":
             return False
 
-        if password is None or type(password) is not str:
+        if password is None or type(password) is not str or password == "":
             return False
 
         return True
