@@ -90,7 +90,6 @@ function AddItem() {
                                 id = 'name'
                                 className = 'form-control text-center' 
                                 placeholder ='Enter name' 
-                                style = {{width: '40vw', display: 'inline-block'}}
                                 onChange = {event => setName(event.target.value)}
                             />
                         </div>
@@ -105,7 +104,6 @@ function AddItem() {
                                 className = 'form-control text-center' 
                                 id = 'stock' 
                                 placeholder = 'Item Stock' 
-                                style = {{width: '40vw', display: 'inline-block'}}
                                 onChange = {event => setStock(event.target.value as unknown as number)}
                             />
                         </div>
@@ -120,7 +118,6 @@ function AddItem() {
                                 className = 'form-control text-center' 
                                 id = 'price' 
                                 placeholder = 'Enter Price (Pence)' 
-                                style = {{width: '40vw', display: 'inline-block'}}
                                 onChange = {event => setPrice(event.target.value as unknown as number)}
                             />
                         </div>
@@ -130,23 +127,28 @@ function AddItem() {
                     {/* front image input */}
                     <div className = 'form-group mt-3'>
                         <label htmlFor = 'front-image-input' className = 'form-label description-text'>Choose front image</label>
-                        <input className = 'form-control' 
+
+                        <div className = 'mt-2 mb-2'>
+                            <input className = 'form-control'
                                type = 'file' 
                                id = 'front-image-input'
                                accept = 'image/x-png,image/gif,image/jpeg' 
                                onChange = {(e) => loadFile(e, true)}
-                        />
+                            />
+                        </div>
                     </div>
 
                     {/* back image input */}
                     <div className = 'form-group'>
                         <label htmlFor = 'back-image-input' className = 'form-label description-text'>Choose back image</label>
-                        <input className = 'form-control' 
-                                type = 'file' 
-                                id = 'back-image-input'
-                                accept = 'image/x-png,image/gif,image/jpeg' 
-                                onChange = {(e) => loadFile(e, false)}
-                        />
+                        <div className = 'mt-2 mb-2'>
+                            <input className = 'form-control'
+                                   type = 'file'
+                                   id = 'back-image-input'
+                                   accept = 'image/x-png,image/gif,image/jpeg'
+                                   onChange = {(e) => loadFile(e, false)}
+                            />
+                        </div>
                     </div>
 
 

@@ -147,6 +147,11 @@ ul {
   color: white;
 }
 
+input.form-control {
+  width: 40vw;
+  display: inline-block;
+}
+
 .options-wrapper{
   display: flex;
   justify-content: center;
