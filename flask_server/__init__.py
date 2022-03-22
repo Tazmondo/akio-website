@@ -10,9 +10,9 @@ app = Flask(__name__)
 # app.config['DEBUG'] = True  Set FLASK_ENV to 'development' instead of setting this
 app.config['SECRET_KEY'] = environ['SECRET_KEY']  # Set environment variable
 app.config['JSON_SORT_KEYS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 
 devMode = False
+dbUrl = 'sqlite:///production.db'
 
 if app.config['ENV'] == 'development':
     devMode = True
@@ -21,7 +21,10 @@ if app.config['ENV'] == 'development':
 if devMode:  # In production, assume that api and front-end at same url.
              # Therefore CORS config not needed
     cors = CORS(app, supports_credentials = True)
+    dbUrl = 'sqlite:///test.db'
 
+
+app.config['SQLALCHEMY_DATABASE_URI'] = dbUrl
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
