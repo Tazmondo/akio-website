@@ -29,6 +29,7 @@ function NavBar(): JSX.Element {
                         <NavBarItem path = '/shopping-page' name = 'Shop' />
                         <NavBarItem path = '/about-us' name = 'About Us' />
                         <NavBarItem path = '/sizes' name = 'Size Guide' />
+                        <NavBarItem path = '/cart' name = 'Cart' />
                         {admin ? <NavBarItem path='/admin' name='Admin'/> : <></>}
                     </ul>
                 </div>
