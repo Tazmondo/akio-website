@@ -1,5 +1,6 @@
 from flask import Flask
 from os import environ
+from os.path import isfile
 
 from flask_cors import CORS
 from flask_bcrypt import Bcrypt
@@ -12,7 +13,8 @@ app.config['SECRET_KEY'] = environ['SECRET_KEY']  # Set environment variable
 app.config['JSON_SORT_KEYS'] = False
 
 devMode = False
-dbUrl = 'sqlite:///production.db'
+dbFile = 'production.db'
+newDb = True
 
 if app.config['ENV'] == 'development':
     devMode = True
@@ -21,13 +23,22 @@ if app.config['ENV'] == 'development':
 if devMode:  # In production, assume that api and front-end at same url.
              # Therefore CORS config not needed
     cors = CORS(app, supports_credentials = True)
-    dbUrl = 'sqlite:///test.db'
+    dbFile = 'test.db'
 
+if isfile(dbFile):
+    newDb = False
 
-app.config['SQLALCHEMY_DATABASE_URI'] = dbUrl
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + dbFile
 
 db = SQLAlchemy(app)
+
+from flask_server import models
+
+if newDb:  # If database does not already exists then set it up with necessary tables
+    print("Setting up new database")
+    db.create_all()
+
+
 bcrypt = Bcrypt(app)
 
 from flask_server import views
-from flask_server import models
