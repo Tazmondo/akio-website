@@ -1,10 +1,14 @@
-from flask import request, session
+from flask import request, session, send_from_directory
 from flask_server import app, db, bcrypt
 from flask_server.auth import admin_required
 from flask_server.models import User, Item
 from flask_server.responses import new_response
 from flask_server.validation import validate_admin_post, validate_item_post
 
+
+@app.route('/')      # Hopefully this does not conflict with any other api route matching
+def serve_react():   # Also ideally the WGSI (probably waitress) will serve the static files so this is temporary
+    return send_from_directory('./build', 'index.html')
 
 
 @app.route('/api/home', methods = ['GET'])

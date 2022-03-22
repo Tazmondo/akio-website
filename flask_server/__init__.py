@@ -6,7 +6,7 @@ from flask_cors import CORS
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='./build')
 
 # app.config['DEBUG'] = True  Set FLASK_ENV to 'development' instead of setting this
 app.config['SECRET_KEY'] = environ['SECRET_KEY']  # Set environment variable
