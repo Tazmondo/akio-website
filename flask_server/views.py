@@ -5,8 +5,7 @@ from flask_server.models import User, Item
 from flask_server.responses import new_response
 from flask_server.validation import validate_admin_post, validate_item_post
 
-
-@app.route('/')      # Hopefully this does not conflict with any other api route matching
+@app.errorhandler(404) # idk of a better way to do this
 def serve_react():   # Also ideally the WGSI (probably waitress) will serve the static files so this is temporary
     return send_from_directory('./build', 'index.html')
 
