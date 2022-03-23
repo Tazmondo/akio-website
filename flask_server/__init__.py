@@ -25,7 +25,7 @@ if devMode:  # In production, assume that api and front-end at same url.
     cors = CORS(app, supports_credentials = True)
     dbFile = 'test.db'
 
-if isfile(dbFile):
+if isfile('flask_server/'+dbFile):
     newDb = False
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + dbFile
@@ -35,7 +35,7 @@ db = SQLAlchemy(app)
 from flask_server import models
 
 if newDb:  # If database does not already exists then set it up with necessary tables
-    print("Setting up new database")
+    print("\nSetting up new database\n")
     db.create_all()
 
 
