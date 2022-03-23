@@ -16,6 +16,7 @@ class Item(db.Model):
     name = db.Column(db.String, nullable=False, unique=True)
     frontImageUrl = db.Column(db.String)  # Could there possibly be an item without any thumbnail?
     backImageUrl = db.Column(db.String)  # Should only be present if there is a front-image
+    price = db.Column(db.Integer, nullable=False)  # Price in pence
 
     sizes = db.relationship('child', backref = 'item', lazy = 'dynamic')
 
@@ -32,7 +33,6 @@ class Item(db.Model):
 class ItemSize(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     size = db.Colum(db.String, nullable = False)
-    price = db.Column(db.Integer, nullable=False)  # Price in pence
     stock = db.Column(db.Integer, nullable=False)
-
+    
     itemId = db.Column(db.Integer, db.ForeignKey('item.id'), nullable = False)

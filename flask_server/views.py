@@ -114,6 +114,7 @@ def api_login():
             return new_response(False, "User not found")
 
 
+
 @app.route('/api/logout', methods = ['GET', 'POST'])
 def api_logout():
     prevName = session.get('username')
@@ -122,6 +123,7 @@ def api_logout():
         return new_response(True, f"Logged out of {prevName}")
     else:
         return new_response(False, "Already logged out")
+
 
 
 @app.route('/api/items', methods = ['GET', 'POST'])
