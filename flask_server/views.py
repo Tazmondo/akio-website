@@ -6,7 +6,7 @@ from flask_server.responses import new_response
 from flask_server.validation import validate_admin_post, validate_item_post
 
 @app.errorhandler(404) # idk of a better way to do this
-def serve_react():   # Also ideally the WGSI (probably waitress) will serve the static files so this is temporary
+def serve_react(e):   # Also ideally the WGSI (probably waitress) will serve the static files so this is temporary
     return send_from_directory('./build', 'index.html')
 
 
