@@ -1,7 +1,7 @@
 from flask import request, session, send_from_directory
 from flask_server import app, db, bcrypt
 from flask_server.auth import admin_required
-from flask_server.models import User, Item
+from flask_server.models import User, Item, ItemSize
 from flask_server.responses import new_response
 from flask_server.validation import validate_admin_post, validate_item_post
 
@@ -155,12 +155,18 @@ def api_items():
             for itemObject in itemObjects:
                 newItem = Item(
                     name = itemObject['name'],
-                    stock = itemObject['stock'],
                     frontImageUrl = itemObject['frontImageUrl'],
                     backImageUrl = itemObject['backImageUrl'],
-                    price = itemObject['price']
+                    price = itemObject['price'],
+                    sizes = list(map(lambda sizeInput: ItemSize(
+                        size = sizeInput["size"],
+                        stock = sizeInput["stock"]
+                    ), itemObject["sizes"]))
                 )
-                db.session.add(newItem)
+                if Item.query.filter(Item.name == itemObject['name']).first() is None:
+                    db.session.add(newItem)
+                else:
+                    return new_response(False, f"Item of name {itemObject['name']} already exists.")
             db.session.commit()
 
             return new_response(True, f'Successfully added {len(itemObjects)} new items.')
@@ -168,14 +174,23 @@ def api_items():
 
     elif request.method == 'GET':
         items = Item.query.all()
-        output_dict = {item.name : {'stock' : item.stock,
-                                    'frontImageUrl' : item.frontImageUrl,
-                                    'backImageUrl' : item.backImageUrl,
-                                    'price' : item.price,
-                                    'name' : item.name  # Doesn't hurt to have this as a value as well
-                                    }
-                         for item in items
-                      }
+        output_dict = {
+            item.name : {
+                'frontImageUrl' : item.frontImageUrl,
+                'backImageUrl' : item.backImageUrl,
+                'price' : item.price,
+                'name' : item.name,  # Doesn't hurt to have this as a value as well,
+                'sizes': {
+                    size.size: {
+                        'size': size.size,
+                        'stock': size.stock,
+                    }
+                    for size in item.sizes
+                }
+
+            }
+            for item in items
+        }
         response = new_response(True, 'Fetched Items', items = output_dict)
         return response
     return ""

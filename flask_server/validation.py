@@ -59,15 +59,19 @@ def validate_item(itemDict):
         "price": int,
         "sizes": list
     }
-
     for key, classType in types.items():
         if type(itemDict.get(key, None)) is not classType:
             print(key)
             return False
 
-    for size in types["sizes"]:
+    doneSizes = {}
+    for size in itemDict["sizes"]:
         if not validate_item_size(size):
             return False
+
+        if size['size'] in doneSizes:  # Each item should not have more than one entity of a size.
+            return False
+        doneSizes[size['size']] = True
 
     return True
 
@@ -110,7 +114,8 @@ def validate_item_post(jsonData):
         if itemObjects is None or type(itemObjects) is not list:
             return False
 
-        return any(
-            map(lambda item: not validate_item(item), itemObjects))  # Return false if any element of list not valid
+        trueInvalids = map(lambda item: not validate_item(item), itemObjects)  # Return false if any element of list not valid
+
+        return not any(trueInvalids)
 
     return False  # operation not valid

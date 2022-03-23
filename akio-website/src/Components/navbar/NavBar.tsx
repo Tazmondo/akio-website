@@ -10,7 +10,7 @@ function NavBar(): JSX.Element {
 
     // Fetch admin status
     useEffect(() => {
-        RequestHandler.Get('/api/admin-page').then(res => setAdmin(res.success))
+        RequestHandler.Get('api/admin-page').then(res => setAdmin(res.success))
     }, [])
 
     return (

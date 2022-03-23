@@ -22,6 +22,7 @@ if app.config['ENV'] == 'development':
 
 if devMode:  # In production, assume that api and front-end at same url.
              # Therefore CORS config not needed
+    print("Devmode true.")
     cors = CORS(app, supports_credentials = True)
     dbFile = 'test.db'
 
