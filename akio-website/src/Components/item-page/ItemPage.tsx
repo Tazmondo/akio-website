@@ -1,9 +1,11 @@
 import React, {useContext} from 'react'
+import ReactDOM from 'react-dom'
 import {useParams} from "react-router-dom";
 import {globalItemsContext} from "../item-context/ItemContext";
 import ItemThumb from '../item/ItemThumb'
 import NavBar from "../navbar/NavBar";
 import {dashToSpace, priceIntToString} from "../Globals";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 
 // TODO: style size option drop down
@@ -34,30 +36,21 @@ function ItemPage(): JSX.Element {
                             <h3 className = 'text-muted'>{priceIntToString(item.price)}</h3>
                             
 
-                            <div className = 'mt-4'>
-                                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                                    <input type="hidden" name="cmd" value="_s-xclick" />
-                                    <input type="hidden" name="hosted_button_id" value="H2GNRZBN364AA" />
-                                    <input type="hidden" name="on0" value="Sizing" />
-                                    
-                                    <p style = {{fontSize: '1.2em'}}>Select size</p>
-                                    
-                                    <select name="os0">
-                                        <option value="Small">Small £40.00 GBP</option>
-                                        <option value="Medium">Medium £40.00 GBP</option>
-                                        <option value="Large">Large £40.00 GBP</option>
-                                    </select>
-                                    
-                                    <input type="hidden" name="currency_code" value="GBP"></input>
-
-                                    <button className = 'btn btn-light btn-block mt-5' name = 'submit'>
-                                        Buy Now
-                                    </button>
-                                    
-                                    <img alt=""  src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1"></img>
-                                </form>
-                            </div>
-
+                            <PayPalScriptProvider options={{ "client-id": "test", currency : 'USD', intent : 'capture'}}>
+                                <PayPalButtons
+                                    createOrder={(data, actions) => {
+                                        return actions.order.create({
+                                            purchase_units: [
+                                                {
+                                                    amount: {
+                                                        value: "1.99",
+                                                    },
+                                                },
+                                            ],
+                                        });
+                                    }}
+                                />
+                            </PayPalScriptProvider>
 
                             <div>
                                 <button className = 'btn btn-primary btn-block' style = {{display: 'inline-block'}}>
