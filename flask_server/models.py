@@ -18,7 +18,7 @@ class Item(db.Model):
     backImageUrl = db.Column(db.String)  # Should only be present if there is a front-image
     price = db.Column(db.Integer, nullable=False)  # Price in pence
 
-    sizes = db.relationship('child', backref = 'item', lazy = 'dynamic')
+    sizes = db.relationship('ItemSize', backref = 'item', lazy = 'dynamic')
 
 
 
@@ -30,9 +30,10 @@ class Item(db.Model):
     Using integers instead of strings because they are more space efficient
 '''
 
+
 class ItemSize(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    size = db.Colum(db.String, nullable = False)
+    size = db.Column(db.String, nullable = False)
     stock = db.Column(db.Integer, nullable=False)
     
     itemId = db.Column(db.Integer, db.ForeignKey('item.id'), nullable = False)
