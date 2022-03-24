@@ -28,7 +28,7 @@ function ItemContext(props) {
     const [localContext, setLocalContext] = useState(initialContext)
     
     function updateContext(){
-        const item = [{name : 'test', frontImageUrl: '/', backImageUrl: '/', price: 10000, stock: 5}];
+        const item = [{name : 'test', frontImageUrl: '/', backImageUrl: '/', price: 10000, sizes: [{size: 1, stock: 50}]}];
         setLocalContext({status: 'success', items : item, itemNameMap : {test : item[0]}, cart: []});
         // RequestHandler.Get("api/items").then(res => {
         //     if (res.success) {
