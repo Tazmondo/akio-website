@@ -11,6 +11,7 @@ import SizeGuide from './Components/size-guide/SizeGuide';
 import AdminPage from './Components/admin-page/AdminPage';
 import ItemContext from "./Components/item-context/ItemContext";
 import ItemPage from "./Components/item-page/ItemPage";
+import Cart from './Components/cart-page/Cart';
 
 
 
@@ -28,6 +29,7 @@ function App(): JSX.Element {
                             <Route path = "/items" element={<Outlet/>}>
                                 <Route path = ":name" element={<ItemPage/>}/>
                             </Route>
+                            <Route path = '/cart' element = {<Cart />} />
                             <Route path = "*" element = {<h1>Uh oh, this page doesn't exist!</h1>}/>
                         </Routes>
                     </ItemContext>
