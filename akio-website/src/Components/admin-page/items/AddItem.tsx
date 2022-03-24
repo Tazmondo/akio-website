@@ -1,7 +1,7 @@
 import {useContext, useState} from 'react';
 import { CDBAlert } from 'cdbreact';
 import RequestHandler from '../../request-handler/RequestHandler';
-import { ItemProps } from '../../item/Item';
+import {ItemProps, ItemSizes} from '../../item/Item';
 import { globalItemsContext } from '../../item-context/ItemContext';
 
 
@@ -10,10 +10,10 @@ function AddItem() {
     // store user inputs when adding new items
     const itemContext = useContext(globalItemsContext);
     const [itemName, setName] = useState<string>('');
-    const [itemStock, setStock] = useState<number>(0);
     const [itemPrice, setPrice] = useState<number>(0);
     const [frontImageUrl, setFrontImage] = useState<string>('');
     const [backImageUrl, setBackImage] = useState<string>('');
+    const [itemSizes, setItemSizes] = useState<ItemSizes[]>([])
     const [showAlert, toggleAlert] = useState<boolean>(false);
     const [isSuccess, toggleSuccess] = useState<boolean>(false);
     const [alertMessage, toggleMessage] = useState<string>('');
@@ -64,10 +64,10 @@ function AddItem() {
 
         const item = {
             'name' : itemName, 
-            'stock' : itemStock, 
-            'frontImageUrl' : frontImageUrl, 
+            'frontImageUrl' : frontImageUrl,
             'backImageUrl' : backImageUrl, 
-            'price' : itemPrice
+            'price' : itemPrice,
+            'sizes': itemSizes
         }
 
         RequestHandler.Post('api/items', 
@@ -104,7 +104,6 @@ function AddItem() {
                                 className = 'form-control text-center' 
                                 id = 'stock' 
                                 placeholder = 'Item Stock' 
-                                onChange = {event => setStock(event.target.value as unknown as number)}
                             />
                         </div>
                     </div>

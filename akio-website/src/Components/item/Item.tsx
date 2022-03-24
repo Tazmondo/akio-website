@@ -14,15 +14,18 @@ export const SIZES = {
 // But u need to rewrite all the parameters again in the function definition
 //
 // Also should we have hover to see back of clothing?
+
+export type ItemSizes = {
+    size: number,
+    stock: number
+}
+
 export type ItemProps = {
     name: string,
     frontImageUrl: string,
     backImageUrl: string,
     price: number,
-    sizes: [{
-        size: number,
-        stock: number
-    }]
+    sizes: ItemSizes[]
 }
 
 
