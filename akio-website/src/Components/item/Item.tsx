@@ -9,6 +9,12 @@ export const SIZES = {
     2: "Large"
 }
 
+export const REVERSESIZES = {
+    "Small": 0,
+    "Medium": 1,
+    "Large": 2
+}
+
 // Is this the right way to do this?
 // It looks neater than putting it in the function definition at least
 // But u need to rewrite all the parameters again in the function definition
