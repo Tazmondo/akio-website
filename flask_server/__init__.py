@@ -23,6 +23,7 @@ if app.config['ENV'] == 'development':
 
 if devMode:  # In production, assume that api and front-end at same url.
              # Therefore CORS config not needed
+    print("Devmode true.")
     cors = CORS(app, supports_credentials = True)
     dbFile = 'test.db'
 
@@ -34,14 +35,16 @@ print(dbFile)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + dbFile
 
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 from flask_server import models
 
 if newDb:  # If database does not already exists then set it up with necessary tables
     print("\nSetting up new database\n")
     db.create_all()
+    db.session.add(models.User(username = "admin", password = bcrypt.generate_password_hash(app.config['SECRET_KEY']).decode('utf-8'), admin = True))
+    db.session.commit()
 
 
-bcrypt = Bcrypt(app)
 
 from flask_server import views

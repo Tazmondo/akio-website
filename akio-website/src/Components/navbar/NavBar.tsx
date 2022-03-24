@@ -2,15 +2,19 @@ import NavBarItem from "./NavBarItem";
 import Logo from "../../assets/logo.png";
 import {useEffect, useState} from "react";
 import RequestHandler from "../request-handler/RequestHandler";
+import React, {useContext} from 'react';
+import {globalItemsContext} from "../item-context/ItemContext";
 
 
 
 function NavBar(): JSX.Element {
-    const [admin, setAdmin] = useState(false)
+    const [admin, setAdmin] = useState(false);
+    const itemContextGlobal = useContext(globalItemsContext);
+
 
     // Fetch admin status
     useEffect(() => {
-        RequestHandler.Get('/api/admin-page').then(res => setAdmin(res.success))
+        RequestHandler.Get('api/admin-page').then(res => setAdmin(res.success))
     }, [])
 
     return (
@@ -29,8 +33,8 @@ function NavBar(): JSX.Element {
                         <NavBarItem path = '/shopping-page' name = 'Shop' />
                         <NavBarItem path = '/about-us' name = 'About Us' />
                         <NavBarItem path = '/sizes' name = 'Size Guide' />
-                        <NavBarItem path = '/cart' name = 'Cart' />
-                        {admin ? <NavBarItem path='/admin' name='Admin'/> : <></>}
+                        {itemContextGlobal.cart.length > 0 && <NavBarItem path = '/cart' name = 'Cart' />}
+                        {admin && <NavBarItem path='/admin' name='Admin'/>}
                     </ul>
                 </div>
             </nav>

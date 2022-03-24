@@ -30,6 +30,7 @@ class Item(db.Model):
     Using integers instead of strings because they are more space efficient
 '''
 
+
 class ItemSize(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     size = db.Column(db.String, nullable = False)

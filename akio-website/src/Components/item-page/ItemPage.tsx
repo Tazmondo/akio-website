@@ -6,6 +6,7 @@ import ItemThumb from '../item/ItemThumb'
 import NavBar from "../navbar/NavBar";
 import {dashToSpace, priceIntToString} from "../Globals";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import {useNavigate} from 'react-router-dom';
 
 
 // TODO: style size option drop down
@@ -16,11 +17,19 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 function ItemPage(): JSX.Element {
     let params = useParams()
     let itemContextGlobal = useContext(globalItemsContext);
-    let itemContext = itemContextGlobal.itemNameMap
+    let itemContext = itemContextGlobal.itemNameMap;
+    let item = itemContext[dashToSpace(params.name as string)];
+    let content = <>You should not see this text!</>;
+    let navigate = useNavigate();
 
-    let item = itemContext[dashToSpace(params.name as string)]
 
-    let content = <>You should not see this text!</>
+    
+    function addToCart(){
+        itemContextGlobal.cart.push(item);
+        navigate('/shopping-page');
+    }
+
+
 
     if (itemContextGlobal.status !== "fetching") {
         if (item !== undefined || itemContextGlobal.status === "failed") {
@@ -53,7 +62,7 @@ function ItemPage(): JSX.Element {
                             </PayPalScriptProvider>
 
                             <div>
-                                <button className = 'btn btn-primary btn-block' style = {{display: 'inline-block'}}>
+                                <button className = 'btn btn-primary btn-block' style = {{display: 'inline-block'}} onClick = {addToCart}>
                                     Add to Cart
                                 </button>
                             </div>
