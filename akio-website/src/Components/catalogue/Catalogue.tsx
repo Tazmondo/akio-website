@@ -11,14 +11,14 @@ function Catalogue(): JSX.Element {
         if (itemsContext.status === "success") {
             return (
                 itemsContext.items.map((item) => {
-                    return <div className=" col-sm-6 col-lg-4 col-xs-12 mt-4">
+                    return <div className=" col-sm-6 col-lg-4 col-xs-12 mt-4" key={`${item.name}${item.frontImageUrl}${item.price}`}>
                         <Item
                             name={item.name}
                             frontImageUrl={item.frontImageUrl}
                             backImageUrl={item.backImageUrl}
                             price={item.price}
                             sizes={item.sizes}
-                            key={`${item.name}${item.frontImageUrl}${item.price}`}/>
+                            />
                     </div> // key parameter stops a warning
                 })
             )
