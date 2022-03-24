@@ -72,7 +72,7 @@ function DeleteAccount() {
             {
                 Object.entries(admins).map(([username, data]) => {
                         return (
-                                <div className = 'text-center pt-3 mt-1 admin-info-div'>
+                                <div className = 'text-center pt-3 mt-1 admin-info-div' key={username}>
                                     <p className = 'admin-info-text mt-2 text-center'>Username: {username}</p>
 
                                     <button className = 'btn btn-lg btn-danger mb-3 text-center' onClick = {() => deleteAdmin(username)}>
