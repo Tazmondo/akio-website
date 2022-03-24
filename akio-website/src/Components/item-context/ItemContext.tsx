@@ -6,15 +6,16 @@ import RequestHandler from "../request-handler/RequestHandler";
 
 interface itemContextInterface {
     status: "fetching" | "success" | "failed",
-    items: ItemProps[]
+    items: ItemProps[],
     itemNameMap: {[name: string]: ItemProps}
+    cart: ItemProps[]
 }
 
 const initialContext = {
     status: "fetching",
     items: [] as ItemProps[],
-    itemNameMap: {}, 
-    cart: [] as ItemProps
+    itemNameMap: {},
+    cart: [] as ItemProps[]
 } as itemContextInterface
 
 
