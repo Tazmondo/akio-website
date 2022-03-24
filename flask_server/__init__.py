@@ -11,7 +11,7 @@ app = Flask(__name__, static_url_path='', static_folder='./build')
 # app.config['DEBUG'] = True  Set FLASK_ENV to 'development' instead of setting this
 app.config['SECRET_KEY'] = environ['SECRET_KEY']  # Set environment variable
 app.config['JSON_SORT_KEYS'] = False
-app.config['ENV'] = 'development'
+# app.config['ENV'] = 'development'  # USE ENVIRONMENT VARIABLE FLASK_ENV AS 'development'
 
 devMode = False
 dbFile = 'production.db'
