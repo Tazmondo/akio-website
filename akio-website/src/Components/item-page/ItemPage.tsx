@@ -23,7 +23,7 @@ function ItemPage(): JSX.Element {
 
     
     function addToCart(){
-        itemContext.cart.push(item);
+        itemContextGlobal.cart.push(item);
         navigate('/shopping-page');
     }
 

@@ -7,7 +7,7 @@ import RequestHandler from "../request-handler/RequestHandler";
 interface itemContextInterface {
     status: "fetching" | "success" | "failed",
     items: ItemProps[],
-    itemNameMap: {[name: string]: ItemProps}
+    itemNameMap: {[name: string]: ItemProps},
     cart: ItemProps[]
 }
 
