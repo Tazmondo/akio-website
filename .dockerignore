@@ -1,0 +1,11 @@
+__pycache__
+production.db
+test.db
+.git
+.idea
+.run
+akio-website
+.gitignore
+Dockerfile
+Pipfile
+Pipfile.lock
