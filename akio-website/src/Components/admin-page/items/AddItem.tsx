@@ -67,7 +67,7 @@ function AddItem() {
             'name': itemName,
             'frontImageUrl': frontImageUrl,
             'backImageUrl': backImageUrl,
-            'price': itemPrice,
+            'price': Number(itemPrice),
             'sizes': Object.keys(itemSizes).map(value => {
                 return {size: Number(value), stock: itemSizes[value]}
             })
