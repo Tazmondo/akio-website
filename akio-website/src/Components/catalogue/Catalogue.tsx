@@ -17,7 +17,7 @@ function Catalogue(): JSX.Element {
                             frontImageUrl={item.frontImageUrl}
                             backImageUrl={item.backImageUrl}
                             price={item.price}
-                            stock={item.stock}
+                            sizes={item.sizes}
                             key={`${item.name}${item.frontImageUrl}${item.price}`}/>
                     </div> // key parameter stops a warning
                 })
