@@ -41,10 +41,10 @@ function DeleteItem() {
     function deleteItem(item: ItemProps){
         const targetItem = {
             'name' : item.name,
-            'stock' : item.stock, 
-            'frontImageUrl' : item.frontImageUrl, 
+            'frontImageUrl' : item.frontImageUrl,
             'backImageUrl' : item.backImageUrl,
-            'price' : item.price
+            'price' : item.price,
+            'sizes': item.sizes
         }
     
         RequestHandler.Post('api/items', 
@@ -64,7 +64,7 @@ function DeleteItem() {
                             frontImageUrl={item.frontImageUrl}
                             backImageUrl={item.backImageUrl}
                             price={item.price}
-                            stock={item.stock}
+                            sizes={item.sizes}
                             key={`${item.name}${item.frontImageUrl}${item.price}`}
                         />
 

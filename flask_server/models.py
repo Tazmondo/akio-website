@@ -18,7 +18,7 @@ class Item(db.Model):
     backImageUrl = db.Column(db.String)  # Should only be present if there is a front-image
     price = db.Column(db.Integer, nullable=False)  # Price in pence
 
-    sizes = db.relationship('ItemSize', backref = 'item', lazy = True)
+    sizes = db.relationship('ItemSize', backref = 'item', lazy = True, cascade = "all, delete-orphan")
 
 
 

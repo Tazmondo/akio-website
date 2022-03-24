@@ -3,22 +3,39 @@ import ItemThumb from "./ItemThumb";
 import {Link} from 'react-router-dom'
 import {priceIntToString, spaceToDash} from "../Globals";
 
+export const SIZES = {
+    0: "Small",
+    1: "Medium",
+    2: "Large"
+}
+
+export const REVERSESIZES = {
+    "Small": 0,
+    "Medium": 1,
+    "Large": 2
+}
 
 // Is this the right way to do this?
 // It looks neater than putting it in the function definition at least
 // But u need to rewrite all the parameters again in the function definition
 //
 // Also should we have hover to see back of clothing?
-type ItemProps = {
+
+export type ItemSizes = {
+    size: number,
+    stock: number
+}
+
+export type ItemProps = {
     name: string,
     frontImageUrl: string,
     backImageUrl: string,
     price: number,
-    stock: number
+    sizes: ItemSizes[]
 }
 
 
-function Item({name, frontImageUrl, backImageUrl, price, stock} : ItemProps): JSX.Element {
+export default function Item({name, frontImageUrl, backImageUrl, price, sizes} : ItemProps): JSX.Element {
     // TODO - needs css adjustments and out of stock indicator
 
     return (
@@ -33,6 +50,3 @@ function Item({name, frontImageUrl, backImageUrl, price, stock} : ItemProps): JS
         </Link>
     )
 }
-
-export default Item;
-export type { ItemProps };
