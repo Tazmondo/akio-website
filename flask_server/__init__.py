@@ -11,6 +11,7 @@ app = Flask(__name__, static_url_path='', static_folder='./build')
 # app.config['DEBUG'] = True  Set FLASK_ENV to 'development' instead of setting this
 app.config['SECRET_KEY'] = environ['SECRET_KEY']  # Set environment variable
 app.config['JSON_SORT_KEYS'] = False
+app.config['ENV'] = 'development'
 
 devMode = False
 dbFile = 'production.db'
@@ -28,6 +29,8 @@ if devMode:  # In production, assume that api and front-end at same url.
 if isfile('flask_server/'+dbFile):
     newDb = False
 
+
+print(dbFile)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + dbFile
 
 db = SQLAlchemy(app)
