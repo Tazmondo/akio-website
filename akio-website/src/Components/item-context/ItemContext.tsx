@@ -13,7 +13,8 @@ interface itemContextInterface {
 const initialContext = {
     status: "fetching",
     items: [] as ItemProps[],
-    itemNameMap: {}
+    itemNameMap: {}, 
+    cart: [] as ItemProps
 } as itemContextInterface
 
 
@@ -27,15 +28,15 @@ function ItemContext(props) {
     function updateContext(){
         RequestHandler.Get("api/items").then(res => {
             if (res.success) {
-                setLocalContext({status: "success", items: Object.values(res.items), itemNameMap: res.items})
+                setLocalContext({status: "success", items: Object.values(res.items), itemNameMap: res.items, cart: []})
             } else {
-                setLocalContext({status: "failed", items: [], itemNameMap: {}})
+                setLocalContext({status: "failed", items: [], itemNameMap: {}, cart: []})
             }
 
         }).catch(
             reason => {
                 console.error(reason)
-                setLocalContext({status: "failed", items: [], itemNameMap: {}})
+                setLocalContext({status: "failed", items: [], itemNameMap: {}, cart: []})
             }
         )
     }
