@@ -3,7 +3,7 @@ import Items from "../admin-page/items/Items";
 import {ItemProps} from "../item/Item";
 import RequestHandler from "../request-handler/RequestHandler";
 
-// I have seriously 0 idea whether this is at all the right way of doing this
+
 
 interface itemContextInterface {
     status: "fetching" | "success" | "failed",
@@ -28,22 +28,24 @@ function ItemContext(props) {
     const [localContext, setLocalContext] = useState(initialContext)
     
     function updateContext(){
-        const item = [{name : 'test', frontImageUrl: '/', backImageUrl: '/', price: 10000, sizes: [{size: 1, stock: 50}]}];
-        setLocalContext({status: 'success', items : item, itemNameMap : {test : item[0]}, cart: []});
-        // RequestHandler.Get("api/items").then(res => {
-        //     if (res.success) {
-        //         setLocalContext({status: "success", items: Object.values(res.items), itemNameMap: res.items, cart: []})
-        //     } else {
-        //         setLocalContext({status: "failed", items: [], itemNameMap: {}, cart: []})
-        //     }
+        // Load cart data from local storage
+        const cartData = JSON.parse(window.localStorage.getItem('cart'));
+        
+        RequestHandler.Get("api/items").then(res => {
+            if (res.success) {
+                setLocalContext({status: "success", items: Object.values(res.items), itemNameMap: res.items, cart: cartData})
+            } else {
+                setLocalContext({status: "failed", items: [], itemNameMap: {}, cart: cartData})
+            }
 
-        // }).catch(
-        //     reason => {
-        //         console.error(reason)
-        //         setLocalContext({status: "failed", items: [], itemNameMap: {}, cart: []})
-        //     }
-        // )
+        }).catch(
+            reason => {
+                console.error(reason)
+                setLocalContext({status: "failed", items: [], itemNameMap: {}, cart: cartData})
+            }
+        )
     }
+
 
     useEffect(updateContext, []);
 

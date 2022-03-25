@@ -9,11 +9,6 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import {useNavigate} from 'react-router-dom';
 
 
-// TODO: style size option drop down
-// look for more flexible alternative
-// finish cart page
-
-
 function ItemPage(): JSX.Element {
     let params = useParams()
     let itemContextGlobal = useContext(globalItemsContext);
@@ -26,6 +21,7 @@ function ItemPage(): JSX.Element {
     
     function addToCart(){
         itemContextGlobal.cart.push(item);
+        window.localStorage.setItem('cart', JSON.stringify(itemContext.cart)); // store cart data in local storage so it is persistent 
         navigate('/shopping-page');
     }
 
