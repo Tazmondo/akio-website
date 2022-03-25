@@ -1,5 +1,4 @@
 import React, {useContext} from 'react'
-import ReactDOM from 'react-dom'
 import {useParams} from "react-router-dom";
 import {globalItemsContext} from "../item-context/ItemContext";
 import ItemThumb from '../item/ItemThumb'
@@ -45,14 +44,14 @@ function ItemPage(): JSX.Element {
                             <h3 className = 'text-muted'>{priceIntToString(item.price)}</h3>
                             
 
-                            <PayPalScriptProvider options={{ "client-id": "test", currency : 'USD', intent : 'capture'}}>
+                            <PayPalScriptProvider options={{ "client-id": "JWNRASGZL573C", currency : 'USD', intent : 'capture'}}>
                                 <PayPalButtons
                                     createOrder={(data, actions) => {
                                         return actions.order.create({
                                             purchase_units: [
                                                 {
                                                     amount: {
-                                                        value: "1.99",
+                                                        value: item.price as unknown as string,
                                                     },
                                                 },
                                             ],

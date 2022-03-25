@@ -3,7 +3,6 @@ import Items from "../admin-page/items/Items";
 import {ItemProps} from "../item/Item";
 import RequestHandler from "../request-handler/RequestHandler";
 
-// I have seriously 0 idea whether this is at all the right way of doing this
 
 interface itemContextInterface {
     status: "fetching" | "success" | "failed",
