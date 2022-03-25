@@ -139,7 +139,7 @@ function AddItem() {
                                     <input type='number'
                                            className='form-control text-center'
                                            placeholder='Enter Stock'
-                                           value={stock}
+                                           value={stock > 0 ? stock : ""}
                                            onChange={event => // Basically just this size in the array with the stock in this input's value
                                                setItemSizes(prevState => {
                                                    return {...prevState, [size]: Number(event.target.value)}
@@ -169,7 +169,6 @@ function AddItem() {
                                 <input type='number'
                                        className='form-control text-center'
                                        placeholder='Enter Stock'
-                                       value='0'
                                        disabled
                                 />
                             </div>
