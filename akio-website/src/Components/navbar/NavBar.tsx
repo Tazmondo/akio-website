@@ -33,7 +33,7 @@ function NavBar(): JSX.Element {
                         <NavBarItem path = '/shopping-page' name = 'Shop' />
                         <NavBarItem path = '/about-us' name = 'About Us' />
                         <NavBarItem path = '/sizes' name = 'Size Guide' />
-                        {itemContextGlobal.cart.length > 0 && <NavBarItem path = '/cart' name = 'Cart' />}
+                        {itemContextGlobal.cart.length > 0 && <NavBarItem path = '/cart' name = {`Cart (${itemContextGlobal.cart.length})`}/>}
                         {admin && <NavBarItem path='/admin' name='Admin'/>}
                     </ul>
                 </div>
