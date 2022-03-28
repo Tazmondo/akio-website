@@ -30,7 +30,7 @@ function ItemContext(props) {
     function updateContext(){
         // Load cart data from local storage
         const localData = window.localStorage.getItem('cart');
-        const cartData = JSON.parse(localData != null ? localData : '{}');
+        const cartData = localData != null ? JSON.parse(localData) : [];
         
         RequestHandler.Get("api/items").then(res => {
             if (res.success) {

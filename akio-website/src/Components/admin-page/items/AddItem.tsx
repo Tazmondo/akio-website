@@ -91,6 +91,8 @@ function AddItem() {
         </>;
     }
 
+
+    
     return (
         <div className='text-center'>
             <div style={{width: '60vw'}} className='text-center input-div'>
@@ -149,6 +151,7 @@ function AddItem() {
                                 </div>
                             })
                         }
+
                         {
                             Object.entries(itemSizes)
                                 .some(([size, stock]) => stock < 0) &&  // Only show if there are available sizes left.

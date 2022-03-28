@@ -35,7 +35,7 @@ export type ItemProps = {
 }
 
 
-export default function Item({name, frontImageUrl, backImageUrl, price, sizes} : ItemProps): JSX.Element {
+export default function Item({name, frontImageUrl, backImageUrl, price} : ItemProps): JSX.Element {
     // TODO - needs css adjustments and out of stock indicator
 
     return (
