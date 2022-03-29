@@ -70,7 +70,8 @@ function AddItem() {
             'price': Number(itemPrice),
             'sizes': Object.keys(itemSizes).filter(value => itemSizes[value] >= 0).map(value => {
                 return {size: Number(value), stock: itemSizes[value]}
-            })
+            }), 
+            'isClickable' : true
         }
 
         RequestHandler.Post('api/items',

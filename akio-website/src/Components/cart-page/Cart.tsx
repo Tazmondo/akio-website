@@ -33,7 +33,7 @@ function Cart() {
     }
 
 
-
+    // fix page reload glitch
     useEffect(calculatePrice, []);
 
 
@@ -45,31 +45,43 @@ function Cart() {
                 Cart
             </h1>
 
-            {/* finish styles */}
-            <div className = 'mt-5 text-center'>
+
+            <div>
                 {itemContextGlobal.cart.map((item) => {
                     return (
-                        <div className = 'text-center mt-3 ml-5' style = {{width: '15rem'}}>
-                            {/* stop clicks */}
-                            <Item name={item.name} frontImageUrl={item.frontImageUrl} backImageUrl={item.backImageUrl} price={item.price} sizes={[]} />
+                        <div className = 'col-sm-6 col-lg-4 col-xs-12 mt-4' style = {{display: 'inline-block', width: '20rem'}}>
+                            <Item name={item.name} 
+                                  frontImageUrl={item.frontImageUrl} 
+                                  backImageUrl={item.backImageUrl} 
+                                  price={item.price} 
+                                  sizes={item.sizes} 
+                                  isClickable={false}
+                            />
                             
-                            <button className = 'btn btn-warning' onClick = {() => removeItem(item)}>
+                            <button className = 'btn btn-block btn-danger' onClick = {() => removeItem(item)}>
                                 Remove item
                             </button>
                         </div>
-
-
                     )
                 })}
             </div>
+            
 
-            <div className = 'text-center'>
-                <button className = 'btn btn-success btn-block mt-5 display-3'>
-                    <p className = 'display-6 pt-2'>
-                        Pay £{totalPrice / 100}
-                    </p>
-                </button>
-            </div>
+            {totalPrice > 0 ?
+                <div className = 'text-center pt-3'>
+                    <button className = 'btn btn-success btn-block mt-5 display-3'>
+                        <p className = 'display-6 pt-2'>
+                            Pay £{totalPrice / 100}
+                        </p>
+                    </button>
+                </div>
+            
+            : <div>
+                <h1 className = 'display-6 text-center mt-5 pt-5'>
+                    The cart is empty. Go fill it up!
+                </h1>
+              </div>
+            }
         </div>
     );
 }

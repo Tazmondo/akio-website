@@ -66,6 +66,7 @@ function DeleteItem() {
                             price={item.price}
                             sizes={item.sizes}
                             key={`${item.name}${item.frontImageUrl}${item.price}`}
+                            isClickable = {false}
                         />
 
                         <button className = 'text-center btn btn-danger btn-lg btn-block mt-1'
