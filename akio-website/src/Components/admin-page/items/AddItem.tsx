@@ -1,7 +1,7 @@
 import {useContext, useState} from 'react';
 import {CDBAlert} from 'cdbreact';
 import RequestHandler from '../../request-handler/RequestHandler';
-import {ItemProps, ItemSizes, REVERSESIZES, SIZES} from '../../item/Item';
+import {ItemProps, ItemSizes, SIZESTRINGINT, SIZEINTSTRING} from '../../item/Item';
 import {globalItemsContext} from '../../item-context/ItemContext';
 
 
@@ -18,7 +18,7 @@ function AddItem() {
 
     // Initial state: every size number with a stock value of -1.
     // Allows for possible changes in size number in future
-    const [itemSizes, setItemSizes] = useState(Object.fromEntries(Object.keys(SIZES).map(value => [value, -1])))
+    const [itemSizes, setItemSizes] = useState(Object.fromEntries(Object.keys(SIZEINTSTRING).map(value => [value, -1])))
 
     function loadFile(event: React.ChangeEvent<HTMLInputElement>, isFront: boolean) {
         if (event.target.files == null) {
@@ -84,9 +84,9 @@ function AddItem() {
     function getUnselectedSizes() {
         return <>
             { // Only display other unused sizes in the dropdown.
-                Object.keys(SIZES)
+                Object.keys(SIZEINTSTRING)
                     .filter(value => itemSizes[value] < 0)
-                    .map(value => <option>{SIZES[value]}</option>)
+                    .map(value => <option>{SIZEINTSTRING[value]}</option>)
             }
         </>;
     }
@@ -129,14 +129,14 @@ function AddItem() {
                                         })
 
                                         if (newSizeName !== "Remove size") {
-                                            let newSizeNum = REVERSESIZES[newSizeName]
+                                            let newSizeNum = SIZESTRINGINT[newSizeName]
                                             setItemSizes(prevState => {
                                                 return {...prevState, [newSizeNum]: stock}
                                             })
                                         }
                                     }}
                                     >
-                                        <option>{SIZES[size]}</option>
+                                        <option>{SIZEINTSTRING[size]}</option>
                                         {getUnselectedSizes()}
                                         <option>Remove size</option>
                                     </select>
@@ -164,7 +164,7 @@ function AddItem() {
                                 <select className="custom-select mr-4" value="Pick a size!" onChange={event => {
                                     let value = event.target.value;
                                     if (value !== "Pick a size!") {
-                                        let newSizeNum = REVERSESIZES[value]
+                                        let newSizeNum = SIZESTRINGINT[value]
                                         setItemSizes(prevState => {
                                             return {...prevState, [newSizeNum]: 0}
                                         })

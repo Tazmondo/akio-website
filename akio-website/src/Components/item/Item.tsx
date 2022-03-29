@@ -3,13 +3,13 @@ import ItemThumb from "./ItemThumb";
 import {Link} from 'react-router-dom'
 import {priceIntToString, spaceToDash} from "../Globals";
 
-export const SIZES = {
+export const SIZEINTSTRING = {
     0: "Small",
     1: "Medium",
     2: "Large"
 }
 
-export const REVERSESIZES = {
+export const SIZESTRINGINT = {
     "Small": 0,
     "Medium": 1,
     "Large": 2
