@@ -24,6 +24,7 @@ def admin_page():
     return new_response(True, '...')
 
 
+
 @app.route('/api/admins', methods = ['GET', 'POST'])
 @admin_required()
 def api_admin():
