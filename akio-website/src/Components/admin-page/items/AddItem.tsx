@@ -92,7 +92,6 @@ function AddItem() {
     }
 
 
-    
     return (
         <div className='text-center'>
             <div style={{width: '60vw'}} className='text-center input-div'>
@@ -113,27 +112,31 @@ function AddItem() {
 
                     {/* stock size input */}
                     <div className='form-group'>
-                        <span className='description-text'>Sizes</span>
+                        <span className='description-text' key="description">Sizes</span>
 
+                        {/* Add dropdowns for currently added sizes. */}
                         {
                             Object.entries(itemSizes).map(([size, stock]) => {
                                 if (stock < 0) return <></>
-                                return <div className='form-group form-inline justify-content-center' key={size}>
-                                    <select className="custom-select mr-4" onChange={event => {
-                                        let value = event.target.value
-                                        console.log(size);
+                                return <div className='form-group form-inline justify-content-center'
+                                            key={String(size) + String(stock)}>
+                                    <select className="custom-select mr-4" value={size} onChange={event => {
+                                        let newSizeName = event.target.value
+
+                                        // Remove old size from the sizes
                                         setItemSizes(prevState => {
                                             return {...prevState, [size]: -1}
                                         })
 
-                                        if (value !== "Remove size") {
-                                            let newSizeNum = REVERSESIZES[value]
+                                        if (newSizeName !== "Remove size") {
+                                            let newSizeNum = REVERSESIZES[newSizeName]
                                             setItemSizes(prevState => {
                                                 return {...prevState, [newSizeNum]: stock}
                                             })
                                         }
-                                    }}>
-                                        <option selected>{SIZES[size]}</option>
+                                    }}
+                                    >
+                                        <option>{SIZES[size]}</option>
                                         {getUnselectedSizes()}
                                         <option>Remove size</option>
                                     </select>
@@ -142,7 +145,8 @@ function AddItem() {
                                            className='form-control text-center'
                                            placeholder='Enter Stock'
                                            value={stock > 0 ? stock : ""}
-                                           onChange={event => // Basically just this size in the array with the stock in this input's value
+                                           onChange={event =>
+                                               // Basically just set the index of this size to the value in the number input
                                                setItemSizes(prevState => {
                                                    return {...prevState, [size]: Number(event.target.value)}
                                                })
@@ -152,16 +156,17 @@ function AddItem() {
                             })
                         }
 
+                        {/* Add a dropdown to add a new size, only if there are available sizes left. */}
                         {
                             Object.entries(itemSizes)
                                 .some(([size, stock]) => stock < 0) &&  // Only show if there are available sizes left.
-                            <div className='form-group form-inline justify-content-center'>
+                            <div className='form-group form-inline justify-content-center' key="unpicked">
                                 <select className="custom-select mr-4" value="Pick a size!" onChange={event => {
                                     let value = event.target.value;
                                     if (value !== "Pick a size!") {
-                                        let newSize = REVERSESIZES[value]
+                                        let newSizeNum = REVERSESIZES[value]
                                         setItemSizes(prevState => {
-                                            return {...prevState, [newSize]: 0}
+                                            return {...prevState, [newSizeNum]: 0}
                                         })
                                     }
                                 }}>
@@ -176,14 +181,6 @@ function AddItem() {
                                 />
                             </div>
                         }
-
-                        {/*<div className = 'mt-2 mb-2'>*/}
-                        {/*    <input type = 'number'*/}
-                        {/*        className = 'form-control text-center'*/}
-                        {/*        id = 'stock'*/}
-                        {/*        placeholder = 'Item Stock'*/}
-                        {/*    />*/}
-                        {/*</div>*/}
                     </div>
 
                     {/* item price input */}
