@@ -6,6 +6,7 @@ import NavBar from "../navbar/NavBar";
 import {dashToSpace, priceIntToString} from "../Globals";
 import {useNavigate} from 'react-router-dom';
 import PaypalButon from './PayPalButton';
+import {SIZEINTSTRING} from "../item/Item";
 
 
 function ItemPage(): JSX.Element {
@@ -16,18 +17,19 @@ function ItemPage(): JSX.Element {
     let content = <>You should not see this text!</>;
     let navigate = useNavigate();
 
+    let sizes = item?.sizes
+        .filter(value => value.stock > 0)
+        .map(value => value.size)
 
-    
-    function addToCart(){
+    function addToCart() { // TODO update so it adds item size as well
         itemContextGlobal.cart.push(item);
         window.localStorage.setItem('cart', JSON.stringify(itemContextGlobal.cart)); // store cart data in local storage so it is persistent 
         navigate('/shopping-page');
     }
 
 
-
     if (itemContextGlobal.status !== "fetching") {
-        if (item !== undefined || itemContextGlobal.status === "failed") {
+        if (item !== undefined && sizes.length > 0) {
             content = <div className="container">
                 <div className="row gx-5">
                     <div className="col-12 col-md-6">
@@ -35,13 +37,21 @@ function ItemPage(): JSX.Element {
                     </div>
 
                     <div className="col-12 col-md-6">
-                        <div className = 'text-center'>
-                            <h2 className = 'display-3'>{item.name}</h2>
-                            <h3 className = 'text-muted'>{priceIntToString(item.price)}</h3>
-                            
-                            
-                            <PaypalButon />
-                            
+                        <div className='text-center'>
+                            <h2 className='display-3'>{item.name}</h2>
+                            <h3 className='text-muted'>{priceIntToString(item.price)}</h3>
+
+
+                            <div className="form-group">
+                                <select className="custom-select">
+                                    {
+                                        sizes.map(sizeInt => <option key={sizeInt}>{SIZEINTSTRING[sizeInt]}</option>)
+                                    }
+                                </select>
+                            </div>
+
+                            <PaypalButon/>
+
                             {/* <PayPalScriptProvider options={{ 'client-id': 'AYGVTLkd4hYA0sJMe8KqGvFhUgGzKg01cp6L79fUVIN1Mz4fd6E3Y6QaH9uTQAFIp2yiVPqT7qafzZRi', currency : 'GBP', intent : 'capture'}}>
                                 <PayPalButtons
                                     createOrder={(data, actions) => {
@@ -60,7 +70,8 @@ function ItemPage(): JSX.Element {
                             </PayPalScriptProvider> */}
 
                             <div>
-                                <button className = 'btn btn-primary btn-block' style = {{display: 'inline-block'}} onClick = {addToCart}>
+                                <button className='btn btn-primary btn-block' style={{display: 'inline-block'}}
+                                        onClick={addToCart}>
                                     Add to Cart
                                 </button>
                             </div>
@@ -69,9 +80,21 @@ function ItemPage(): JSX.Element {
                 </div>
             </div>
         } else {
-            content = <div className="alert alert-danger" role="alert">
-                Error, item not found!
-            </div>
+            if (itemContextGlobal.status === "failed") {
+                content = <div className="alert alert-danger" role="alert">
+                    Error, could not fetch item from server!
+                </div>
+            } else {
+                if (item === undefined) {
+                    content = <div className="alert alert-danger" role="alert">
+                        Error, item not found!
+                    </div>
+                } else {
+                    content = <div className="alert alert-danger" role="alert">
+                        Error, item has no valid sizes! Please contact Taran or Pedro.
+                    </div>
+                }
+            }
         }
     } else {
         // todo: return a placeholder until items are fetched
