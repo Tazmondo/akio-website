@@ -181,13 +181,13 @@ def api_items():
                 'backImageUrl' : item.backImageUrl,
                 'price' : item.price,
                 'name' : item.name,  # Doesn't hurt to have this as a value as well,
-                'sizes': {
-                    size.size: {
+                'sizes': [
+                    {
                         'size': size.size,
                         'stock': size.stock,
                     }
                     for size in item.sizes
-                }
+                ]
 
             }
             for item in items
