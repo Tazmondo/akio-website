@@ -4,19 +4,22 @@ import {ItemProps} from "../item/Item";
 import RequestHandler from "../request-handler/RequestHandler";
 
 
+// TODO: add sum of prices to cart total
 
 interface itemContextInterface {
     status: "fetching" | "success" | "failed",
     items: ItemProps[],
     itemNameMap: {[name: string]: ItemProps},
-    cart: ItemProps[]
+    cart: ItemProps[], 
+    cartTotal: number
 }
 
 const initialContext = {
     status: "fetching",
     items: [] as ItemProps[],
     itemNameMap: {},
-    cart: [] as ItemProps[]
+    cart: [] as ItemProps[], 
+    cartTotal: 0
 } as itemContextInterface
 
 
