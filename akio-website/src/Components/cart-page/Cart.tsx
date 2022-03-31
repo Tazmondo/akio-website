@@ -3,38 +3,22 @@ import NavBar from "../navbar/NavBar";
 import React, {useContext, useState, useEffect} from 'react';
 import Item, {ItemProps} from "../item/Item";
 
-// TODO store cart data in local storage
 
 
 
 function Cart() {
     let itemContextGlobal = useContext(globalItemsContext);
-    const [totalPrice, setPrice] = useState<number>(0);
-
-
-    function calculatePrice(){
-        let totalPricePence: number = 0;
-        
-        itemContextGlobal.cart.forEach((item) => {
-            totalPricePence += item.price
-        });
-
-        setPrice(totalPricePence);
-    }
 
 
     function removeItem(item : ItemProps){
         const cartItems: ItemProps[] = itemContextGlobal.cart
         cartItems.splice(cartItems.indexOf(item), 1);
+        itemContextGlobal.cartTotal -= item.price
 
         // update local storage when item is deleted
         window.localStorage.setItem('cart', JSON.stringify(cartItems));
         calculatePrice();
     }
-
-
-    // fix page reload glitch
-    useEffect(calculatePrice, []);
 
 
 
@@ -71,7 +55,7 @@ function Cart() {
                 <div className = 'text-center pt-3'>
                     <button className = 'btn btn-success btn-block mt-5 display-3'>
                         <p className = 'display-6 pt-2'>
-                            Pay £{totalPrice / 100}
+                            Pay £{globalItemsContext.cartTotal / 100}
                         </p>
                     </button>
                 </div>

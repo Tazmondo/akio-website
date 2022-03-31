@@ -4,8 +4,6 @@ import {ItemProps} from "../item/Item";
 import RequestHandler from "../request-handler/RequestHandler";
 
 
-// TODO: add sum of prices to cart total
-
 interface itemContextInterface {
     status: "fetching" | "success" | "failed",
     items: ItemProps[],
@@ -34,18 +32,25 @@ function ItemContext(props) {
         // Load cart data from local storage
         const localData = window.localStorage.getItem('cart');
         const cartData = localData != null ? JSON.parse(localData) : [];
+        let cartTotal = 0;
+
+        if (cartData.length > 0){
+             cartData.forEach(item => {
+                 cartTotal += item.price                 
+             });
+        }
         
         RequestHandler.Get("api/items").then(res => {
             if (res.success) {
-                setLocalContext({status: "success", items: Object.values(res.items), itemNameMap: res.items, cart: cartData})
+                setLocalContext({status: "success", items: Object.values(res.items), itemNameMap: res.items, cart: cartData, cartTotal: cartTotal})
             } else {
-                setLocalContext({status: "failed", items: [], itemNameMap: {}, cart: cartData})
+                setLocalContext({status: "failed", items: [], itemNameMap: {}, cart: cartData, cartTotal: cartTotal})
             }
 
         }).catch(
             reason => {
                 console.error(reason)
-                setLocalContext({status: "failed", items: [], itemNameMap: {}, cart: cartData})
+                setLocalContext({status: "failed", items: [], itemNameMap: {}, cart: cartData, cartTotal: cartTotal})
             }
         )
     }
