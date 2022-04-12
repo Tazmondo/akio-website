@@ -5,4 +5,4 @@ cd akio-website
 call npm run build
 cd ..
 
-docker image build -t akio-website .
+docker buildx build -t tazmondo/akio-website --platform linux/amd64,linux/arm64 --push .
