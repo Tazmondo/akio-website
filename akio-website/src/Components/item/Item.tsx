@@ -22,7 +22,7 @@ export const SIZESTRINGINT = {
 export type ItemSizes = {
     size: number,
     stock: number
-}
+};
 
 export type ItemProps = {
     name: string,
@@ -31,7 +31,13 @@ export type ItemProps = {
     price: number,
     isClickable: boolean 
     sizes: ItemSizes[], 
-}
+};
+
+
+export type CartItem = {
+    item: ItemProps, 
+    size: string
+};
 
 
 export default function Item({name, frontImageUrl, backImageUrl, price, isClickable}: ItemProps): JSX.Element {
