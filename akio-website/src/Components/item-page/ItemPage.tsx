@@ -1,9 +1,9 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import {useParams} from "react-router-dom";
 import {globalItemsContext} from "../item-context/ItemContext";
 import ItemThumb from '../item/ItemThumb'
 import NavBar from "../navbar/NavBar";
-import {dashToSpace, priceIntToString} from "../Globals";
+import {dashToSpace, paypalPriceString, priceIntToString} from "../Globals";
 import {useNavigate} from 'react-router-dom';
 import PaypalButon from './PayPalButton';
 import {SIZEINTSTRING} from "../item/Item";
@@ -17,12 +17,15 @@ function ItemPage(): JSX.Element {
     let content = <>You should not see this text!</>;
     let navigate = useNavigate();
 
+
     let sizes = item?.sizes
         .filter(value => value.stock > 0)
         .map(value => value.size)
 
+    const [selectedSize, setSize] = useState<string>(SIZEINTSTRING[sizes[0]]);
+
     function addToCart() { // TODO update so it adds item size as well
-        itemContextGlobal.cart.push(item);
+        itemContextGlobal.cart.push({item: item, size: selectedSize});
         window.localStorage.setItem('cart', JSON.stringify(itemContextGlobal.cart)); // store cart data in local storage so it is persistent 
         navigate('/shopping-page');
     }
@@ -43,37 +46,24 @@ function ItemPage(): JSX.Element {
 
 
                             <div className="form-group">
-                                <select className="custom-select">
+                                <select className ="custom-select"
+                                        onChange = {(event) => setSize(event.target.value)}>
                                     {
                                         sizes.map(sizeInt => <option key={sizeInt}>{SIZEINTSTRING[sizeInt]}</option>)
                                     }
                                 </select>
                             </div>
 
-                            <PaypalButon/>
-
-                            {/* <PayPalScriptProvider options={{ 'client-id': 'AYGVTLkd4hYA0sJMe8KqGvFhUgGzKg01cp6L79fUVIN1Mz4fd6E3Y6QaH9uTQAFIp2yiVPqT7qafzZRi', currency : 'GBP', intent : 'capture'}}>
-                                <PayPalButtons
-                                    createOrder={(data, actions) => {
-                                        return actions.order.create({
-                                            purchase_units: [
-                                                {
-                                                    amount: {
-                                                        value: '19.22',
-                                                        currency_code : 'GBP'
-                                                    },
-                                                },
-                                            ],
-                                        });
-                                    }}
-                                />
-                            </PayPalScriptProvider> */}
-
                             <div>
                                 <button className='btn btn-primary btn-block' style={{display: 'inline-block'}}
                                         onClick={addToCart}>
                                     Add to Cart
                                 </button>
+                            </div>
+
+                            <div className = 'mt-5 pt-5'>
+                                <p style = {{fontSize: '1.5rem', color: '#0d6efd'}}>Buy Now</p>
+                                <PaypalButon price = {paypalPriceString(item.price)}/>
                             </div>
                         </div>
                     </div>

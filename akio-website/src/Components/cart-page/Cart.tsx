@@ -1,48 +1,31 @@
 import {globalItemsContext} from "../item-context/ItemContext";
 import NavBar from "../navbar/NavBar";
-import React, {useContext, useState, useEffect} from 'react';
-import Item, {ItemProps} from "../item/Item";
-
-// TODO store cart data in local storage
+import React, {useContext} from 'react';
+import Item, {CartItem} from "../item/Item";
+import { paypalPriceString, priceIntToString } from "../Globals";
+import PaypalButon from "../item-page/PayPalButton";
 
 
 
 function Cart() {
     let itemContextGlobal = useContext(globalItemsContext);
-    const [totalPrice, setPrice] = useState<number>(0);
+    const totalPrice = itemContextGlobal.cartTotal;
 
 
-    function calculatePrice(){
-        let totalPricePence: number = 0;
-        
-        itemContextGlobal.cart.forEach((item) => {
-            totalPricePence += item.price
-        });
-
-        setPrice(totalPricePence);
-    }
-
-
-    function removeItem(item : ItemProps){
-        const cartItems: ItemProps[] = itemContextGlobal.cart
+    function removeItem(item : CartItem){
+        const cartItems: CartItem[] = itemContextGlobal.cart
         cartItems.splice(cartItems.indexOf(item), 1);
 
         // update local storage when item is deleted
         window.localStorage.setItem('cart', JSON.stringify(cartItems));
-        calculatePrice();
     }
-
-
-    // fix page reload glitch
-    useEffect(calculatePrice, []);
-
 
 
     return (
         <div>
             <NavBar />
             <h1 className = 'text-center'>
-                Cart
+                Cart - {priceIntToString(totalPrice)}
             </h1>
 
 
@@ -50,14 +33,15 @@ function Cart() {
                 {itemContextGlobal.cart.map((item) => {
                     return (
                         <div className = 'col-sm-6 col-lg-4 col-xs-12 mt-4' style = {{display: 'inline-block', width: '20rem'}}>
-                            <Item name={item.name} 
-                                  frontImageUrl={item.frontImageUrl} 
-                                  backImageUrl={item.backImageUrl} 
-                                  price={item.price} 
-                                  sizes={item.sizes} 
+                            <Item name={item.item.name} 
+                                  frontImageUrl={item.item.frontImageUrl} 
+                                  backImageUrl={item.item.backImageUrl} 
+                                  price={item.item.price} 
+                                  sizes={item.item.sizes} 
                                   isClickable={false}
                             />
-                            
+
+                            <p className = 'text-center'>{item.size}</p>
                             <button className = 'btn btn-block btn-danger' onClick = {() => removeItem(item)}>
                                 Remove item
                             </button>
@@ -67,13 +51,9 @@ function Cart() {
             </div>
             
 
-            {totalPrice > 0 ?
+            {itemContextGlobal.cart.length > 0 ?
                 <div className = 'text-center pt-3'>
-                    <button className = 'btn btn-success btn-block mt-5 display-3'>
-                        <p className = 'display-6 pt-2'>
-                            Pay £{totalPrice / 100}
-                        </p>
-                    </button>
+                    <PaypalButon price = {paypalPriceString(totalPrice)}/>
                 </div>
             
             : <div>
