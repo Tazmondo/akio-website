@@ -4,7 +4,6 @@ import {ItemProps, CartItem} from "../item/Item";
 import RequestHandler from "../request-handler/RequestHandler";
 
 
-
 interface itemContextInterface {
     status: "fetching" | "success" | "failed",
     items: ItemProps[],

@@ -15,6 +15,7 @@ function Cart() {
     function removeItem(item : CartItem){
         const cartItems: CartItem[] = itemContextGlobal.cart
         cartItems.splice(cartItems.indexOf(item), 1);
+        itemContextGlobal.cartTotal -= item.item.price
 
         // update local storage when item is deleted
         window.localStorage.setItem('cart', JSON.stringify(cartItems));

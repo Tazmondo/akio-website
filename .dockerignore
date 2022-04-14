@@ -1,11 +1,13 @@
 __pycache__
-production.db
-test.db
+flask_server/__pycache__
+flask_server/production.db
+flask_server/test.db
 .git
 .idea
 .run
 akio-website
 .gitignore
+flask_server/.gitignore
 Dockerfile
 Pipfile
 Pipfile.lock

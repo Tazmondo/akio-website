@@ -16,8 +16,10 @@ export const SIZESTRINGINT = {
     "Large": 2
 }
 
-
-// need to create separation between item object type and attributes for item function
+export type CartItem = {
+    item: ItemProps, 
+    chosenSize: string
+} 
 
 export type ItemSizes = {
     size: number,
