@@ -18,7 +18,7 @@ export const SIZESTRINGINT = {
 
 export type CartItem = {
     item: ItemProps, 
-    chosenSize: string
+    size: string
 } 
 
 export type ItemSizes = {
@@ -33,12 +33,6 @@ export type ItemProps = {
     price: number,
     isClickable: boolean 
     sizes: ItemSizes[], 
-};
-
-
-export type CartItem = {
-    item: ItemProps, 
-    size: string
 };
 
 
