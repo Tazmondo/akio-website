@@ -17,7 +17,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 function App(): JSX.Element {
     return (
-            <PayPalScriptProvider options = {{ 'client-id': 'test'}}>
+            <PayPalScriptProvider options = {{ 'client-id': 'AYGVTLkd4hYA0sJMe8KqGvFhUgGzKg01cp6L79fUVIN1Mz4fd6E3Y6QaH9uTQAFIp2yiVPqT7qafzZRi' }}>
                     <div className="App">
                         <BrowserRouter>
                             <ItemContext>

@@ -6,6 +6,10 @@ export function priceIntToString(price: number) {
     return `£${price / 100}`
 }
 
+export function paypalPriceString(price: number){
+    return `${(price / 100).toFixed(2)}`
+}
+
 export function spaceToDash(input: string) {
     return input.replaceAll(" ", "-")
 }
